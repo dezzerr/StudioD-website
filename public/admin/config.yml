@@ -3,18 +3,13 @@ backend:
   branch: main
 
 # Media library configuration
-media_library:
-  name: imagekit
-  config:
-    publicKey: "VITE_IMAGEKIT_PUBLIC_KEY"
-    urlEndpoint: "VITE_IMAGEKIT_URL_ENDPOINT"
-    authenticationEndpoint: "/.netlify/functions/imagekit-auth"
-
-# Alternative: Use uploadcare for media
+# To use ImageKit later, uncomment below and register the plugin:
 # media_library:
-#   name: uploadcare
+#   name: imagekit
 #   config:
-#     publicKey: your_uploadcare_public_key
+#     publicKey: "VITE_IMAGEKIT_PUBLIC_KEY"
+#     urlEndpoint: "VITE_IMAGEKIT_URL_ENDPOINT"
+#     authenticationEndpoint: "/.netlify/functions/imagekit-auth"
 
 media_folder: "public/images"
 public_folder: "/images"
