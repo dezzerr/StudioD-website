@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 5%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 5%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 0 0% 100%;
+    --radius: 0.5rem;
+    
+    /* Custom Finue Studio variables */
+    --finue-black: #000000;
+    --finue-charcoal: #0a0a0a;
+    --finue-dark: #121212;
+    --finue-white: #ffffff;
+    --finue-gray: #888888;
+    --finue-label-opacity: 0.6;
+    --finue-transition-duration: 0.8s;
+    --finue-easing: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-black text-white antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+  
+  /* Hide default cursor when custom cursor is active */
+  body.custom-cursor {
+    cursor: none;
+  }
+  
+  body.custom-cursor * {
+    cursor: none !important;
+  }
+  
+  /* Selection styling */
+  ::selection {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+  }
+}
+
+@layer components {
+  /* Glassmorphism effect for pricing cards */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  
+  /* Gallery label styling */
+  .gallery-label {
+    @apply text-xs tracking-[0.3em] uppercase;
+    color: rgba(255, 255, 255, var(--finue-label-opacity));
+    transition: opacity 0.3s ease;
+  }
+  
+  .gallery-label:hover {
+    opacity: 1;
+  }
+  
+  /* Image container with 3D perspective */
+  .gallery-perspective {
+    perspective: 1200px;
+    transform-style: preserve-3d;
+  }
+  
+  /* Navigation link styling */
+  .nav-link {
+    @apply text-sm tracking-wider uppercase transition-opacity duration-300;
+    opacity: 0.7;
+  }
+  
+  .nav-link:hover {
+    opacity: 1;
+  }
+  
+  /* Progress indicator */
+  .progress-dot {
+    @apply w-1.5 h-1.5 rounded-full transition-all duration-300;
+    background: rgba(255, 255, 255, 0.3);
+  }
+  
+  .progress-dot.active {
+    @apply w-6;
+    background: rgba(255, 255, 255, 0.9);
+  }
+  
+  /* Smooth image transitions */
+  .gallery-image {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  
+  /* Hide scrollbar but keep functionality */
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer utilities {
+  /* GPU acceleration helpers */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  
+  /* Text balance for headings */
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Animation timing functions */
+  .ease-smooth {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .ease-out-expo {
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+/* Custom cursor styles */
+.custom-cursor-element {
+  pointer-events: none;
+  position: fixed;
+  z-index: 9999;
+  mix-blend-mode: difference;
+}
+
+/* Mobile touch improvements */
+@media (hover: none) {
+  body.custom-cursor {
+    cursor: auto;
+  }
+  
+  body.custom-cursor * {
+    cursor: auto !important;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

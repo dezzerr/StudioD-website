@@ -1,0 +1,377 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Media library configuration
+media_library:
+  name: imagekit
+  config:
+    publicKey: "VITE_IMAGEKIT_PUBLIC_KEY"
+    urlEndpoint: "VITE_IMAGEKIT_URL_ENDPOINT"
+    authenticationEndpoint: "/.netlify/functions/imagekit-auth"
+
+# Alternative: Use uploadcare for media
+# media_library:
+#   name: uploadcare
+#   config:
+#     publicKey: your_uploadcare_public_key
+
+media_folder: "public/images"
+public_folder: "/images"
+
+# Site URL for previews
+site_url: https://studiod.com
+display_url: https://studiod.com
+logo_url: /images/logo.png
+
+# Editorial workflow (optional)
+# publish_mode: editorial_workflow
+
+collections:
+  # ============================================
+  # COLLECTIONS - Portfolio Work
+  # ============================================
+  - name: "collections"
+    label: "Collections"
+    label_singular: "Collection"
+    description: "Portfolio collections and photo series"
+    folder: "content/collections"
+    create: true
+    slug: "{{slug}}"
+    preview_path: "collections/{{slug}}"
+    sortable_fields: ['title', 'season', 'commit_date']
+    view_filters:
+      - label: Featured
+        field: featured
+        pattern: true
+      - label: Studio
+        field: category
+        pattern: studio
+      - label: Editorial
+        field: category
+        pattern: editorial
+    view_groups:
+      - label: Category
+        field: category
+      - label: Season
+        field: season
+    fields:
+      - label: "Title"
+        name: "title"
+        widget: "string"
+        required: true
+        hint: "Collection name (e.g., 'Studio Portraits')"
+
+      - label: "Slug"
+        name: "slug"
+        widget: "string"
+        required: false
+        hint: "URL-friendly version (auto-generated if empty)"
+        pattern: ['^[a-z0-9-]+$', 'Must be lowercase with hyphens only']
+
+      - label: "Season/Date"
+        name: "season"
+        widget: "string"
+        required: true
+        hint: "e.g., Winter 2025, Fall 2024"
+
+      - label: "Description"
+        name: "description"
+        widget: "text"
+        required: true
+        hint: "Brief description of the collection"
+
+      - label: "Thumbnail"
+        name: "thumbnail"
+        widget: "image"
+        required: true
+        hint: "Main thumbnail for the collection card"
+        media_library:
+          config:
+            multiple: false
+
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        required: true
+        options:
+          - { label: "Studio", value: "studio" }
+          - { label: "Location", value: "location" }
+          - { label: "Family", value: "family" }
+          - { label: "Editorial", value: "editorial" }
+          - { label: "Corporate", value: "corporate" }
+        default: "studio"
+
+      - label: "Featured"
+        name: "featured"
+        widget: "boolean"
+        default: false
+        hint: "Show this collection on the homepage gallery"
+
+      - label: "Gallery Images"
+        name: "images"
+        widget: "list"
+        required: true
+        min: 1
+        max: 20
+        label_singular: "Image"
+        summary: "{{fields.leftLabel}} - {{fields.rightLabel}}"
+        fields:
+          - label: "Image"
+            name: "src"
+            widget: "image"
+            required: true
+            media_library:
+              config:
+                multiple: false
+
+          - label: "Alt Text"
+            name: "alt"
+            widget: "string"
+            required: true
+            hint: "Descriptive text for accessibility"
+
+          - label: "Left Label"
+            name: "leftLabel"
+            widget: "string"
+            required: true
+            hint: "e.g., Studio Session, Editorial, Family"
+            default: "Studio Session"
+
+          - label: "Right Label"
+            name: "rightLabel"
+            widget: "string"
+            required: true
+            hint: "e.g., Winter 2025, The Artisan Series"
+            default: "Winter 2025"
+
+      - label: "Meta Tags"
+        name: "meta"
+        widget: "object"
+        collapsed: true
+        fields:
+          - label: "Title"
+            name: "title"
+            widget: "string"
+            required: false
+          - label: "Description"
+            name: "description"
+            widget: "text"
+            required: false
+
+  # ============================================
+  # PRICING - Service Packages
+  # ============================================
+  - name: "pricing"
+    label: "Pricing Packages"
+    label_singular: "Package"
+    description: "Photography session pricing packages"
+    folder: "content/pricing"
+    create: true
+    slug: "{{slug}}"
+    sortable_fields: ['price', 'name']
+    view_groups:
+      - label: Price Range
+        field: price
+    fields:
+      - label: "Package Name"
+        name: "name"
+        widget: "string"
+        required: true
+        hint: "e.g., Essential, Signature, Experience"
+
+      - label: "Slug"
+        name: "slug"
+        widget: "string"
+        required: false
+        pattern: ['^[a-z0-9-]+$', 'Must be lowercase with hyphens only']
+
+      - label: "Price (£)"
+        name: "price"
+        widget: "number"
+        required: true
+        value_type: "int"
+        min: 0
+
+      - label: "Duration"
+        name: "duration"
+        widget: "string"
+        required: true
+        hint: "e.g., 30 minutes, 60 minutes, 2 hours"
+
+      - label: "Description"
+        name: "description"
+        widget: "text"
+        required: true
+        hint: "Short description of the package"
+
+      - label: "Features"
+        name: "features"
+        widget: "list"
+        required: true
+        min: 1
+        label_singular: "Feature"
+        field:
+          label: "Feature"
+          name: "feature"
+          widget: "string"
+          hint: "e.g., 15 edited digital images"
+
+      - label: "Most Popular"
+        name: "popular"
+        widget: "boolean"
+        default: false
+        hint: "Highlight this package as the recommended option"
+
+      - label: "Order"
+        name: "order"
+        widget: "number"
+        required: false
+        value_type: "int"
+        min: 0
+        hint: "Display order (lower numbers first)"
+
+  # ============================================
+  # SITE SETTINGS - Global Configuration
+  # ============================================
+  - name: "settings"
+    label: "Site Settings"
+    description: "Global site configuration"
+    files:
+      - label: "General Settings"
+        name: "general"
+        file: "content/settings/general.json"
+        fields:
+          - label: "Site Title"
+            name: "siteTitle"
+            widget: "string"
+            default: "StudioD"
+
+          - label: "Site Description"
+            name: "siteDescription"
+            widget: "text"
+            default: "Premium portrait photography studio based in the UK"
+
+          - label: "Contact Email"
+            name: "contactEmail"
+            widget: "string"
+            default: "hello@studiod.com"
+
+          - label: "Phone Number"
+            name: "phoneNumber"
+            widget: "string"
+            default: "+44 123 456 7890"
+            required: false
+
+          - label: "Instagram Handle"
+            name: "instagram"
+            widget: "string"
+            default: "@studiod"
+            required: false
+
+          - label: "Studio Address"
+            name: "address"
+            widget: "text"
+            default: "London, United Kingdom"
+            required: false
+
+          - label: "Social Links"
+            name: "social"
+            widget: "object"
+            collapsed: true
+            fields:
+              - label: "Instagram URL"
+                name: "instagram"
+                widget: "string"
+                required: false
+              - label: "Facebook URL"
+                name: "facebook"
+                widget: "string"
+                required: false
+              - label: "Pinterest URL"
+                name: "pinterest"
+                widget: "string"
+                required: false
+
+          - label: "SEO"
+            name: "seo"
+            widget: "object"
+            collapsed: true
+            fields:
+              - label: "Meta Title"
+                name: "metaTitle"
+                widget: "string"
+                required: false
+              - label: "Meta Description"
+                name: "metaDescription"
+                widget: "text"
+                required: false
+              - label: "Keywords"
+                name: "keywords"
+                widget: "list"
+                field: { label: "Keyword", name: "keyword", widget: "string" }
+                required: false
+
+  # ============================================
+  # PAGES - Static Content
+  # ============================================
+  - name: "pages"
+    label: "Pages"
+    description: "Static page content"
+    files:
+      - label: "About Page"
+        name: "about"
+        file: "content/pages/about.json"
+        fields:
+          - label: "Title"
+            name: "title"
+            widget: "string"
+            default: "About Us"
+
+          - label: "Subtitle"
+            name: "subtitle"
+            widget: "string"
+            default: "Capturing Moments, Creating Memories"
+
+          - label: "Content"
+            name: "content"
+            widget: "markdown"
+
+          - label: "Team Image"
+            name: "image"
+            widget: "image"
+            required: false
+
+          - label: "Stats"
+            name: "stats"
+            widget: "list"
+            fields:
+              - label: "Value"
+                name: "value"
+                widget: "string"
+              - label: "Label"
+                name: "label"
+                widget: "string"
+
+      - label: "Homepage"
+        name: "homepage"
+        file: "content/pages/homepage.json"
+        fields:
+          - label: "Hero Gallery Images"
+            name: "heroImages"
+            widget: "list"
+            max: 10
+            fields:
+              - label: "Image"
+                name: "src"
+                widget: "image"
+              - label: "Left Label"
+                name: "leftLabel"
+                widget: "string"
+              - label: "Right Label"
+                name: "rightLabel"
+                widget: "string"
+
+# Custom widgets (if needed)
+# editor:
+#   preview: false
