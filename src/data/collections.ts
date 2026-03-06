@@ -1,4 +1,5 @@
 import type { Collection, PricingPackage, NavItem } from '@/types';
+import { buildImageUrl } from '@/services/imagekit';
 
 export const navItems: NavItem[] = [
   { label: 'Work', href: '#collections' },
@@ -7,38 +8,42 @@ export const navItems: NavItem[] = [
   { label: 'Contact', href: '#contact' },
 ];
 
+const galleryImagePrimary = buildImageUrl('studio-d-gallery/0_0.png');
+const galleryImageSecondary = buildImageUrl('studio-d-gallery/0_1.png');
+
+// Fallback content used when dynamic ImageKit feed cannot be loaded.
 export const heroGalleryImages = [
   {
     id: 'hero-1',
-    src: '/images/portrait-1.jpg',
+    src: galleryImagePrimary,
     alt: 'Elegant studio portrait',
     leftLabel: 'Studio Session',
     rightLabel: 'Winter 2025',
   },
   {
     id: 'hero-2',
-    src: '/images/portrait-2.jpg',
+    src: galleryImageSecondary,
     alt: 'Dramatic black and white portrait',
     leftLabel: 'Editorial',
     rightLabel: 'The Artisan Series',
   },
   {
     id: 'hero-3',
-    src: '/images/portrait-3.jpg',
+    src: galleryImagePrimary,
     alt: 'Fashion editorial portrait',
     leftLabel: 'Fashion',
     rightLabel: 'Avant-Garde',
   },
   {
     id: 'hero-4',
-    src: '/images/portrait-5.jpg',
+    src: galleryImageSecondary,
     alt: 'Creative portrait with colored lighting',
     leftLabel: 'Creative',
     rightLabel: 'Neon Dreams',
   },
   {
     id: 'hero-5',
-    src: '/images/portrait-7.jpg',
+    src: galleryImagePrimary,
     alt: 'Artistic portrait',
     leftLabel: 'Editorial',
     rightLabel: 'Raw Expression',
@@ -51,20 +56,20 @@ export const collections: Collection[] = [
     title: 'Studio Portraits',
     season: 'Winter 2025',
     description: 'Intimate studio sessions capturing authentic personality and emotion.',
-    thumbnail: '/images/portrait-1.jpg',
+    thumbnail: galleryImagePrimary,
     category: 'studio',
     featured: true,
     images: [
       {
         id: 'sp-1',
-        src: '/images/portrait-1.jpg',
+        src: galleryImagePrimary,
         alt: 'Studio portrait',
         leftLabel: 'Studio Session',
         rightLabel: 'Winter 2025',
       },
       {
         id: 'sp-2',
-        src: '/images/portrait-6.jpg',
+        src: galleryImageSecondary,
         alt: 'Corporate headshot',
         leftLabel: 'Corporate',
         rightLabel: 'Executive Series',
@@ -76,20 +81,20 @@ export const collections: Collection[] = [
     title: 'Editorial Work',
     season: 'Fall 2024',
     description: 'High-fashion editorial portraits for magazines and brand campaigns.',
-    thumbnail: '/images/portrait-2.jpg',
+    thumbnail: galleryImageSecondary,
     category: 'editorial',
     featured: true,
     images: [
       {
         id: 'ed-1',
-        src: '/images/portrait-2.jpg',
+        src: galleryImageSecondary,
         alt: 'Editorial portrait',
         leftLabel: 'Editorial',
         rightLabel: 'The Artisan Series',
       },
       {
         id: 'ed-2',
-        src: '/images/portrait-7.jpg',
+        src: galleryImagePrimary,
         alt: 'Artistic editorial',
         leftLabel: 'Editorial',
         rightLabel: 'Raw Expression',
@@ -101,13 +106,13 @@ export const collections: Collection[] = [
     title: 'Fashion Forward',
     season: 'Spring 2025',
     description: 'Bold, avant-garde fashion photography pushing creative boundaries.',
-    thumbnail: '/images/portrait-3.jpg',
+    thumbnail: galleryImagePrimary,
     category: 'editorial',
     featured: false,
     images: [
       {
         id: 'ff-1',
-        src: '/images/portrait-3.jpg',
+        src: galleryImagePrimary,
         alt: 'Fashion portrait',
         leftLabel: 'Fashion',
         rightLabel: 'Avant-Garde',
@@ -119,20 +124,20 @@ export const collections: Collection[] = [
     title: 'Family Sessions',
     season: 'All Year',
     description: 'Heartwarming family portraits capturing precious moments together.',
-    thumbnail: '/images/portrait-4.jpg',
+    thumbnail: galleryImageSecondary,
     category: 'family',
     featured: true,
     images: [
       {
         id: 'fm-1',
-        src: '/images/portrait-4.jpg',
+        src: galleryImageSecondary,
         alt: 'Family portrait',
         leftLabel: 'Family',
         rightLabel: 'The Thompson Session',
       },
       {
         id: 'fm-2',
-        src: '/images/portrait-8.jpg',
+        src: galleryImagePrimary,
         alt: 'Couple portrait',
         leftLabel: 'Couples',
         rightLabel: 'Golden Hour',
@@ -144,13 +149,13 @@ export const collections: Collection[] = [
     title: 'Creative Lighting',
     season: 'Summer 2024',
     description: 'Experimental portraits using colored gels and dramatic lighting techniques.',
-    thumbnail: '/images/portrait-5.jpg',
+    thumbnail: galleryImageSecondary,
     category: 'studio',
     featured: false,
     images: [
       {
         id: 'cl-1',
-        src: '/images/portrait-5.jpg',
+        src: galleryImageSecondary,
         alt: 'Creative portrait',
         leftLabel: 'Creative',
         rightLabel: 'Neon Dreams',

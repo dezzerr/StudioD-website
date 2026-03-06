@@ -63,19 +63,24 @@ export function ImmersiveGallery({ images, onCursorChange }: ImmersiveGalleryPro
 
   // Initial load animation
   useEffect(() => {
-    if (isLoaded) return;
+    if (isLoaded || totalImages === 0) return;
     
     const timer = setTimeout(() => {
+      const target = imageWrapperRef.current;
+      if (!target) {
+        return;
+      }
+
       setIsLoaded(true);
       gsap.fromTo(
-        imageWrapperRef.current,
+        target,
         { opacity: 0, scale: 1.02 },
         { opacity: 1, scale: 1, duration: 1, ease: 'power2.out' }
       );
     }, 100);
     
     return () => clearTimeout(timer);
-  }, [isLoaded]);
+  }, [isLoaded, totalImages]);
 
   // Get the three images to display (prev, current, next)
   const getImageStack = () => {
@@ -88,6 +93,22 @@ export function ImmersiveGallery({ images, onCursorChange }: ImmersiveGalleryPro
       { image: images[nextIndex], key: `next-${nextIndex}` },
     ];
   };
+
+  if (!currentImage || totalImages === 0) {
+    return (
+      <div className="relative w-full h-screen bg-black overflow-hidden">
+        <div className="absolute inset-0 flex items-center justify-center text-center px-6">
+          <div>
+            <p className="text-xs tracking-[0.3em] uppercase text-white/40 mb-3">Portfolio</p>
+            <h2 className="text-2xl md:text-4xl font-light text-white/80 tracking-tight">Gallery updates soon</h2>
+            <p className="mt-4 text-white/50 text-sm md:text-base">
+              Upload images to the ImageKit <code className="text-white/80">/studio-d/hero</code> folder.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const imageStack = getImageStack();
 

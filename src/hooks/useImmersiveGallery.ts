@@ -25,14 +25,20 @@ export function useImmersiveGallery({
   const autoAdvanceTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const resumeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isInViewportRef = useRef(true);
+  const totalImages = images.length;
+  const safeCurrentIndex = totalImages === 0 ? 0 : currentIndex % totalImages;
 
   // Preload images
   useEffect(() => {
+    if (images.length < 2) {
+      return;
+    }
+
     const preloadImages = () => {
       const preloadCount = 2;
       for (let i = 1; i <= preloadCount; i++) {
-        const nextIndex = (currentIndex + i) % images.length;
-        const prevIndex = (currentIndex - i + images.length) % images.length;
+        const nextIndex = (safeCurrentIndex + i) % images.length;
+        const prevIndex = (safeCurrentIndex - i + images.length) % images.length;
         
         [nextIndex, prevIndex].forEach(idx => {
           const img = new Image();
@@ -41,7 +47,7 @@ export function useImmersiveGallery({
       }
     };
     preloadImages();
-  }, [currentIndex, images]);
+  }, [images, safeCurrentIndex]);
 
   // Intersection Observer to pause when not in viewport
   useEffect(() => {
@@ -59,21 +65,6 @@ export function useImmersiveGallery({
     return () => observer.disconnect();
   }, []);
 
-  // Auto-advance functionality
-  useEffect(() => {
-    if (isPaused || !isInViewportRef.current) return;
-
-    autoAdvanceTimerRef.current = setInterval(() => {
-      goToNext();
-    }, autoAdvanceInterval);
-
-    return () => {
-      if (autoAdvanceTimerRef.current) {
-        clearInterval(autoAdvanceTimerRef.current);
-      }
-    };
-  }, [isPaused, autoAdvanceInterval, currentIndex]);
-
   const performTransition = useCallback((newIndex: number, dir: 'next' | 'prev') => {
     if (isTransitioning || !imagesContainerRef.current) return;
     
@@ -81,7 +72,7 @@ export function useImmersiveGallery({
     setDirection(dir);
 
     const container = imagesContainerRef.current;
-    const imageHeight = container.offsetHeight;
+    const imageHeight = container.offsetHeight / 3;
     
     // Calculate target translateY
     const targetY = dir === 'next' ? -imageHeight : imageHeight;
@@ -105,22 +96,37 @@ export function useImmersiveGallery({
   }, [isTransitioning]);
 
   const goToNext = useCallback(() => {
-    if (isTransitioning) return;
-    const newIndex = (currentIndex + 1) % images.length;
+    if (isTransitioning || images.length === 0) return;
+    const newIndex = (safeCurrentIndex + 1) % images.length;
     performTransition(newIndex, 'next');
-  }, [currentIndex, images.length, isTransitioning, performTransition]);
+  }, [images.length, isTransitioning, performTransition, safeCurrentIndex]);
 
   const goToPrev = useCallback(() => {
-    if (isTransitioning) return;
-    const newIndex = (currentIndex - 1 + images.length) % images.length;
+    if (isTransitioning || images.length === 0) return;
+    const newIndex = (safeCurrentIndex - 1 + images.length) % images.length;
     performTransition(newIndex, 'prev');
-  }, [currentIndex, images.length, isTransitioning, performTransition]);
+  }, [images.length, isTransitioning, performTransition, safeCurrentIndex]);
 
   const goToIndex = useCallback((index: number) => {
-    if (isTransitioning || index === currentIndex) return;
-    const dir = index > currentIndex ? 'next' : 'prev';
+    if (isTransitioning || images.length === 0 || index === safeCurrentIndex) return;
+    const dir = index > safeCurrentIndex ? 'next' : 'prev';
     performTransition(index, dir);
-  }, [currentIndex, isTransitioning, performTransition]);
+  }, [images.length, isTransitioning, performTransition, safeCurrentIndex]);
+
+  // Auto-advance functionality
+  useEffect(() => {
+    if (isPaused || !isInViewportRef.current || totalImages < 2) return;
+
+    autoAdvanceTimerRef.current = setInterval(() => {
+      goToNext();
+    }, autoAdvanceInterval);
+
+    return () => {
+      if (autoAdvanceTimerRef.current) {
+        clearInterval(autoAdvanceTimerRef.current);
+      }
+    };
+  }, [autoAdvanceInterval, currentIndex, goToNext, isPaused, totalImages]);
 
   const handleMouseEnter = useCallback(() => {
     if (pauseOnHover) {
@@ -181,19 +187,23 @@ export function useImmersiveGallery({
 
   // Get visible images for the stack
   const getVisibleImages = useCallback(() => {
-    const prevIndex = (currentIndex - 1 + images.length) % images.length;
-    const nextIndex = (currentIndex + 1) % images.length;
+    if (images.length === 0) {
+      return [];
+    }
+
+    const prevIndex = (safeCurrentIndex - 1 + images.length) % images.length;
+    const nextIndex = (safeCurrentIndex + 1) % images.length;
     
     return [
       { ...images[prevIndex], position: 'prev' as const },
-      { ...images[currentIndex], position: 'current' as const },
+      { ...images[safeCurrentIndex], position: 'current' as const },
       { ...images[nextIndex], position: 'next' as const },
     ];
-  }, [currentIndex, images]);
+  }, [images, safeCurrentIndex]);
 
   return {
-    currentIndex,
-    currentImage: images[currentIndex],
+    currentIndex: safeCurrentIndex,
+    currentImage: images[safeCurrentIndex] || null,
     visibleImages: getVisibleImages(),
     isTransitioning,
     direction,
@@ -207,6 +217,6 @@ export function useImmersiveGallery({
     handleTouchStart,
     handleTouchMove,
     handleTouchEnd,
-    totalImages: images.length,
+    totalImages,
   };
 }

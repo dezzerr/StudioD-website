@@ -12,7 +12,7 @@ import { AboutSection } from '@/sections/AboutSection';
 import { ContactSection } from '@/sections/ContactSection';
 
 import { useCustomCursor } from '@/hooks/useCustomCursor';
-import { heroGalleryImages } from '@/data/collections';
+import { useGalleryFeed } from '@/hooks/useGalleryFeed';
 import type { CursorType } from '@/types';
 
 import './App.css';
@@ -23,6 +23,7 @@ gsap.registerPlugin(ScrollTrigger);
 function App() {
   const [cursorType, setCursorType] = useState<CursorType>('default');
   const { position, isVisible, isTouchDevice } = useCustomCursor();
+  const { heroImages, collectionItems } = useGalleryFeed();
 
   useEffect(() => {
     // Initial page load animation
@@ -65,12 +66,12 @@ function App() {
       {/* Hero Gallery - Full Screen */}
       <main className="relative">
         <ImmersiveGallery
-          images={heroGalleryImages}
+          images={heroImages}
           onCursorChange={handleCursorChange}
         />
 
         {/* Collections Section */}
-        <CollectionsSection />
+        <CollectionsSection collections={collectionItems} />
 
         {/* Pricing Section */}
         <PricingSection />

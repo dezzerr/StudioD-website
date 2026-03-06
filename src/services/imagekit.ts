@@ -4,6 +4,8 @@
  * https://imagekit.io/
  */
 
+import type { GalleryFeedResponse } from '@/types';
+
 export interface ImageKitConfig {
   urlEndpoint: string;
   publicKey: string;
@@ -34,14 +36,16 @@ export const buildImageUrl = (
   transformations: ImageTransformations = {}
 ): string => {
   const { urlEndpoint } = getConfig();
+  const normalizedEndpoint = urlEndpoint.replace(/\/+$/, '');
   
   // If no ImageKit config, return local path
-  if (!urlEndpoint) {
+  if (!normalizedEndpoint) {
     return imagePath;
   }
 
   // Remove leading slash if present
   const cleanPath = imagePath.startsWith('/') ? imagePath.slice(1) : imagePath;
+  const baseUrl = `${normalizedEndpoint}/${cleanPath}`;
   
   // Build transformation string
   const transformParams: string[] = [];
@@ -73,6 +77,12 @@ export const buildImageUrl = (
     transformParams.push('e-grayscale');
   }
 
+  // No transformations requested - return original image URL.
+  // This avoids ImageKit transformation limits on very large source images.
+  if (transformParams.length === 0) {
+    return baseUrl;
+  }
+
   // Add default optimizations
   if (!transformParams.some(p => p.startsWith('f-'))) {
     transformParams.push('f-auto'); // Auto format (WebP/AVIF when supported)
@@ -83,7 +93,7 @@ export const buildImageUrl = (
 
   const transformString = transformParams.join(',');
   
-  return `${urlEndpoint}/${cleanPath}?tr=${transformString}`;
+  return `${baseUrl}?tr=${transformString}`;
 };
 
 /**
@@ -170,16 +180,50 @@ export interface UploadResult {
   fileId: string;
   name: string;
   size: number;
+  filePath?: string;
+}
+
+export interface ImageKitFile {
+  url: string;
+  thumbnailUrl: string;
+  fileId: string;
+  name: string;
+  size: number;
+  filePath?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  fileType?: string;
+  isPrivateFile?: boolean;
+  tags?: string[];
+}
+
+interface UploadImageOptions {
+  path?: string;
+  tags?: string[];
+}
+
+interface ListImagesOptions {
+  folder?: string;
+  path?: string;
 }
 
 export const uploadImage = async (
   file: File,
-  folder: string = 'uploads'
+  folder: string = 'uploads',
+  options: UploadImageOptions = {}
 ): Promise<UploadResult> => {
   const formData = new FormData();
   formData.append('file', file);
   formData.append('folder', folder);
   formData.append('fileName', file.name);
+
+  if (options.path) {
+    formData.append('path', options.path);
+  }
+
+  if (options.tags?.length) {
+    formData.append('tags', options.tags.join(','));
+  }
 
   const response = await fetch('/.netlify/functions/upload-image', {
     method: 'POST',
@@ -215,12 +259,38 @@ export const deleteImage = async (fileId: string): Promise<void> => {
 /**
  * List images in a folder
  */
-export const listImages = async (folder: string = 'uploads'): Promise<UploadResult[]> => {
-  const response = await fetch(`/.netlify/functions/list-images?folder=${encodeURIComponent(folder)}`);
+export const listImages = async (
+  options: ListImagesOptions | string = 'uploads'
+): Promise<ImageKitFile[]> => {
+  const query = new URLSearchParams();
+
+  if (typeof options === 'string') {
+    query.set('folder', options);
+  } else if (options.path) {
+    query.set('path', options.path);
+  } else {
+    query.set('folder', options.folder || 'uploads');
+  }
+
+  const response = await fetch(`/.netlify/functions/list-images?${query.toString()}`);
   
   if (!response.ok) {
     const error = await response.json();
     throw new Error(error.message || 'Failed to list images');
+  }
+
+  return response.json();
+};
+
+/**
+ * Get dynamic gallery feed (hero + collection folders)
+ */
+export const getGalleryFeed = async (): Promise<GalleryFeedResponse> => {
+  const response = await fetch('/.netlify/functions/gallery-feed');
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'Failed to fetch gallery feed');
   }
 
   return response.json();

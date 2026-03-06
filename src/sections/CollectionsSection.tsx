@@ -1,12 +1,17 @@
 import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { collections } from '@/data/collections';
+import { collections as fallbackCollections } from '@/data/collections';
 import { ArrowUpRight } from 'lucide-react';
+import type { Collection } from '@/types';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export function CollectionsSection() {
+interface CollectionsSectionProps {
+  collections?: Collection[];
+}
+
+export function CollectionsSection({ collections = fallbackCollections }: CollectionsSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
 
@@ -43,7 +48,7 @@ export function CollectionsSection() {
     return () => {
       triggers.forEach(trigger => trigger.kill());
     };
-  }, []);
+  }, [collections]);
 
   return (
     <section
@@ -78,11 +83,19 @@ export function CollectionsSection() {
             >
               {/* Image */}
               <div className="aspect-[4/5] overflow-hidden">
-                <img
-                  src={collection.thumbnail}
-                  alt={collection.title}
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                />
+                {collection.thumbnail ? (
+                  <img
+                    src={collection.thumbnail}
+                    alt={collection.title}
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-neutral-900 flex items-center justify-center px-4 text-center">
+                    <span className="text-[10px] tracking-[0.2em] uppercase text-white/50">
+                      No images yet
+                    </span>
+                  </div>
+                )}
               </div>
 
               {/* Overlay */}

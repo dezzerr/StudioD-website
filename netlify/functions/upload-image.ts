@@ -1,4 +1,4 @@
-import type { Handler, HandlerEvent, HandlerContext } from '@netlify/functions';
+import type { Handler, HandlerEvent } from '@netlify/functions';
 import ImageKit from 'imagekit';
 
 // Initialize ImageKit
@@ -14,11 +14,32 @@ interface UploadResponse {
   fileId: string;
   name: string;
   size: number;
+  filePath?: string;
 }
 
+const LEGACY_FOLDER_TO_PATH: Record<string, string> = {
+  hero: '/hero',
+  'studio-portraits': '/collections/studio-portraits',
+  'family-sessions': '/collections/family-sessions',
+  'event-photography': '/collections/event-photography',
+  uploads: '/studio-d-uploads',
+};
+
+const ALLOWED_EXACT_PATHS = new Set([
+  '/studio-d/hero',
+  '/hero',
+  '/studio-d/uploads',
+  '/studio-d-uploads',
+]);
+
+const ALLOWED_PREFIX_PATHS = [
+  '/studio-d/collections/',
+  '/collections/',
+  '/studio-d-collections/',
+];
+
 export const handler: Handler = async (
-  event: HandlerEvent,
-  context: HandlerContext
+  event: HandlerEvent
 ) => {
   // Enable CORS
   const headers = {
@@ -80,21 +101,37 @@ export const handler: Handler = async (
       };
     }
 
-    // Get folder from form data
-    const folderPart = parts.find(p => p.name === 'folder');
-    const folder = folderPart?.data?.toString() || 'uploads';
+    const uploadPath = resolveUploadPath(parts);
+
+    if (!isAllowedPath(uploadPath)) {
+      return {
+        statusCode: 400,
+        headers,
+        body: JSON.stringify({
+          message: 'Invalid upload path. Allowed roots: /studio-d/hero, /studio-d/collections/*',
+          path: uploadPath,
+        }),
+      };
+    }
 
     // Get filename
     const fileNamePart = parts.find(p => p.name === 'fileName');
     const fileName = fileNamePart?.data?.toString() || filePart.filename || 'image.jpg';
 
+    const tagsPart = parts.find(p => p.name === 'tags');
+    const userTags = parseTags(tagsPart?.data?.toString());
+    const pathSegments = uploadPath.split('/').filter(Boolean);
+    const pathTag = pathSegments[pathSegments.length - 1] || 'uploads';
+
+    const tags = Array.from(new Set(['portfolio', pathTag, ...userTags]));
+
     // Upload to ImageKit
     const uploadResponse = await imagekit.upload({
       file: filePart.data,
       fileName: sanitizeFileName(fileName),
-      folder: `/finue-studio/${folder}`,
+      folder: uploadPath,
       useUniqueFileName: true,
-      tags: ['portfolio', folder],
+      tags,
     });
 
     const response: UploadResponse = {
@@ -103,6 +140,7 @@ export const handler: Handler = async (
       fileId: uploadResponse.fileId,
       name: uploadResponse.name,
       size: uploadResponse.size,
+      filePath: uploadResponse.filePath,
     };
 
     return {
@@ -129,6 +167,56 @@ interface MultipartPart {
   contentType?: string;
   data?: Buffer;
 }
+
+const normalizePath = (rawPath: string): string => {
+  const trimmed = rawPath.trim();
+  const withLeadingSlash = trimmed.startsWith('/') ? trimmed : `/${trimmed}`;
+  const withoutTrailingSlash = withLeadingSlash.replace(/\/+$/, '');
+
+  return withoutTrailingSlash || '/';
+};
+
+const resolveUploadPath = (parts: MultipartPart[]): string => {
+  const pathPart = parts.find(p => p.name === 'path')?.data?.toString().trim();
+  if (pathPart) {
+    return normalizePath(pathPart);
+  }
+
+  const folderPart = parts.find(p => p.name === 'folder')?.data?.toString().trim();
+  if (!folderPart) {
+    return '/studio-d/uploads';
+  }
+
+  if (folderPart.startsWith('/')) {
+    return normalizePath(folderPart);
+  }
+
+  if (LEGACY_FOLDER_TO_PATH[folderPart]) {
+    return LEGACY_FOLDER_TO_PATH[folderPart];
+  }
+
+  return normalizePath(`/studio-d/${folderPart}`);
+};
+
+const isAllowedPath = (path: string): boolean => {
+  if (ALLOWED_EXACT_PATHS.has(path)) {
+    return true;
+  }
+
+  return ALLOWED_PREFIX_PATHS.some(prefix => path.startsWith(prefix));
+};
+
+const parseTags = (raw: string | undefined): string[] => {
+  if (!raw) {
+    return [];
+  }
+
+  return raw
+    .split(',')
+    .map(tag => tag.trim())
+    .filter(Boolean)
+    .slice(0, 20);
+};
 
 function parseMultipart(buffer: Buffer, boundary: string): MultipartPart[] {
   const parts: MultipartPart[] = [];

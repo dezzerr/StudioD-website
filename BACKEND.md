@@ -73,9 +73,10 @@ IMAGEKIT_PRIVATE_KEY=your_private_key
 ### 4. Folder Structure
 
 Create these folders in ImageKit dashboard:
-- `/studio-d/uploads` - User uploads
-- `/studio-d/collections` - Collection images
-- `/studio-d/gallery` - Gallery images
+- `/studio-d/hero` - Hero carousel images
+- `/studio-d/collections/studio-portraits` - Studio collection images
+- `/studio-d/collections/family-sessions` - Family collection images
+- `/studio-d/collections/event-photography` - Event collection images
 
 ### 5. Image Transformations
 
@@ -287,6 +288,17 @@ https://deploy-preview-123--your-site.netlify.app
 
 ## Image Upload Workflow
 
+### Folder-to-section mapping
+
+| ImageKit folder | Appears on site |
+|---|---|
+| `/studio-d/hero` | Hero section |
+| `/studio-d/collections/studio-portraits` | Studio Portraits collection |
+| `/studio-d/collections/family-sessions` | Family Sessions collection |
+| `/studio-d/collections/event-photography` | Event Photography collection |
+
+Hero images are sourced only from `/studio-d/hero`.
+
 ### Via CMS
 
 1. Log in to `/admin/`
@@ -322,8 +334,10 @@ Images are automatically optimized with:
 
 1. Check ImageKit credentials in environment variables
 2. Verify image exists in ImageKit dashboard
-3. Check browser console for 404 errors
-4. Ensure CORS is configured in ImageKit
+3. Verify the image is in the correct folder for the target section
+4. Hero images must be in `/studio-d/hero` (collection folders are not used for hero)
+5. Check browser console for network errors (404/400)
+6. Ensure CORS is configured in ImageKit
 
 ### CMS Not Working
 

@@ -17,6 +17,12 @@ export interface Collection {
   featured: boolean;
 }
 
+export interface GalleryFeedResponse {
+  hero: GalleryImage[];
+  collections: Collection[];
+  updatedAt: string;
+}
+
 export interface PricingPackage {
   id: string;
   name: string;
