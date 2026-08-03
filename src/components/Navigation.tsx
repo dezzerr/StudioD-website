@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { Menu, X } from 'lucide-react';
 import { navItems } from '@/data/collections';
@@ -6,6 +7,9 @@ import { navItems } from '@/data/collections';
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHome = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,9 +33,24 @@ export function Navigation() {
 
   const handleNavClick = (href: string) => {
     setIsMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (href.startsWith('/')) {
+      navigate(href);
+    } else if (isHome) {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      navigate('/' + href);
+    }
+  };
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (isHome) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/');
     }
   };
 
@@ -40,7 +59,7 @@ export function Navigation() {
       {/* Fixed Navigation */}
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled
+          isScrolled || !isHome
             ? 'bg-black/80 backdrop-blur-md py-4'
             : 'bg-transparent py-6'
         }`}
@@ -48,12 +67,9 @@ export function Navigation() {
         <div className="w-full px-6 md:px-12 flex items-center justify-between">
           {/* Logo */}
           <a 
-            href="#" 
+            href="/"
             className="text-lg md:text-xl tracking-[0.2em] font-light text-white hover:opacity-80 transition-opacity"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
+            onClick={handleLogoClick}
           >
             STUDIOD
           </a>

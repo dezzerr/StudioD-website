@@ -1,8 +1,9 @@
 import { useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { pricingPackages } from '@/data/collections';
-import { Check, Star } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { photographyServices } from '@/data/services';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -65,77 +66,51 @@ export function PricingSection() {
             Pricing
           </h2>
           <p className="mt-6 text-white/60 max-w-2xl mx-auto text-lg font-light leading-relaxed">
-            Transparent pricing for exceptional portrait photography. 
-            Each package is designed to deliver stunning results that you'll treasure forever.
+            Straightforward hourly pricing for portraits, events, weddings, and engagements.
+            Every booking has a 60-minute minimum.
           </p>
         </div>
 
         {/* Pricing Cards */}
         <div
           ref={cardsRef}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto"
+          className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 xl:grid-cols-4 xl:gap-5 max-w-7xl mx-auto"
         >
-          {pricingPackages.map((pkg) => (
+          {photographyServices.map((service) => (
             <div
-              key={pkg.id}
-              className={`pricing-card relative rounded-2xl p-8 md:p-10 ${
-                pkg.popular
-                  ? 'glass-card border-white/20 scale-105 md:scale-110 z-10'
-                  : 'glass-card'
-              }`}
+              key={service.id}
+              className="pricing-card relative flex flex-col rounded-2xl p-7 md:p-8 glass-card"
             >
-              {/* Popular Badge */}
-              {pkg.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                  <span className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-white text-black text-[10px] tracking-[0.2em] uppercase rounded-full font-medium">
-                    <Star size={12} fill="currentColor" />
-                    Most Popular
-                  </span>
-                </div>
-              )}
-
-              {/* Package Name */}
               <h3 className="text-xl font-light text-white tracking-wide mb-2">
-                {pkg.name}
+                {service.name}
               </h3>
 
-              {/* Duration */}
-              <span className="text-sm text-white/50 block mb-6">
-                {pkg.duration}
+              <span className="text-xs uppercase tracking-[0.18em] text-white/45">
+                Photography
               </span>
 
-              {/* Price */}
-              <div className="mb-6">
+              <div className="mt-8 mb-5">
                 <span className="text-5xl md:text-6xl font-light text-white tracking-tight">
-                  £{pkg.price}
+                  £{service.rate}
                 </span>
+                <span className="ml-2 text-sm text-white/45">/ hour</span>
               </div>
 
-              {/* Description */}
               <p className="text-white/60 text-sm leading-relaxed mb-8">
-                {pkg.description}
+                {service.description}
               </p>
 
-              {/* Features */}
-              <ul className="space-y-4 mb-10">
-                {pkg.features.map((feature, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <Check size={18} className="text-white/70 mt-0.5 flex-shrink-0" />
-                    <span className="text-white/80 text-sm">{feature}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="mt-auto border-t border-white/10 pt-5 text-xs uppercase tracking-[0.15em] text-white/45">
+                60-minute minimum
+              </div>
 
-              {/* CTA Button */}
-              <button
-                className={`w-full py-4 rounded-lg text-sm tracking-[0.15em] uppercase font-medium transition-all duration-300 ${
-                  pkg.popular
-                    ? 'bg-white text-black hover:bg-white/90'
-                    : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
-                }`}
+              <Link
+                to={`/booking?service=${service.id}`}
+                className="mt-8 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg border border-white/20 bg-white/10 px-4 text-sm font-medium uppercase tracking-[0.15em] text-white transition-all duration-300 hover:border-white/40 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
               >
-                Book Now
-              </button>
+                Book {service.name}
+                <ArrowRight size={15} aria-hidden="true" />
+              </Link>
             </div>
           ))}
         </div>
@@ -143,13 +118,15 @@ export function PricingSection() {
         {/* Additional Info */}
         <div className="mt-16 text-center">
           <p className="text-white/40 text-sm">
-            All packages include a pre-session consultation and professional editing.
+            Choose a category to request a time. Every request is reviewed manually before it is confirmed.
             {' '}
-            <button className="text-white/60 hover:text-white underline underline-offset-4 transition-colors">
+            <Link
+              to="/contact"
+              className="text-white/60 hover:text-white underline underline-offset-4 transition-colors"
+            >
               Contact us
-            </button>
-            {' '}
-            for custom packages.
+            </Link>
+            {' '}if you have a question.
           </p>
         </div>
       </div>

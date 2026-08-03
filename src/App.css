@@ -16,6 +16,34 @@ html {
   transform: translateZ(0);
 }
 
+/* Orientation-aware image stages keep the surrounding composition stable while
+ * allowing each photograph to be presented in its natural format. */
+.adaptive-image-stage {
+  isolation: isolate;
+}
+
+.adaptive-image-stage--embedded {
+  height: clamp(320px, 55vw, 680px);
+}
+
+.adaptive-image-stage__frame {
+  will-change: width, height, opacity;
+  transform: translateZ(0);
+}
+
+/* Cal.com stays visually subordinate to the StudioD page shell while the
+ * provider manages the authoritative booking state inside its iframe. */
+.booking-cal-embed iframe {
+  width: 100%;
+  min-height: 680px;
+  border: 0;
+  color-scheme: dark;
+}
+
+.booking-cal-embed [data-cal-embed] {
+  min-height: 680px;
+}
+
 /* Writing mode for vertical labels */
 .writing-mode-vertical {
   writing-mode: vertical-rl;
@@ -132,6 +160,10 @@ button:not(:disabled):active {
   .writing-mode-vertical {
     writing-mode: horizontal-tb;
     transform: none;
+  }
+
+  .adaptive-image-stage--embedded {
+    height: min(72svh, 560px);
   }
 }
 

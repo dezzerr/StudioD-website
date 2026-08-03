@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { gsap } from 'gsap';
 import type { GalleryImage } from '@/types';
 
 interface UseImmersiveGalleryProps {
@@ -15,13 +14,12 @@ export function useImmersiveGallery({
   pauseOnHover = true,
   resumeDelay = 2000,
 }: UseImmersiveGalleryProps) {
+  const touchResumeDelay = 4000;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [direction, setDirection] = useState<'next' | 'prev'>('next');
-  
+
   const containerRef = useRef<HTMLDivElement>(null);
-  const imagesContainerRef = useRef<HTMLDivElement>(null);
   const autoAdvanceTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const resumeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isInViewportRef = useRef(true);
@@ -34,19 +32,15 @@ export function useImmersiveGallery({
       return;
     }
 
-    const preloadImages = () => {
-      const preloadCount = 2;
-      for (let i = 1; i <= preloadCount; i++) {
-        const nextIndex = (safeCurrentIndex + i) % images.length;
-        const prevIndex = (safeCurrentIndex - i + images.length) % images.length;
-        
-        [nextIndex, prevIndex].forEach(idx => {
-          const img = new Image();
-          img.src = images[idx].src;
-        });
-      }
-    };
-    preloadImages();
+    const preloadCount = 2;
+    for (let i = 1; i <= preloadCount; i++) {
+      const nextIdx = (safeCurrentIndex + i) % images.length;
+      const prevIdx = (safeCurrentIndex - i + images.length) % images.length;
+      [nextIdx, prevIdx].forEach(idx => {
+        const img = new Image();
+        img.src = images[idx].src;
+      });
+    }
   }, [images, safeCurrentIndex]);
 
   // Intersection Observer to pause when not in viewport
@@ -65,53 +59,27 @@ export function useImmersiveGallery({
     return () => observer.disconnect();
   }, []);
 
-  const performTransition = useCallback((newIndex: number, dir: 'next' | 'prev') => {
-    if (isTransitioning || !imagesContainerRef.current) return;
-    
-    setIsTransitioning(true);
-    setDirection(dir);
-
-    const container = imagesContainerRef.current;
-    const imageHeight = container.offsetHeight / 3;
-    
-    // Calculate target translateY
-    const targetY = dir === 'next' ? -imageHeight : imageHeight;
-
-    // GSAP Timeline for smooth vertical slide transition
-    const tl = gsap.timeline({
-      onComplete: () => {
-        setCurrentIndex(newIndex);
-        setIsTransitioning(false);
-        // Reset position instantly without animation
-        gsap.set(container, { y: 0 });
-      },
-    });
-
-    // Smooth slide transition
-    tl.to(container, {
-      y: targetY,
-      duration: 0.8,
-      ease: 'power3.inOut',
-    });
-  }, [isTransitioning]);
-
   const goToNext = useCallback(() => {
-    if (isTransitioning || images.length === 0) return;
-    const newIndex = (safeCurrentIndex + 1) % images.length;
-    performTransition(newIndex, 'next');
-  }, [images.length, isTransitioning, performTransition, safeCurrentIndex]);
+    if (isTransitioning || images.length < 2) return;
+    setIsTransitioning(true);
+    setCurrentIndex(prev => (prev + 1) % images.length);
+  }, [images.length, isTransitioning]);
 
   const goToPrev = useCallback(() => {
-    if (isTransitioning || images.length === 0) return;
-    const newIndex = (safeCurrentIndex - 1 + images.length) % images.length;
-    performTransition(newIndex, 'prev');
-  }, [images.length, isTransitioning, performTransition, safeCurrentIndex]);
+    if (isTransitioning || images.length < 2) return;
+    setIsTransitioning(true);
+    setCurrentIndex(prev => (prev - 1 + images.length) % images.length);
+  }, [images.length, isTransitioning]);
 
   const goToIndex = useCallback((index: number) => {
     if (isTransitioning || images.length === 0 || index === safeCurrentIndex) return;
-    const dir = index > safeCurrentIndex ? 'next' : 'prev';
-    performTransition(index, dir);
-  }, [images.length, isTransitioning, performTransition, safeCurrentIndex]);
+    setIsTransitioning(true);
+    setCurrentIndex(index);
+  }, [images.length, isTransitioning, safeCurrentIndex]);
+
+  const completeTransition = useCallback(() => {
+    setIsTransitioning(false);
+  }, []);
 
   // Auto-advance functionality
   useEffect(() => {
@@ -137,13 +105,38 @@ export function useImmersiveGallery({
     }
   }, [pauseOnHover]);
 
+  const scheduleResume = useCallback((delay: number) => {
+    if (!pauseOnHover) {
+      return;
+    }
+
+    if (resumeTimerRef.current) {
+      clearTimeout(resumeTimerRef.current);
+    }
+
+    resumeTimerRef.current = setTimeout(() => {
+      setIsPaused(false);
+    }, delay);
+  }, [pauseOnHover]);
+
   const handleMouseLeave = useCallback(() => {
     if (pauseOnHover) {
-      resumeTimerRef.current = setTimeout(() => {
-        setIsPaused(false);
-      }, resumeDelay);
+      scheduleResume(resumeDelay);
     }
-  }, [pauseOnHover, resumeDelay]);
+  }, [pauseOnHover, resumeDelay, scheduleResume]);
+
+  const handleFocus = useCallback(() => {
+    if (pauseOnHover) {
+      setIsPaused(true);
+      if (resumeTimerRef.current) {
+        clearTimeout(resumeTimerRef.current);
+      }
+    }
+  }, [pauseOnHover]);
+
+  const handleBlur = useCallback(() => {
+    scheduleResume(resumeDelay);
+  }, [resumeDelay, scheduleResume]);
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === 'ArrowLeft') {
@@ -158,64 +151,52 @@ export function useImmersiveGallery({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleKeyDown]);
 
-  // Touch/swipe handling - vertical for swipe up/down
-  const touchStartY = useRef(0);
-  const touchEndY = useRef(0);
+  // Touch/swipe handling
+  const touchStartX = useRef(0);
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    touchStartY.current = e.touches[0].clientY;
-  }, []);
-
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    touchEndY.current = e.touches[0].clientY;
-  }, []);
-
-  const handleTouchEnd = useCallback(() => {
-    const diff = touchStartY.current - touchEndY.current;
-    const threshold = 50;
-
-    if (Math.abs(diff) > threshold) {
-      if (diff > 0) {
-        // Swipe up - go to next
-        goToNext();
-      } else {
-        // Swipe down - go to prev
-        goToPrev();
+    if (pauseOnHover) {
+      setIsPaused(true);
+      if (resumeTimerRef.current) {
+        clearTimeout(resumeTimerRef.current);
       }
     }
-  }, [goToNext, goToPrev]);
+    touchStartX.current = e.touches[0].clientX;
+  }, [pauseOnHover]);
 
-  // Get visible images for the stack
-  const getVisibleImages = useCallback(() => {
-    if (images.length === 0) {
-      return [];
+  const handleTouchEnd = useCallback((e: React.TouchEvent) => {
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    const threshold = 50;
+    if (Math.abs(diff) > threshold) {
+      if (diff > 0) goToNext();
+      else goToPrev();
     }
 
-    const prevIndex = (safeCurrentIndex - 1 + images.length) % images.length;
-    const nextIndex = (safeCurrentIndex + 1) % images.length;
-    
-    return [
-      { ...images[prevIndex], position: 'prev' as const },
-      { ...images[safeCurrentIndex], position: 'current' as const },
-      { ...images[nextIndex], position: 'next' as const },
-    ];
-  }, [images, safeCurrentIndex]);
+    scheduleResume(touchResumeDelay);
+  }, [goToNext, goToPrev, scheduleResume]);
+
+  useEffect(() => {
+    return () => {
+      if (resumeTimerRef.current) {
+        clearTimeout(resumeTimerRef.current);
+      }
+    };
+  }, []);
 
   return {
     currentIndex: safeCurrentIndex,
     currentImage: images[safeCurrentIndex] || null,
-    visibleImages: getVisibleImages(),
     isTransitioning,
-    direction,
     containerRef,
-    imagesContainerRef,
     goToNext,
     goToPrev,
     goToIndex,
+    completeTransition,
     handleMouseEnter,
     handleMouseLeave,
+    handleFocus,
+    handleBlur,
     handleTouchStart,
-    handleTouchMove,
     handleTouchEnd,
     totalImages,
   };

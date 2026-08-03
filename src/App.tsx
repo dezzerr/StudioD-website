@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { Navigation } from '@/components/Navigation';
-import { Footer } from '@/components/Footer';
 import { CustomCursor } from '@/components/cursor/CustomCursor';
-import { ImmersiveGallery } from '@/components/gallery/ImmersiveGallery';
-import { CollectionsSection } from '@/sections/CollectionsSection';
-import { PricingSection } from '@/sections/PricingSection';
-import { AboutSection } from '@/sections/AboutSection';
-import { ContactSection } from '@/sections/ContactSection';
+import { HomePage } from '@/pages/HomePage';
+import { CollectionGalleryPage } from '@/pages/CollectionGalleryPage';
+import { PricingPage } from '@/pages/PricingPage';
+import { AboutPage } from '@/pages/AboutPage';
+import { ContactPage } from '@/pages/ContactPage';
+import { BookingPage } from '@/pages/BookingPage';
 
 import { useCustomCursor } from '@/hooks/useCustomCursor';
-import { useGalleryFeed } from '@/hooks/useGalleryFeed';
 import type { CursorType } from '@/types';
 
 import './App.css';
@@ -23,7 +23,6 @@ gsap.registerPlugin(ScrollTrigger);
 function App() {
   const [cursorType, setCursorType] = useState<CursorType>('default');
   const { position, isVisible, isTouchDevice } = useCustomCursor();
-  const { heroImages, collectionItems } = useGalleryFeed();
 
   useEffect(() => {
     // Initial page load animation
@@ -63,28 +62,14 @@ function App() {
       {/* Navigation */}
       <Navigation />
 
-      {/* Hero Gallery - Full Screen */}
-      <main className="relative">
-        <ImmersiveGallery
-          images={heroImages}
-          onCursorChange={handleCursorChange}
-        />
-
-        {/* Collections Section */}
-        <CollectionsSection collections={collectionItems} />
-
-        {/* Pricing Section */}
-        <PricingSection />
-
-        {/* About Section */}
-        <AboutSection />
-
-        {/* Contact Section */}
-        <ContactSection />
-      </main>
-
-      {/* Footer */}
-      <Footer />
+      <Routes>
+        <Route path="/" element={<HomePage onCursorChange={handleCursorChange} />} />
+        <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/booking" element={<BookingPage />} />
+        <Route path="/collections/:collectionId" element={<CollectionGalleryPage />} />
+      </Routes>
     </div>
   );
 }

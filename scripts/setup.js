@@ -91,10 +91,9 @@ CONTACT_EMAIL=${contactEmail}
 2. Start development server:
    npm run dev
 
-3. Deploy to Netlify:
-   npm run netlify:deploy
+3. Connect the repository to Vercel and add the production environment variables.
 
-📖 Documentation: See BACKEND.md for detailed setup instructions
+📖 Documentation: See BACKEND.md for detailed Vercel setup instructions
 
 ═══════════════════════════════════════════════════════════
 `);

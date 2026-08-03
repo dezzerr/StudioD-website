@@ -57,3 +57,5 @@ content/settings/*.json
 !content/pricing/.gitkeep
 !content/pages/.gitkeep
 !content/settings/.gitkeep
+.vercel
+.env*

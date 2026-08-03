@@ -18,7 +18,7 @@ A premium photography portfolio website for StudioD, a UK-based portrait photogr
 - **Framework**: React + TypeScript + Vite
 - **Styling**: Tailwind CSS
 - **Animations**: GSAP (GreenSock Animation Platform)
-- **CMS**: Decap CMS (formerly Netlify CMS)
+- **CMS**: Decap CMS with a GitHub backend and Vercel OAuth proxy
 - **Icons**: Lucide React
 - **UI Components**: shadcn/ui
 
@@ -129,27 +129,27 @@ useImmersiveGallery({
 
 ## Decap CMS Setup
 
-### 1. Enable Identity
+The CMS is served at `/admin/` and authenticates through GitHub. The production
+OAuth callback is configured as `https://studiod.com/api/callback`. Admin users
+need write access to the `dezzerr/StudioD-website` repository.
 
-1. Go to your Netlify site dashboard
-2. Navigate to **Identity**
-3. Click **Enable Identity**
-4. Configure registration preferences (recommended: invite-only)
+Create a GitHub OAuth App with that callback URL, then add its client ID and
+secret to the Vercel production environment as `GITHUB_OAUTH_CLIENT_ID` and
+`GITHUB_OAUTH_CLIENT_SECRET`.
 
-### 2. Add Git Gateway
+Navigate to `https://studiod.com/admin/` and choose **Login with GitHub**.
 
-1. In Identity settings, go to **Services**
-2. Click **Enable Git Gateway**
+## Vercel Deployment
 
-### 3. Invite Users
+Connect `dezzerr/StudioD-website` to Vercel with:
 
-1. In Identity, go to **Users**
-2. Click **Invite users**
-3. Enter email addresses for content editors
+- Build command: `npm run build`
+- Output directory: `dist`
+- Production branch: `main`
 
-### 4. Access the CMS
-
-Navigate to `https://your-site.netlify.app/admin/` and log in with your credentials.
+Configure the environment variables in `.env.example` in Vercel's Preview and
+Production environments. The Vercel API routes provide the ImageKit gallery
+feed, image authentication, contact validation, and CMS OAuth callback.
 
 ## Adding New Collections
 

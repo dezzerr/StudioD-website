@@ -1,4 +1,5 @@
 import { Instagram, Mail } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -19,30 +20,36 @@ export function Footer() {
 
           {/* Navigation */}
           <nav className="flex items-center gap-8">
-            <a
-              href="#collections"
+            <Link
+              to="/#collections"
               className="text-sm text-white/50 hover:text-white transition-colors"
             >
               Work
-            </a>
-            <a
-              href="#pricing"
+            </Link>
+            <Link
+              to="/pricing"
               className="text-sm text-white/50 hover:text-white transition-colors"
             >
               Pricing
-            </a>
-            <a
-              href="#about"
+            </Link>
+            <Link
+              to="/booking"
+              className="text-sm text-white/50 hover:text-white transition-colors"
+            >
+              Booking
+            </Link>
+            <Link
+              to="/about"
               className="text-sm text-white/50 hover:text-white transition-colors"
             >
               About
-            </a>
-            <a
-              href="#contact"
+            </Link>
+            <Link
+              to="/contact"
               className="text-sm text-white/50 hover:text-white transition-colors"
             >
               Contact
-            </a>
+            </Link>
           </nav>
 
           {/* Social */}

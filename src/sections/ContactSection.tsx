@@ -70,7 +70,7 @@ export function ContactSection() {
     setError(null);
 
     try {
-      const response = await fetch('/.netlify/functions/form-submission', {
+      const response = await fetch('/api/form-submission', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

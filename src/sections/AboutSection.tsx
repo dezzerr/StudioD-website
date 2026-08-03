@@ -2,6 +2,7 @@ import { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Camera, Award, Users, Heart } from 'lucide-react';
+import { useGalleryFeed } from '@/hooks/useGalleryFeed';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,6 +16,8 @@ const stats = [
 export function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const { heroImages } = useGalleryFeed();
+  const profileImage = heroImages[0];
 
   useEffect(() => {
     if (!contentRef.current) return;
@@ -66,8 +69,8 @@ export function AboutSection() {
           <div className="animate-in relative">
             <div className="aspect-[4/5] rounded-lg overflow-hidden">
               <img
-                src="/images/portrait-1.jpg"
-                alt="StudioD Photographer"
+                src={profileImage?.src || '/images/portrait-1.jpg'}
+                alt={profileImage?.alt || 'StudioD Photographer'}
                 className="w-full h-full object-cover"
               />
             </div>

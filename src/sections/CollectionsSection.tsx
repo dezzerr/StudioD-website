@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { collections as fallbackCollections } from '@/data/collections';
@@ -77,9 +78,10 @@ export function CollectionsSection({ collections = fallbackCollections }: Collec
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
         >
           {collections.map((collection) => (
-            <div
+            <Link
+              to={`/collections/${collection.id}`}
               key={collection.id}
-              className="collection-card group relative overflow-hidden rounded-lg cursor-pointer"
+              className="collection-card group relative overflow-hidden rounded-lg cursor-pointer block"
             >
               {/* Image */}
               <div className="aspect-[4/5] overflow-hidden">
@@ -132,7 +134,7 @@ export function CollectionsSection({ collections = fallbackCollections }: Collec
                   {collection.category}
                 </span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
