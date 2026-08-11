@@ -72,7 +72,7 @@ export function PricingPage() {
       />
       <main className="relative bg-black pt-32 md:pt-40 min-h-screen">
         <section className="relative w-full py-16 md:py-24">
-          <div className="absolute inset-0 bg-gradient-to-b from-black via-neutral-950 to-black pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary to-background pointer-events-none" />
 
           <div className="relative w-full px-6 md:px-12 lg:px-20">
             {/* Header */}

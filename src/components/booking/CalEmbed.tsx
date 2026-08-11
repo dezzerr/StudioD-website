@@ -175,7 +175,7 @@ export function CalEmbed({ calLink, onBookingRequested }: CalEmbedProps) {
       elementOrSelector: mount,
       calLink: getCalLink(calLink),
       config: {
-        theme: 'dark',
+        theme: 'light',
         layout: 'month_view',
         useSlotsViewOnSmallScreen: true,
       },
@@ -197,7 +197,7 @@ export function CalEmbed({ calLink, onBookingRequested }: CalEmbedProps) {
   return (
     <div className="booking-cal-embed relative min-h-[680px]" aria-live="polite">
       {state === 'loading' && (
-        <div className="absolute inset-x-0 top-0 z-10 flex items-center gap-3 rounded-xl border border-white/10 bg-neutral-950/90 px-5 py-4 text-sm text-white/60 backdrop-blur-sm">
+        <div className="absolute inset-x-0 top-0 z-10 flex items-center gap-3 rounded-xl border border-white/10 bg-card/90 px-5 py-4 text-sm text-white/60 backdrop-blur-sm">
           <span className="h-2 w-2 animate-pulse rounded-full bg-white/80" aria-hidden="true" />
           Preparing the calendar…
         </div>

@@ -92,7 +92,7 @@ export function CollectionsSection({ collections = fallbackCollections }: Collec
                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                 ) : (
-                  <div className="w-full h-full bg-neutral-900 flex items-center justify-center px-4 text-center">
+                  <div className="w-full h-full bg-secondary flex items-center justify-center px-4 text-center">
                     <span className="text-[10px] tracking-[0.2em] uppercase text-white/50">
                       No images yet
                     </span>
@@ -101,27 +101,27 @@ export function CollectionsSection({ collections = fallbackCollections }: Collec
               </div>
 
               {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-t from-photo-black/80 via-photo-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
 
               {/* Content */}
               <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
                 <div className="flex items-end justify-between">
                   <div>
-                    <span className="text-[10px] tracking-[0.3em] uppercase text-white/50 block mb-2">
+                    <span className="text-[10px] tracking-[0.3em] uppercase text-photo-white/60 block mb-2">
                       {collection.season}
                     </span>
-                    <h3 className="text-xl md:text-2xl font-light text-white tracking-tight">
+                    <h3 className="text-xl md:text-2xl font-light text-photo-white tracking-tight">
                       {collection.title}
                     </h3>
-                    <p className="mt-2 text-sm text-white/60 font-light line-clamp-2">
+                    <p className="mt-2 text-sm text-photo-white/70 font-light line-clamp-2">
                       {collection.description}
                     </p>
                   </div>
                   <div className="flex-shrink-0 ml-4">
-                    <div className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white group-hover:border-white transition-all duration-300">
+                    <div className="w-10 h-10 rounded-full border border-photo-white/40 flex items-center justify-center group-hover:bg-photo-white group-hover:border-photo-white transition-all duration-300">
                       <ArrowUpRight 
                         size={18} 
-                        className="text-white group-hover:text-black transition-colors duration-300" 
+                        className="text-photo-white group-hover:text-photo-black transition-colors duration-300"
                       />
                     </div>
                   </div>
@@ -130,7 +130,7 @@ export function CollectionsSection({ collections = fallbackCollections }: Collec
 
               {/* Category Tag */}
               <div className="absolute top-4 left-4">
-                <span className="text-[10px] tracking-[0.2em] uppercase px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-white/70">
+                <span className="text-[10px] tracking-[0.2em] uppercase px-3 py-1 bg-photo-black/20 backdrop-blur-sm rounded-full text-photo-white/80">
                   {collection.category}
                 </span>
               </div>

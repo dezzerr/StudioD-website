@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { Menu, X } from 'lucide-react';
@@ -7,6 +7,7 @@ import { navItems } from '@/data/collections';
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === '/';
@@ -22,13 +23,23 @@ export function Navigation() {
   }, []);
 
   useEffect(() => {
-    if (isMobileMenuOpen) {
-      gsap.fromTo(
-        '.mobile-menu-item',
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }
-      );
-    }
+    if (!isMobileMenuOpen) return;
+
+    gsap.fromTo(
+      '.mobile-menu-item',
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }
+    );
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMobileMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
   }, [isMobileMenuOpen]);
 
   const handleNavClick = (href: string) => {
@@ -89,9 +100,11 @@ export function Navigation() {
 
           {/* Mobile Menu Button */}
           <button
+            ref={menuButtonRef}
             className="md:hidden text-white p-2"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>

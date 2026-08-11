@@ -54,12 +54,6 @@ const sortByCreatedAtDesc = (a: ImageKitFileRecord, b: ImageKitFileRecord) => (
   (b.createdAt ? new Date(b.createdAt).getTime() : 0) - (a.createdAt ? new Date(a.createdAt).getTime() : 0)
 );
 
-const toReadableText = (value: string) => {
-  const raw = value.replace(/\.[a-zA-Z0-9]+$/, '').replace(/[_-]+/g, ' ').trim();
-  if (!raw) return 'Portfolio image';
-  return raw.split(' ').filter(Boolean).map(word => word[0].toUpperCase() + word.slice(1)).join(' ');
-};
-
 const toDateLabel = (createdAt?: string) => {
   if (!createdAt) return 'Latest work';
   const date = new Date(createdAt);
@@ -112,7 +106,7 @@ export default async function handler(request: VercelRequest, response: VercelRe
       const images = files.map(file => ({
         id: file.fileId,
         src: withSafeDeliveryTransform(file.url),
-        alt: toReadableText(file.name),
+        alt: `StudioD ${collection.title.toLowerCase()} photograph`,
         leftLabel: collection.title,
         rightLabel: toDateLabel(file.createdAt),
       }));
@@ -131,7 +125,7 @@ export default async function handler(request: VercelRequest, response: VercelRe
     const hero = (await listFromCandidatePaths(HERO_PATHS)).slice(0, 10).map(file => ({
       id: file.fileId,
       src: withSafeDeliveryTransform(file.url),
-      alt: toReadableText(file.name),
+      alt: 'Featured StudioD photograph',
       leftLabel: getHeroLabel(file),
       rightLabel: toDateLabel(file.createdAt),
     }));

@@ -54,7 +54,7 @@ export function PricingSection() {
       className="relative w-full min-h-screen bg-black py-24 md:py-32"
     >
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-neutral-950 to-black pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary to-background pointer-events-none" />
 
       <div className="relative w-full px-6 md:px-12 lg:px-20">
         {/* Section Header */}

@@ -101,10 +101,7 @@ export function CollectionViewer({ images, title, onBack }: CollectionViewerProp
           <span className="text-xs tracking-[0.3em] uppercase text-white/40">{title}</span>
         </div>
 
-        <div className="absolute bottom-20 left-0 right-0 flex justify-between px-6 md:px-12 z-40 pointer-events-none">
-          <span className="text-xs tracking-[0.2em] uppercase text-white/40">
-            {currentImage.alt}
-          </span>
+        <div className="absolute bottom-20 left-0 right-0 flex justify-end px-6 md:px-12 z-40 pointer-events-none">
           <span className="text-xs tracking-[0.2em] uppercase text-white/40">
             {currentIndex + 1} / {totalImages}
           </span>

@@ -138,7 +138,7 @@ export function ContactPage() {
           className="relative w-full py-16 md:py-24"
         >
           {/* Background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 to-black pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-secondary to-background pointer-events-none" />
 
           <div className="relative w-full px-6 md:px-12 lg:px-20">
             {/* Header */}
@@ -311,7 +311,7 @@ export function ContactPage() {
                           <SelectValue placeholder="Select a session type" />
                         </SelectTrigger>
                         <SelectContent
-                          className="bg-neutral-900 border-white/10 text-white"
+                          className="bg-secondary border-white/10 text-white"
                         >
                           {SESSION_TYPES.map((type) => (
                             <SelectItem

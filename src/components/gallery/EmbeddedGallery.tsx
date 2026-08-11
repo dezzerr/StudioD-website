@@ -41,7 +41,7 @@ export function EmbeddedGallery({ images, title }: EmbeddedGalleryProps) {
 
   if (!currentImage || totalImages === 0) {
     return (
-      <div className="adaptive-image-stage adaptive-image-stage--embedded relative flex items-center justify-center rounded-lg overflow-hidden bg-neutral-900">
+      <div className="adaptive-image-stage adaptive-image-stage--embedded relative flex items-center justify-center rounded-lg overflow-hidden bg-secondary">
         <div className="text-center px-6">
           <p className="text-xs tracking-[0.3em] uppercase text-white/40 mb-3">{title}</p>
           <h2 className="text-2xl md:text-4xl font-light text-white/80 tracking-tight">No images yet</h2>
@@ -63,11 +63,8 @@ export function EmbeddedGallery({ images, title }: EmbeddedGalleryProps) {
       onTouchEnd={handleTouchEnd}
       onTransitionComplete={completeTransition}
     >
-      {/* Image metadata */}
-      <div className="absolute bottom-6 left-0 right-0 flex justify-between px-6 z-10 pointer-events-none">
-        <span className="text-xs tracking-[0.2em] uppercase text-white/40">
-          {currentImage.alt}
-        </span>
+      {/* Image position */}
+      <div className="absolute bottom-6 left-0 right-0 flex justify-end px-6 z-10 pointer-events-none">
         <span className="text-xs tracking-[0.2em] uppercase text-white/40">
           {currentIndex + 1} / {totalImages}
         </span>

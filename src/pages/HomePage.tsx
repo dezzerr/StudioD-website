@@ -32,6 +32,7 @@ export function HomePage({ onCursorChange }: HomePageProps) {
         }}
       />
       <main className="relative">
+        <h1 className="sr-only">StudioD portrait photography</h1>
         <ImmersiveGallery
           images={heroImages}
           onCursorChange={onCursorChange}

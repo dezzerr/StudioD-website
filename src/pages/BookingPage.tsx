@@ -58,7 +58,7 @@ export function BookingPage() {
 
       <main className="relative min-h-screen bg-black pt-32 md:pt-40">
         <section className="relative w-full overflow-hidden pb-20 md:pb-28">
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.08),transparent_38%),linear-gradient(to_bottom,#000,#0a0a0a_55%,#000)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(103,139,196,0.13),transparent_38%),linear-gradient(to_bottom,#f4f7fc,#e7ecf5_55%,#f4f7fc)]" />
 
           <div className="relative mx-auto w-full max-w-[1440px] px-6 md:px-12 lg:px-20">
             <div className="mx-auto max-w-3xl text-center">
