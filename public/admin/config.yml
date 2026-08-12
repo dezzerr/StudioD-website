@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: dezzerr/StudioD-website
   branch: main
+  base_url: https://studiod.com/api
+  auth_endpoint: auth
 
 # Media library configuration
 # To use ImageKit later, uncomment below and register the plugin:
@@ -9,7 +12,7 @@ backend:
 #   config:
 #     publicKey: "VITE_IMAGEKIT_PUBLIC_KEY"
 #     urlEndpoint: "VITE_IMAGEKIT_URL_ENDPOINT"
-#     authenticationEndpoint: "/.netlify/functions/imagekit-auth"
+#     authenticationEndpoint: "/api/imagekit-auth"
 
 media_folder: "public/images"
 public_folder: "/images"
@@ -55,7 +58,7 @@ collections:
         name: "title"
         widget: "string"
         required: true
-        hint: "Collection name (e.g., 'Studio Portraits')"
+        hint: "Collection name (e.g., 'Portraits')"
 
       - label: "Slug"
         name: "slug"
@@ -155,12 +158,12 @@ collections:
             required: false
 
   # ============================================
-  # PRICING - Service Packages
+  # PRICING - Photography Services
   # ============================================
   - name: "pricing"
-    label: "Pricing Packages"
-    label_singular: "Package"
-    description: "Photography session pricing packages"
+    label: "Photography Services"
+    label_singular: "Service"
+    description: "Photography service categories and starting rates"
     folder: "content/pricing"
     create: true
     slug: "{{slug}}"
@@ -173,7 +176,7 @@ collections:
         name: "name"
         widget: "string"
         required: true
-        hint: "e.g., Essential, Signature, Experience"
+        hint: "e.g., Portrait, Events, Weddings, Engagements"
 
       - label: "Slug"
         name: "slug"
@@ -192,7 +195,7 @@ collections:
         name: "duration"
         widget: "string"
         required: true
-        hint: "e.g., 30 minutes, 60 minutes, 2 hours"
+        hint: "e.g., £110/hour, £125/hour, 60-minute minimum"
 
       - label: "Description"
         name: "description"

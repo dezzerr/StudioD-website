@@ -5,6 +5,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        // StudioD's original utility vocabulary used black/white as semantic
+        // canvas/ink colors. Keeping those names mapped to tokens lets the
+        // whole site move to a light palette without scattering overrides.
+        black: "hsl(var(--background) / <alpha-value>)",
+        white: "hsl(var(--foreground) / <alpha-value>)",
+        "photo-black": "#000000",
+        "photo-white": "#ffffff",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -30,6 +37,8 @@ module.exports = {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
+        "accent-strong": "hsl(var(--accent-strong) / <alpha-value>)",
+        "accent-soft": "hsl(var(--accent-soft) / <alpha-value>)",
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",

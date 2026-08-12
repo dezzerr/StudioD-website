@@ -1,423 +1,132 @@
-# StudioD - Backend Documentation
+# StudioD - Vercel Backend Documentation
 
-Complete backend setup guide for image storage, CMS, hosting, and form handling.
+StudioD is deployed as a Vite site on Vercel. Image storage and delivery remain
+with ImageKit, while Cal.com remains the authoritative booking provider.
 
-## Table of Contents
+## Architecture
 
-1. [Architecture Overview](#architecture-overview)
-2. [ImageKit Setup](#imagekit-setup)
-3. [Netlify Hosting](#netlify-hosting)
-4. [Decap CMS Configuration](#decap-cms-configuration)
-5. [Environment Variables](#environment-variables)
-6. [Form Handling](#form-handling)
-7. [Deployment](#deployment)
-8. [Troubleshooting](#troubleshooting)
-
----
-
-## Architecture Overview
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                        STUDIOD                                   │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐      │
-│  │   Frontend   │    │   Netlify    │    │   ImageKit   │      │
-│  │   (React)    │◄──►│  (Hosting)   │◄──►│  (Images)    │      │
-│  └──────────────┘    └──────────────┘    └──────────────┘      │
-│         │                   │                                    │
-│         │            ┌──────┴──────┐                          │
-│         │            │   GitHub    │                          │
-│         │            │   (Repo)    │                          │
-│         │            └──────┬──────┘                          │
-│         │                   │                                    │
-│  ┌──────┴──────┐    ┌──────┴──────┐                          │
-│  │  Decap CMS  │    │   Forms     │                          │
-│  │  (Content)  │    │ (Netlify)   │                          │
-│  └─────────────┘    └─────────────┘                          │
-│                                                                  │
-└─────────────────────────────────────────────────────────────────┘
+```text
+Browser → Vercel static Vite site
+       → Vercel API routes → ImageKit
+       → Cal.com embed
+       → Decap CMS → GitHub OAuth → GitHub repository
 ```
 
----
+## Vercel project
 
-## ImageKit Setup
+Connect the `dezzerr/StudioD-website` repository to Vercel.
 
-ImageKit provides image hosting, optimization, and transformation.
+```text
+Build command: npm run build
+Output directory: dist
+Production branch: main
+Node.js: 20 or newer
+```
 
-### 1. Create Account
+`vercel.json` contains the SPA rewrite, security headers, and asset caching
+rules. The project root is the repository root.
 
-1. Go to [imagekit.io](https://imagekit.io/)
-2. Sign up for a free account (25GB storage)
-3. Verify your email
+## API routes
 
-### 2. Get Credentials
+| Route | Purpose |
+| --- | --- |
+| `GET /api/gallery-feed` | Reads hero and collection metadata from ImageKit |
+| `GET /api/list-images` | Lists approved ImageKit folders |
+| `GET /api/imagekit-auth` | Creates short-lived direct-upload parameters |
+| `POST /api/upload-image` | Compatibility upload route for small files |
+| `POST /api/delete-image` | Deletes an ImageKit file |
+| `POST /api/form-submission` | Validates and logs contact submissions |
+| `GET /api/auth` | Starts Decap GitHub OAuth |
+| `GET /api/callback` | Completes Decap GitHub OAuth |
 
-1. Go to **Dashboard** → **Developer options**
-2. Copy the following:
-   - **URL Endpoint**: `https://ik.imagekit.io/YOUR_ENDPOINT`
-   - **Public Key**: Your public API key
-   - **Private Key**: Your private API key (keep secret!)
+The browser uploads large photographs directly to ImageKit after requesting
+short-lived parameters from `/api/imagekit-auth`. This avoids sending the
+photograph through a Vercel Function.
 
-### 3. Configure ImageKit
+## Environment variables
 
-Create an `.env` file in your project root:
+Public variables are exposed to the Vite browser bundle and must not contain
+secrets:
 
-```bash
+```text
+VITE_SITE_URL=https://studiod.com
 VITE_IMAGEKIT_URL_ENDPOINT=https://ik.imagekit.io/YOUR_ENDPOINT
-VITE_IMAGEKIT_PUBLIC_KEY=your_public_key
-IMAGEKIT_PRIVATE_KEY=your_private_key
+VITE_IMAGEKIT_PUBLIC_KEY=YOUR_PUBLIC_KEY
+VITE_CAL_EVENT_PORTRAIT_URL=https://cal.com/derrick-rfm57g/portrait-session
+VITE_CAL_EVENT_EVENT_URL=https://cal.com/derrick-rfm57g/event-shoot
+VITE_CAL_EVENT_WEDDING_URL=https://cal.com/derrick-rfm57g/wedding-shoot
+VITE_CAL_EVENT_ENGAGEMENT_URL=https://cal.com/derrick-rfm57g/engagement-shoot
 ```
 
-### 4. Folder Structure
+Server-only variables belong in Vercel's environment settings:
 
-Create these folders in ImageKit dashboard:
-- `/studio-d/hero` - Hero carousel images
-- `/studio-d/collections/studio-portraits` - Studio collection images
-- `/studio-d/collections/family-sessions` - Family collection images
-- `/studio-d/collections/event-photography` - Event collection images
-
-### 5. Image Transformations
-
-The app uses these transformations automatically:
-
-```typescript
-// Gallery images
-{ width: 1200, height: 1600, quality: 90, format: 'auto' }
-
-// Thumbnails
-{ width: 400, height: 533, quality: 80, format: 'auto' }
-
-// Collection cards
-{ width: 800, height: 1000, quality: 85, format: 'auto' }
+```text
+IMAGEKIT_PRIVATE_KEY=YOUR_PRIVATE_KEY
+GITHUB_REPO=dezzerr/StudioD-website
+GITHUB_OAUTH_CLIENT_ID=YOUR_CLIENT_ID
+GITHUB_OAUTH_CLIENT_SECRET=YOUR_CLIENT_SECRET
+STUDIO_ADMIN_SESSION_SECRET=YOUR_LONG_RANDOM_SESSION_SECRET
+CONTACT_EMAIL=hello@studiod.com
 ```
 
----
+The contact form currently validates and logs submissions. It does not send
+email until an email provider such as Resend is deliberately configured.
 
-## Netlify Hosting
+## ImageKit setup
 
-### 1. Create Account
+Create these folders in ImageKit:
 
-1. Go to [netlify.com](https://netlify.com)
-2. Sign up with GitHub
+- `/studio-d/hero`
+- `/studio-d/collections/studio-portraits`
+- `/studio-d/collections/family-sessions`
+- `/studio-d/collections/event-photography`
 
-### 2. Connect Repository
+Keep the ImageKit private key server-side. The public endpoint and public key
+may be used by the browser for image delivery and direct uploads.
 
-1. Click **Add new site** → **Import an existing project**
-2. Select GitHub
-3. Choose your `studio-d` repository
-4. Build settings:
-   - **Build command**: `npm run build`
-   - **Publish directory**: `dist`
+## Decap CMS setup
 
-### 3. Enable Identity (for CMS)
+The CMS is available at `/admin/` and uses the GitHub backend configured in
+`public/admin/config.yml`.
 
-1. Go to **Site settings** → **Identity**
-2. Click **Enable Identity**
-3. Set registration to **Invite only** (recommended)
+Create a GitHub OAuth App with this callback URL:
 
-### 4. Enable Git Gateway
-
-1. In Identity settings, go to **Services**
-2. Click **Enable Git Gateway**
-3. This allows CMS to commit to your repo
-
-### 5. Environment Variables
-
-Add these in **Site settings** → **Environment variables**:
-
-```
-VITE_IMAGEKIT_URL_ENDPOINT
-VITE_IMAGEKIT_PUBLIC_KEY
-IMAGEKIT_PRIVATE_KEY
-CONTACT_EMAIL
+```text
+https://studiod.com/api/callback
 ```
 
----
+Add the client ID and secret to Vercel. Admin users must have write access to
+`dezzerr/StudioD-website`.
 
-## Decap CMS Configuration
+The OAuth callback validates a signed state cookie, exchanges the authorization
+code server-side, and returns the token to Decap through its popup handshake.
 
-### Access the CMS
+## Local development
 
-Navigate to: `https://your-site.netlify.app/admin/`
-
-### User Management
-
-1. Invite users from **Identity** tab
-2. Users will receive email invitation
-3. They can log in with email/password or OAuth
-
-### Content Structure
-
-The CMS manages:
-
-#### Collections
-- Title
-- Season/Date
-- Description
-- Thumbnail image
-- Category (Studio, Location, Family, Editorial, Corporate)
-- Featured flag
-- Gallery images array
-
-#### Pricing Packages
-- Package name
-- Price
-- Duration
-- Description
-- Features list
-- Popular flag
-
-#### Site Settings
-- Site title
-- Contact email
-- Phone number
-- Instagram handle
-- Studio address
-
----
-
-## Environment Variables
-
-### Required Variables
-
-| Variable | Description | Source |
-|----------|-------------|--------|
-| `VITE_IMAGEKIT_URL_ENDPOINT` | ImageKit URL endpoint | ImageKit Dashboard |
-| `VITE_IMAGEKIT_PUBLIC_KEY` | ImageKit public API key | ImageKit Dashboard |
-| `IMAGEKIT_PRIVATE_KEY` | ImageKit private API key | ImageKit Dashboard |
-
-### Optional Variables
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `CONTACT_EMAIL` | Form submission recipient | hello@studiod.com |
-| `SENDGRID_API_KEY` | SendGrid for email notifications | - |
-| `RESEND_API_KEY` | Resend for email notifications | - |
-| `VITE_GA_MEASUREMENT_ID` | Google Analytics 4 ID | - |
-
-### Development vs Production
-
-**Development** (`.env.local`):
-```bash
-VITE_IMAGEKIT_URL_ENDPOINT=https://ik.imagekit.io/dev-endpoint
-```
-
-**Production** (Netlify Environment Variables):
-```bash
-VITE_IMAGEKIT_URL_ENDPOINT=https://ik.imagekit.io/prod-endpoint
-```
-
----
-
-## Form Handling
-
-### How It Works
-
-1. User submits contact form
-2. Frontend sends POST to `/.netlify/functions/form-submission`
-3. Netlify Function processes the submission
-4. Email notification sent (if configured)
-5. Success response returned to user
-
-### Email Notifications
-
-#### Option 1: Netlify Forms (Default)
-No configuration needed. Submissions appear in Netlify dashboard.
-
-#### Option 2: SendGrid
-1. Create account at [sendgrid.com](https://sendgrid.com)
-2. Get API key
-3. Add to environment variables:
-   ```
-   SENDGRID_API_KEY=your-api-key
-   ```
-
-#### Option 3: Resend
-1. Create account at [resend.com](https://resend.com)
-2. Get API key
-3. Add to environment variables:
-   ```
-   RESEND_API_KEY=your-api-key
-   ```
-
-### Viewing Submissions
-
-- **Netlify Dashboard**: Site → Forms
-- **API Endpoint**: `/.netlify/functions/form-submission`
-
----
-
-## Deployment
-
-### Automatic Deployment
-
-Netlify automatically deploys when you push to GitHub:
-
-```bash
-git add .
-git commit -m "Update content"
-git push origin main
-```
-
-### Manual Deployment
-
-```bash
-# Install Netlify CLI
-npm install -g netlify-cli
-
-# Login
-netlify login
-
-# Link to site
-netlify link
-
-# Deploy
-netlify deploy --prod
-```
-
-### Deploy Preview
-
-Every pull request gets a preview URL:
-```
-https://deploy-preview-123--your-site.netlify.app
-```
-
----
-
-## Image Upload Workflow
-
-### Folder-to-section mapping
-
-| ImageKit folder | Appears on site |
-|---|---|
-| `/studio-d/hero` | Hero section |
-| `/studio-d/collections/studio-portraits` | Studio Portraits collection |
-| `/studio-d/collections/family-sessions` | Family Sessions collection |
-| `/studio-d/collections/event-photography` | Event Photography collection |
-
-Hero images are sourced only from `/studio-d/hero`.
-
-### Via CMS
-
-1. Log in to `/admin/`
-2. Create/edit a collection
-3. Click **Choose an image**
-4. Upload or select existing image
-5. Image is uploaded to ImageKit
-6. URL is saved in the collection
-
-### Via API
-
-```typescript
-import { uploadImage } from '@/services/imagekit';
-
-const file = event.target.files[0];
-const result = await uploadImage(file, 'collections');
-console.log(result.url); // ImageKit URL
-```
-
-### Image Optimization
-
-Images are automatically optimized with:
-- WebP/AVIF format (when supported)
-- Responsive sizing
-- Quality compression
-- Lazy loading
-
----
-
-## Troubleshooting
-
-### Images Not Loading
-
-1. Check ImageKit credentials in environment variables
-2. Verify image exists in ImageKit dashboard
-3. Verify the image is in the correct folder for the target section
-4. Hero images must be in `/studio-d/hero` (collection folders are not used for hero)
-5. Check browser console for network errors (404/400)
-6. Ensure CORS is configured in ImageKit
-
-### CMS Not Working
-
-1. Verify Git Gateway is enabled
-2. Check Identity service is active
-3. Ensure user has been invited
-4. Check browser console for auth errors
-
-### Forms Not Submitting
-
-1. Check Netlify Functions logs
-2. Verify environment variables are set
-3. Test function locally: `netlify dev`
-
-### Build Failures
-
-1. Check build logs in Netlify dashboard
-2. Ensure all dependencies are in package.json
-3. Verify Node.js version (should be 18+)
-
----
-
-## Local Development
-
-### Start Dev Server
+Run the browser app with:
 
 ```bash
 npm install
 npm run dev
 ```
 
-### Test Netlify Functions Locally
+The Vite development server serves the frontend. For local Vercel Function and
+OAuth testing, use the Vercel CLI after linking the project:
 
 ```bash
-netlify dev
+npx vercel dev
 ```
 
-This starts:
-- Frontend: `http://localhost:5173`
-- Functions: `http://localhost:8888/.netlify/functions/`
+Use a separate GitHub OAuth App for local development. Never use the production
+OAuth secret in a local `.env.local` file.
 
-### Test CMS Locally
+## Deployment checklist
 
-1. Start dev server: `netlify dev`
-2. Navigate to `http://localhost:8888/admin/`
-3. Log in with CMS credentials
-
----
-
-## Security Checklist
-
-- [ ] ImageKit private key kept secret (server-side only)
-- [ ] Netlify Identity set to invite-only
-- [ ] Environment variables not committed to git
-- [ ] `.env` added to `.gitignore`
-- [ ] CORS configured in ImageKit
-- [ ] Content Security Policy headers set
-
----
-
-## Cost Estimates
-
-### Free Tier Limits
-
-| Service | Free Tier | Usage |
-|---------|-----------|-------|
-| **Netlify** | 100GB bandwidth/mo | ~10K visits |
-| **ImageKit** | 25GB storage | ~2,500 images |
-| **Decap CMS** | Unlimited | Free |
-
-### Paid Upgrades
-
-- **Netlify Pro**: $19/mo (1TB bandwidth)
-- **ImageKit Premium**: $49/mo (100GB storage)
-
----
-
-## Support
-
-- **Netlify Docs**: [docs.netlify.com](https://docs.netlify.com)
-- **ImageKit Docs**: [docs.imagekit.io](https://docs.imagekit.io)
-- **Decap CMS Docs**: [decapcms.org/docs](https://decapcms.org/docs)
-- **GitHub Issues**: Create an issue in your repo
+- Add all Preview and Production variables in Vercel.
+- Verify the build with `npm run build`.
+- Test gallery feed and Cal.com booking routes on a Vercel preview.
+- Test `/admin/` with the GitHub OAuth application.
+- Add `studiod.com` and `www.studiod.com` to Vercel.
+- Point DNS to the records provided by Vercel.
+- Verify SSL, SPA routes, CSP, ImageKit, booking, contact validation, and admin.
+- Keep the existing Netlify project available until the Vercel deployment is stable.

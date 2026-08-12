@@ -70,7 +70,7 @@ export function ContactSection() {
     setError(null);
 
     try {
-      const response = await fetch('/.netlify/functions/form-submission', {
+      const response = await fetch('/api/form-submission', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -100,12 +100,12 @@ export function ContactSection() {
       className="relative w-full min-h-screen bg-black py-24 md:py-32"
     >
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 to-black pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-secondary to-background pointer-events-none" />
 
       <div className="relative w-full px-6 md:px-12 lg:px-20">
         {/* Section Header */}
         <div className="text-center mb-16 md:mb-24">
-          <span className="animate-in text-xs tracking-[0.3em] uppercase text-white/50 block mb-4">
+          <span className="animate-in accent-kicker mb-4 block text-xs uppercase tracking-[0.3em]">
             Get in Touch
           </span>
           <h2 className="animate-in text-4xl md:text-6xl lg:text-7xl font-light text-white tracking-tight">
@@ -285,7 +285,7 @@ export function ContactSection() {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-6 bg-white text-black hover:bg-white/90 rounded-lg text-sm tracking-[0.15em] uppercase font-medium transition-all duration-300 disabled:opacity-50"
+                  className="accent-button w-full rounded-lg border py-6 text-sm font-medium uppercase tracking-[0.15em] transition-all duration-300 disabled:opacity-50"
                 >
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                 </Button>

@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { collections as fallbackCollections } from '@/data/collections';
@@ -59,7 +60,7 @@ export function CollectionsSection({ collections = fallbackCollections }: Collec
       <div className="w-full px-6 md:px-12 lg:px-20">
         {/* Section Header */}
         <div className="mb-16 md:mb-24">
-          <span className="text-xs tracking-[0.3em] uppercase text-white/50 block mb-4">
+          <span className="accent-kicker mb-4 block text-xs uppercase tracking-[0.3em]">
             Portfolio
           </span>
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-light text-white tracking-tight">
@@ -77,9 +78,10 @@ export function CollectionsSection({ collections = fallbackCollections }: Collec
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
         >
           {collections.map((collection) => (
-            <div
+            <Link
+              to={`/collections/${collection.id}`}
               key={collection.id}
-              className="collection-card group relative overflow-hidden rounded-lg cursor-pointer"
+              className="collection-card group relative block cursor-pointer overflow-hidden rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
               {/* Image */}
               <div className="aspect-[4/5] overflow-hidden">
@@ -90,7 +92,7 @@ export function CollectionsSection({ collections = fallbackCollections }: Collec
                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                 ) : (
-                  <div className="w-full h-full bg-neutral-900 flex items-center justify-center px-4 text-center">
+                  <div className="w-full h-full bg-secondary flex items-center justify-center px-4 text-center">
                     <span className="text-[10px] tracking-[0.2em] uppercase text-white/50">
                       No images yet
                     </span>
@@ -99,27 +101,27 @@ export function CollectionsSection({ collections = fallbackCollections }: Collec
               </div>
 
               {/* Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-gradient-to-t from-photo-black/80 via-photo-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
 
               {/* Content */}
               <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
                 <div className="flex items-end justify-between">
                   <div>
-                    <span className="text-[10px] tracking-[0.3em] uppercase text-white/50 block mb-2">
+                    <span className="text-[10px] tracking-[0.3em] uppercase text-photo-white/60 block mb-2">
                       {collection.season}
                     </span>
-                    <h3 className="text-xl md:text-2xl font-light text-white tracking-tight">
+                    <h3 className="text-xl md:text-2xl font-light text-photo-white tracking-tight">
                       {collection.title}
                     </h3>
-                    <p className="mt-2 text-sm text-white/60 font-light line-clamp-2">
+                    <p className="mt-2 text-sm text-photo-white/70 font-light line-clamp-2">
                       {collection.description}
                     </p>
                   </div>
                   <div className="flex-shrink-0 ml-4">
-                    <div className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white group-hover:border-white transition-all duration-300">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full border border-photo-white/40 transition-all duration-300 group-hover:border-accent group-hover:bg-accent">
                       <ArrowUpRight 
                         size={18} 
-                        className="text-white group-hover:text-black transition-colors duration-300" 
+                        className="text-photo-white transition-colors duration-300 group-hover:text-accent-foreground"
                       />
                     </div>
                   </div>
@@ -128,11 +130,11 @@ export function CollectionsSection({ collections = fallbackCollections }: Collec
 
               {/* Category Tag */}
               <div className="absolute top-4 left-4">
-                <span className="text-[10px] tracking-[0.2em] uppercase px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-white/70">
+                <span className="rounded-full bg-accent px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-accent-foreground shadow-sm">
                   {collection.category}
                 </span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

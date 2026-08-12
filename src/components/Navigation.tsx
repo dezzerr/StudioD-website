@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { Menu, X } from 'lucide-react';
 import { navItems } from '@/data/collections';
@@ -6,6 +7,10 @@ import { navItems } from '@/data/collections';
 export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHome = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,20 +23,45 @@ export function Navigation() {
   }, []);
 
   useEffect(() => {
-    if (isMobileMenuOpen) {
-      gsap.fromTo(
-        '.mobile-menu-item',
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }
-      );
-    }
+    if (!isMobileMenuOpen) return;
+
+    gsap.fromTo(
+      '.mobile-menu-item',
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }
+    );
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMobileMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
   }, [isMobileMenuOpen]);
 
   const handleNavClick = (href: string) => {
     setIsMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (href.startsWith('/')) {
+      navigate(href);
+    } else if (isHome) {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      navigate('/' + href);
+    }
+  };
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (isHome) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/');
     }
   };
 
@@ -40,7 +70,7 @@ export function Navigation() {
       {/* Fixed Navigation */}
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled
+          isScrolled || !isHome
             ? 'bg-black/80 backdrop-blur-md py-4'
             : 'bg-transparent py-6'
         }`}
@@ -48,12 +78,9 @@ export function Navigation() {
         <div className="w-full px-6 md:px-12 flex items-center justify-between">
           {/* Logo */}
           <a 
-            href="#" 
-            className="text-lg md:text-xl tracking-[0.2em] font-light text-white hover:opacity-80 transition-opacity"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
+            href="/"
+            className="text-lg md:text-xl tracking-[0.2em] font-light text-white transition-colors hover:text-accent-strong"
+            onClick={handleLogoClick}
           >
             STUDIOD
           </a>
@@ -73,9 +100,11 @@ export function Navigation() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-white p-2"
+            ref={menuButtonRef}
+            className="md:hidden p-2 text-white transition-colors hover:text-accent-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -95,7 +124,7 @@ export function Navigation() {
             <button
               key={item.label}
               onClick={() => handleNavClick(item.href)}
-              className="mobile-menu-item text-3xl tracking-wider text-white opacity-70 hover:opacity-100 transition-opacity"
+              className="mobile-menu-item text-3xl tracking-wider text-white opacity-70 transition-colors hover:text-accent-strong hover:opacity-100"
               style={{ transitionDelay: `${index * 50}ms` }}
             >
               {item.label}
