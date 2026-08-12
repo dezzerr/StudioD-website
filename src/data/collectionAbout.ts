@@ -1,50 +1,76 @@
+import type { PhotographyServiceId } from '@/types';
+
 export interface CollectionAbout {
   headline: string;
+  seoDescription: string;
   paragraphs: string[];
   highlights: { label: string; description: string }[];
+  bookingCta: {
+    headline: string;
+    buttonLabel: string;
+    serviceId: PhotographyServiceId;
+  };
 }
 
 export const collectionAbout: Record<string, CollectionAbout> = {
   'studio-portraits': {
-    headline: 'Portraits That Reveal the Real You',
+    headline: 'Portraits That Feel Like You',
+    seoDescription: 'Portrait photography in London with indoor studio or outdoor sessions. Includes 10 fully edited images, with additional photographs available to purchase.',
     paragraphs: [
-      'A great portrait doesn\'t just show what you look like — it shows who you are. At StudioD, every studio portrait session is built around bringing out your authentic self, whether that\'s quiet confidence, bold energy, or something in between.',
-      'Our controlled studio environment means we shape every shadow, every highlight, and every reflection to flatter you perfectly. No harsh sunlight, no unpredictable weather, no distractions — just pure, intentional lighting crafted to make you look your absolute best.',
-      'With over 12 years and 500+ sessions of experience, we know how to guide you through poses, expressions, and wardrobe choices that work for your face, your body, and your personal brand. You don\'t need to be a model. You just need to show up — we\'ll handle the rest.',
+      'A portrait should feel like more than a record of how you looked on the day. It should hold your confidence, character and the small expressions that make you recognisably you. Whether you need a polished professional image, a creative portrait or simply want to mark this chapter of your life, we shape the session around the story you want the photographs to tell.',
+      'Choose an indoor studio session for privacy, controlled lighting and a clean, timeless finish. Prefer something more natural and full of movement? An outdoor session uses the light, colour and character of a location you love to create images that feel relaxed and alive. Outdoor sessions are weather permitting, and we will agree a backup plan if the forecast changes.',
+      'You do not need to know how to pose. With over 12 years and 500+ sessions of experience, we guide you through wardrobe, movement and expression so you can settle in and enjoy the process. Every portrait session includes your choice of 10 fully edited images, with the option to purchase additional photographs after you view your gallery.',
     ],
     highlights: [
-      { label: 'Controlled Studio Lighting', description: 'Every shadow and highlight shaped to flatter you' },
-      { label: 'Pose & Expression Guidance', description: 'Directed throughout so you never feel lost' },
-      { label: 'Wardrobe Consultation', description: 'Advice on outfits, colours, and styling that works' },
-      { label: 'Professional to Creative', description: 'From clean corporate headshots to bold artistic portraits' },
+      { label: 'Studio or Outdoor', description: 'Controlled studio polish or natural, location-led storytelling' },
+      { label: 'Guidance Throughout', description: 'Clear direction for wardrobe, posing, movement and expression' },
+      { label: '10 Edited Images Included', description: 'Choose your favourites, with additional images available to purchase' },
+      { label: 'Made Around You', description: 'From professional headshots to creative personal portraits' },
     ],
+    bookingCta: {
+      headline: 'Let\'s create portraits that feel like you',
+      buttonLabel: 'Book a portrait session',
+      serviceId: 'portrait',
+    },
   },
   'family-sessions': {
-    headline: 'Family Moments Worth Holding Onto',
+    headline: 'The Way Your Family Feels Right Now',
+    seoDescription: 'Relaxed family portrait sessions in London, indoors or outdoors. Includes 10 fully edited images, with additional photographs available to purchase.',
     paragraphs: [
-      'Family photography shouldn\'t feel like a chore — it should feel like a memory being made. That\'s the philosophy behind every family session at StudioD. We create a relaxed, pressure-free environment where kids can be kids, parents can breathe, and genuine moments happen naturally.',
-      'Whether it\'s in our studio or at a location of your choosing, we focus on connection over posing. The best family portraits aren\'t the ones where everyone is staring stiffly at the camera — they\'re the ones where you\'re laughing together, holding each other, and being yourselves.',
-      'These are images you\'ll have for a lifetime. We treat them that way — heirloom-quality photographs that capture this season of your family\'s story, printed and delivered with the care it deserves.',
+      'Family photographs become more valuable with time because they bring back the details that are easy to miss in the middle of a busy week: the way your child reaches for your hand, the laugh everyone recognises and the closeness you share. Our family sessions make space for those moments, so you leave with photographs that feel warm, natural and unmistakably yours.',
+      'Choose the studio for a calm, private setting with consistent lighting and a timeless finish, or head outdoors for natural light, open space and room for children to move and play. Outdoor sessions are weather permitting, and we will agree a backup plan if the forecast changes.',
+      'We keep the experience relaxed and offer gentle direction when you need it, without forcing everyone into stiff poses. Every family session includes your choice of 10 fully edited images. Once you have seen the gallery, you can purchase additional photographs if there are more moments you want to keep.',
     ],
     highlights: [
-      { label: 'Studio or On-Location', description: 'Choose the setting that feels most like home' },
-      { label: 'Kid-Friendly Approach', description: 'Patient, playful sessions that keep children comfortable' },
-      { label: 'Natural & Candid Style', description: 'Real moments over stiff, forced poses' },
-      { label: 'Heirloom-Quality Results', description: 'Images designed to be treasured for generations' },
+      { label: 'Studio or Outdoor', description: 'Choose the setting that best suits your family' },
+      { label: 'Relaxed and Child-Friendly', description: 'Patient sessions with room for children to be themselves' },
+      { label: '10 Edited Images Included', description: 'Select your favourites, with additional images available to purchase' },
+      { label: 'Real Connection', description: 'Warm photographs built around genuine interaction' },
     ],
+    bookingCta: {
+      headline: 'Plan your family portrait session',
+      buttonLabel: 'Book a family session',
+      serviceId: 'portrait',
+    },
   },
   'event-photography': {
     headline: 'Event Coverage That Tells the Full Story',
+    seoDescription: 'Story-led event photography in London with every final usable image edited and included. Galleries typically contain approximately 70 to 800 photographs.',
     paragraphs: [
-      'Events are lived in moments — a shared glance, a spontaneous laugh, the energy of a room full of people celebrating something that matters. Our event photography captures all of it, not just the planned shots but the in-between seconds that make the story real.',
-      'We work discreetly, moving through your event without disrupting it. You\'ll barely notice we\'re there, but you\'ll see everything when you get your gallery — the big moments, the quiet ones, and the ones you missed because you were too busy enjoying yourself.',
-      'From private celebrations to corporate functions, we bring the same editorial eye that shapes our portrait work. The result is a collection of images that don\'t just document your event — they convey what it felt like to be there.',
+      'Your event is made up of more than the moments on the running order. It is the anticipation before the doors open, the people seeing one another, the laughter between speeches and the atmosphere you worked hard to create. We photograph the full story, from the key moments you expect to the small exchanges you may not see while the day is unfolding.',
+      'We work calmly and discreetly, moving through private celebrations, corporate functions and larger gatherings without interrupting the experience. You can stay present with your guests while we document the people, details and energy that made the occasion yours.',
+      'Every final usable image captured during your coverage is professionally edited and included in your gallery. The number of photographs depends on the length and pace of the event, but clients can typically expect approximately 70 to 800 images. There is no separate image selection and no additional charge to unlock the rest of the finished gallery.',
     ],
     highlights: [
-      { label: 'Discreet, Unobtrusive Coverage', description: 'We capture the moment without interrupting it' },
-      { label: 'Editorial-Quality Images', description: 'Every shot held to the same standard as our portrait work' },
-      { label: 'Private & Commercial Events', description: 'From intimate gatherings to large-scale functions' },
-      { label: 'Comprehensive Storytelling', description: 'Big moments, candid details, and everything in between' },
+      { label: 'All Final Images Included', description: 'Every usable photograph is professionally edited and delivered' },
+      { label: 'Approximately 70 to 800 Images', description: 'Gallery size reflects the length and pace of the event' },
+      { label: 'Discreet Storytelling', description: 'Natural coverage without interrupting the occasion' },
+      { label: 'Private and Commercial Events', description: 'From intimate gatherings to large functions' },
     ],
+    bookingCta: {
+      headline: 'Tell us about your event',
+      buttonLabel: 'Book event photography',
+      serviceId: 'event',
+    },
   },
 };

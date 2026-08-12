@@ -59,7 +59,7 @@ export function PricingSection() {
       <div className="relative w-full px-6 md:px-12 lg:px-20">
         {/* Section Header */}
         <div className="text-center mb-16 md:mb-24">
-          <span className="text-xs tracking-[0.3em] uppercase text-white/50 block mb-4">
+          <span className="accent-kicker mb-4 block text-xs uppercase tracking-[0.3em]">
             Investment
           </span>
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-light text-white tracking-tight">
@@ -106,7 +106,7 @@ export function PricingSection() {
 
               <Link
                 to={`/booking?service=${service.id}`}
-                className="mt-8 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg border border-white/20 bg-white/10 px-4 text-sm font-medium uppercase tracking-[0.15em] text-white transition-all duration-300 hover:border-white/40 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                className="accent-outline mt-8 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg border bg-white/5 px-4 text-sm font-medium uppercase tracking-[0.15em] text-white transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
               >
                 Book {service.name}
                 <ArrowRight size={15} aria-hidden="true" />
@@ -122,7 +122,7 @@ export function PricingSection() {
             {' '}
             <Link
               to="/contact"
-              className="text-white/60 hover:text-white underline underline-offset-4 transition-colors"
+              className="text-white/60 underline underline-offset-4 transition-colors hover:text-accent-strong"
             >
               Contact us
             </Link>

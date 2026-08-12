@@ -62,7 +62,7 @@ export function ImmersiveGallery({ images, onCursorChange }: ImmersiveGalleryPro
 
   if (!currentImage || totalImages === 0) {
     return (
-      <div className="relative w-full h-screen bg-black overflow-hidden">
+      <div className="relative h-[calc(100svh-7rem)] min-h-[560px] w-full overflow-hidden rounded-2xl border border-white/10 bg-black md:h-[calc(100svh-6rem)]">
         <div className="absolute inset-0 flex items-center justify-center text-center px-6">
           <div>
             <p className="text-xs tracking-[0.3em] uppercase text-white/40 mb-3">Portfolio</p>
@@ -79,7 +79,7 @@ export function ImmersiveGallery({ images, onCursorChange }: ImmersiveGalleryPro
   return (
     <div 
       ref={containerRef}
-      className="relative w-full h-screen bg-black overflow-hidden"
+      className="relative h-[calc(100svh-7rem)] min-h-[560px] w-full overflow-hidden rounded-2xl border border-white/10 bg-black md:h-[calc(100svh-6rem)]"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onFocusCapture={handleFocus}
@@ -150,8 +150,8 @@ export function ImmersiveGallery({ images, onCursorChange }: ImmersiveGalleryPro
 
       {/* Scroll Indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10 opacity-50 pointer-events-none">
-        <span className="text-[10px] tracking-widest uppercase">Scroll to explore</span>
-        <div className="w-px h-8 bg-gradient-to-b from-white/50 to-transparent" />
+        <span className="text-[10px] tracking-widest uppercase text-accent-strong">Scroll to explore</span>
+        <div className="h-8 w-px bg-gradient-to-b from-accent to-transparent" />
       </div>
     </div>
   );

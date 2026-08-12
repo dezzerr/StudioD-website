@@ -76,7 +76,7 @@ html {
 
 .progress-dot.active {
   width: 24px;
-  background: rgba(29, 36, 53, 0.9);
+  background: hsl(var(--accent));
 }
 
 /* Navigation link underline effect */
@@ -91,7 +91,7 @@ html {
   left: 0;
   width: 0;
   height: 1px;
-  background: hsl(var(--foreground));
+  background: hsl(var(--accent));
   transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -103,7 +103,7 @@ html {
 input:focus,
 textarea:focus {
   outline: none;
-  box-shadow: 0 0 0 2px rgba(29, 36, 53, 0.12);
+  box-shadow: 0 0 0 2px hsl(var(--accent) / 0.28);
 }
 
 /* Button hover lift effect */

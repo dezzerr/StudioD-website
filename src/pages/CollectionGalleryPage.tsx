@@ -1,8 +1,8 @@
 import { useRef, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Check } from 'lucide-react';
+import { ArrowRight, Check } from 'lucide-react';
 import { useGalleryFeed } from '@/hooks/useGalleryFeed';
 import { EmbeddedGallery } from '@/components/gallery/EmbeddedGallery';
 import { Footer } from '@/components/Footer';
@@ -98,14 +98,14 @@ export function CollectionGalleryPage() {
   return (
     <>
       <SEO
-        title={`${collection.title} — StudioD`}
-        description={about ? about.paragraphs[0] : collection.description}
+        title={collection.title}
+        description={about ? about.seoDescription : collection.description}
         path={`/collections/${collection.id}`}
         jsonLd={{
           '@context': 'https://schema.org',
           '@type': 'CollectionPage',
           name: collection.title,
-          description: collection.description,
+          description: about ? about.seoDescription : collection.description,
         }}
       />
       <main className="relative bg-black pt-24 md:pt-28 min-h-screen">
@@ -143,7 +143,7 @@ export function CollectionGalleryPage() {
           {about && (
             <section className="mb-20 md:mb-28">
               {/* Category label */}
-              <span className="animate-in text-xs tracking-[0.3em] uppercase text-white/50 block mb-4">
+              <span className="animate-in accent-kicker mb-4 block text-xs uppercase tracking-[0.3em]">
                 {collection.title}
               </span>
 
@@ -166,8 +166,8 @@ export function CollectionGalleryPage() {
                     key={index}
                     className="flex items-start gap-3 p-4 rounded-lg border border-white/10 bg-white/[0.02]"
                   >
-                    <div className="flex-shrink-0 w-8 h-8 rounded-full border border-white/20 flex items-center justify-center mt-0.5">
-                      <Check size={14} className="text-white/60" />
+                    <div className="mt-0.5 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-accent/40 bg-accent-soft">
+                      <Check size={14} className="text-accent-strong" />
                     </div>
                     <div>
                       <p className="text-sm font-medium text-white/90">{highlight.label}</p>
@@ -175,6 +175,22 @@ export function CollectionGalleryPage() {
                     </div>
                   </div>
                 ))}
+              </div>
+
+              {/* Booking CTA */}
+              <div className="animate-in mt-16 max-w-3xl rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
+                <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+                  <h2 className="max-w-lg text-2xl font-light tracking-tight text-white md:text-3xl">
+                    {about.bookingCta.headline}
+                  </h2>
+                  <Link
+                    to={`/booking?service=${about.bookingCta.serviceId}`}
+                    className="accent-button inline-flex min-h-12 shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-lg border px-4 text-xs font-medium uppercase tracking-[0.12em] transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:px-5 sm:text-sm sm:tracking-[0.15em]"
+                  >
+                    {about.bookingCta.buttonLabel}
+                    <ArrowRight size={15} aria-hidden="true" />
+                  </Link>
+                </div>
               </div>
             </section>
           )}

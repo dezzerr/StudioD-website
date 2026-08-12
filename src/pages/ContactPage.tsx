@@ -143,7 +143,7 @@ export function ContactPage() {
           <div className="relative w-full px-6 md:px-12 lg:px-20">
             {/* Header */}
             <div className="text-center mb-16 md:mb-24">
-              <span className="animate-in text-xs tracking-[0.3em] uppercase text-white/50 block mb-4">
+              <span className="animate-in accent-kicker mb-4 block text-xs uppercase tracking-[0.3em]">
                 Get in Touch
               </span>
               <h1 className="animate-in text-4xl md:text-6xl lg:text-7xl font-light text-white tracking-tight">
@@ -155,7 +155,7 @@ export function ContactPage() {
               </p>
               <Link
                 to="/booking"
-                className="animate-in mt-8 inline-flex min-h-11 items-center justify-center rounded-full bg-white px-6 text-xs font-medium uppercase tracking-[0.18em] text-black transition-colors hover:bg-white/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                className="animate-in accent-button mt-8 inline-flex min-h-11 items-center justify-center rounded-full border px-6 text-xs font-medium uppercase tracking-[0.18em] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 Request a booking
               </Link>
@@ -344,7 +344,7 @@ export function ContactPage() {
                     <Button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-6 bg-white text-black hover:bg-white/90 rounded-lg text-sm tracking-[0.15em] uppercase font-medium transition-all duration-300 disabled:opacity-50"
+                      className="accent-button w-full rounded-lg border py-6 text-sm font-medium uppercase tracking-[0.15em] transition-all duration-300 disabled:opacity-50"
                     >
                       {isSubmitting ? (
                         'Sending...'

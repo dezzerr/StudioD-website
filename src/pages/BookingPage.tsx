@@ -62,7 +62,7 @@ export function BookingPage() {
 
           <div className="relative mx-auto w-full max-w-[1440px] px-6 md:px-12 lg:px-20">
             <div className="mx-auto max-w-3xl text-center">
-              <span className="block text-xs uppercase tracking-[0.3em] text-white/50">
+              <span className="accent-kicker block text-xs uppercase tracking-[0.3em]">
                 Reserve your time
               </span>
               <h1 className="mt-4 text-4xl font-light tracking-tight text-white md:text-6xl lg:text-7xl">
@@ -77,7 +77,7 @@ export function BookingPage() {
             <div className="mx-auto mt-14 grid max-w-6xl gap-10 lg:mt-20 lg:grid-cols-[minmax(240px,0.72fr)_minmax(0,1.28fr)] lg:items-start lg:gap-16">
               <aside className="space-y-8 lg:sticky lg:top-28">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.25em] text-white/40">01 / Choose a service</p>
+                  <p className="accent-kicker text-xs uppercase tracking-[0.25em]">01 / Choose a service</p>
                   <h2 className="mt-3 text-2xl font-light text-white">Start with what you need.</h2>
                 </div>
 
@@ -92,10 +92,10 @@ export function BookingPage() {
                         role="radio"
                         aria-checked={isSelected}
                         onClick={() => handleServiceChange(service.id)}
-                        className={`group w-full rounded-xl border p-5 text-left transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 ${
+                        className={`group w-full rounded-xl border p-5 text-left transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
                           isSelected
-                            ? 'border-white/40 bg-white text-black'
-                            : 'border-white/10 bg-white/[0.03] text-white hover:border-white/25 hover:bg-white/[0.06]'
+                            ? 'border-accent bg-accent text-accent-foreground shadow-[0_12px_30px_hsl(var(--accent)/0.14)]'
+                            : 'border-white/10 bg-white/[0.03] text-white hover:border-accent/35 hover:bg-accent-soft/40'
                         }`}
                       >
                         <div className="flex items-start justify-between gap-4">
@@ -108,7 +108,7 @@ export function BookingPage() {
                           <ArrowRight
                             size={17}
                             className={`mt-1 shrink-0 transition-transform duration-300 group-hover:translate-x-1 ${
-                              isSelected ? 'text-black/70' : 'text-white/50'
+                              isSelected ? 'text-accent-foreground/70' : 'text-white/50'
                             }`}
                             aria-hidden="true"
                           />
@@ -137,7 +137,7 @@ export function BookingPage() {
                   <div className="flex gap-3">
                     <MapPin size={18} className="mt-0.5 shrink-0 text-white/50" aria-hidden="true" />
                     <p className="text-sm leading-relaxed text-white/55">
-                      Studio and London on-location sessions are available. Location details are requested where they are needed for the service.
+                      Portrait and family sessions can take place in the studio or outdoors across London. Outdoor sessions are weather permitting, and location details are agreed before the session.
                     </p>
                   </div>
                 </div>
@@ -146,7 +146,7 @@ export function BookingPage() {
               <div className="min-w-0">
                 <div className="mb-6 flex flex-col gap-3 border-b border-white/10 pb-6 sm:flex-row sm:items-end sm:justify-between">
                   <div>
-                    <p className="text-xs uppercase tracking-[0.25em] text-white/40">02 / Choose a time</p>
+                    <p className="accent-kicker text-xs uppercase tracking-[0.25em]">02 / Choose a time</p>
                     <h2 className="mt-2 text-2xl font-light text-white">{selectedService.name} Photography</h2>
                   </div>
                   <div className="flex items-center gap-2 text-xs uppercase tracking-[0.15em] text-white/40">

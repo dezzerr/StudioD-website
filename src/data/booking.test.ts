@@ -28,6 +28,8 @@ describe('booking configuration', () => {
   it('returns the selected option and falls back to Portrait', () => {
     expect(getBookingEventOption('wedding')?.locationRequired).toBe(true);
     expect(getBookingEventOption('portrait')?.locationRequired).toBe(false);
+    expect(getBookingEventOption('portrait')?.name).toBe('Portrait');
+    expect(getBookingEventOption('portrait')?.calLink).toContain('/portrait-session');
     expect(getBookingEventOption('missing')?.id).toBe('portrait');
   });
 

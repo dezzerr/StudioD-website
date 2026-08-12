@@ -14,7 +14,7 @@ interface CollectionConfig {
   title: string;
   season: string;
   description: string;
-  category: 'studio' | 'family' | 'location';
+  category: 'portrait' | 'studio' | 'family' | 'location';
   featured: boolean;
   paths: string[];
 }
@@ -23,10 +23,10 @@ const HERO_PATHS = ['/studio-d/hero', '/hero', '/studio-d-hero'];
 const COLLECTION_CONFIGS: CollectionConfig[] = [
   {
     id: 'studio-portraits',
-    title: 'Studio Portraits',
+    title: 'Portraits',
     season: 'All Year',
-    description: 'Studio portrait sessions with controlled lighting and timeless styling.',
-    category: 'studio',
+    description: 'Indoor or outdoor portrait sessions, with 10 fully edited images included.',
+    category: 'portrait',
     featured: true,
     paths: ['/studio-d/collections/studio-portraits', '/collections/studio-portraits', '/studio-d-collections/studio-portraits'],
   },
@@ -34,7 +34,7 @@ const COLLECTION_CONFIGS: CollectionConfig[] = [
     id: 'family-sessions',
     title: 'Family Sessions',
     season: 'All Year',
-    description: 'Natural family moments captured with warmth, movement, and connection.',
+    description: 'Relaxed studio or outdoor family sessions, with 10 fully edited images included.',
     category: 'family',
     featured: true,
     paths: ['/studio-d/collections/family-sessions', '/collections/family-sessions', '/studio-d-collections/family-sessions'],
@@ -43,7 +43,7 @@ const COLLECTION_CONFIGS: CollectionConfig[] = [
     id: 'event-photography',
     title: 'Event Photography',
     season: 'All Year',
-    description: 'Candid and editorial event coverage for private and commercial occasions.',
+    description: 'Story-led event coverage with every final usable edited image included.',
     category: 'location',
     featured: true,
     paths: ['/studio-d/collections/event-photography', '/collections/event-photography', '/studio-d-collections/event-photography'],
@@ -89,7 +89,7 @@ const withSafeDeliveryTransform = (url: string) => {
 
 const getHeroLabel = (file: ImageKitFileRecord) => {
   const filePath = (file.filePath || '').toLowerCase();
-  if (filePath.includes('/studio-portraits')) return 'Studio Portraits';
+  if (filePath.includes('/studio-portraits')) return 'Portraits';
   if (filePath.includes('/family-sessions')) return 'Family Sessions';
   if (filePath.includes('/event-photography')) return 'Event Photography';
   return 'Featured Work';

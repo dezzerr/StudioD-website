@@ -87,12 +87,12 @@ export function AboutPage() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="absolute -bottom-6 -right-6 w-48 h-48 border border-white/10 rounded-lg -z-10" />
+                <div className="absolute -bottom-6 -right-6 -z-10 h-48 w-48 rounded-lg border border-accent/30" />
               </div>
 
               {/* Content Column */}
               <div>
-                <span className="animate-in text-xs tracking-[0.3em] uppercase text-white/50 block mb-4">
+                <span className="animate-in accent-kicker mb-4 block text-xs uppercase tracking-[0.3em]">
                   About Us
                 </span>
 
@@ -138,7 +138,7 @@ export function AboutPage() {
             <div className="animate-in mt-24 md:mt-32 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
-                  <stat.icon size={24} className="mx-auto mb-4 text-white/40" />
+                  <stat.icon size={24} className="mx-auto mb-4 text-accent-strong" />
                   <span className="block text-3xl md:text-4xl font-light text-white mb-1">
                     {stat.value}
                   </span>

@@ -113,7 +113,7 @@ const getFrameBounds = (
     ? isSmallViewport ? 32 : 96
     : 32;
   const verticalInset = variant === 'hero'
-    ? isSmallViewport ? 144 : 176
+    ? isSmallViewport ? 96 : 64
     : 88;
 
   return {

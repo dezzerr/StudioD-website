@@ -58,7 +58,7 @@ collections:
         name: "title"
         widget: "string"
         required: true
-        hint: "Collection name (e.g., 'Studio Portraits')"
+        hint: "Collection name (e.g., 'Portraits')"
 
       - label: "Slug"
         name: "slug"

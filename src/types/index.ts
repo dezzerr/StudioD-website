@@ -13,7 +13,7 @@ export interface Collection {
   description: string;
   thumbnail: string;
   images: GalleryImage[];
-  category: 'studio' | 'location' | 'family' | 'editorial' | 'corporate';
+  category: 'portrait' | 'studio' | 'location' | 'family' | 'editorial' | 'corporate';
   featured: boolean;
 }
 

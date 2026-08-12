@@ -1,10 +1,29 @@
 import type { PhotographyService, PhotographyServiceId } from '@/types';
 
+// These are public Cal.com URLs, so keep a safe built-in value for deployments
+// where a Vercel environment variable is missing or has been redacted.
+const defaultCalLinks: Record<PhotographyServiceId, string> = {
+  portrait: 'https://cal.com/derrick-rfm57g/portrait-session',
+  event: 'https://cal.com/derrick-rfm57g/event-shoot',
+  wedding: 'https://cal.com/derrick-rfm57g/wedding-shoot',
+  engagement: 'https://cal.com/derrick-rfm57g/engagement-shoot',
+};
+
+function resolveCalLink(value: string | undefined, fallback: string) {
+  const normalizedValue = value?.trim().replace(/^['"]|['"]$/g, '');
+
+  if (!normalizedValue || normalizedValue.includes('[SENSITIVE]')) {
+    return fallback;
+  }
+
+  return normalizedValue;
+}
+
 const calLinks: Record<PhotographyServiceId, string> = {
-  portrait: import.meta.env.VITE_CAL_EVENT_PORTRAIT_URL?.trim() ?? '',
-  event: import.meta.env.VITE_CAL_EVENT_EVENT_URL?.trim() ?? '',
-  wedding: import.meta.env.VITE_CAL_EVENT_WEDDING_URL?.trim() ?? '',
-  engagement: import.meta.env.VITE_CAL_EVENT_ENGAGEMENT_URL?.trim() ?? '',
+  portrait: resolveCalLink(import.meta.env.VITE_CAL_EVENT_PORTRAIT_URL, defaultCalLinks.portrait),
+  event: resolveCalLink(import.meta.env.VITE_CAL_EVENT_EVENT_URL, defaultCalLinks.event),
+  wedding: resolveCalLink(import.meta.env.VITE_CAL_EVENT_WEDDING_URL, defaultCalLinks.wedding),
+  engagement: resolveCalLink(import.meta.env.VITE_CAL_EVENT_ENGAGEMENT_URL, defaultCalLinks.engagement),
 };
 
 export const photographyServices: PhotographyService[] = [
@@ -13,7 +32,7 @@ export const photographyServices: PhotographyService[] = [
     name: 'Portrait',
     rate: 110,
     minimumDurationMinutes: 60,
-    description: 'Intentional portraits with room for direction, expression, and a considered final frame.',
+    description: 'Studio or outdoor portraits for individuals and families, with 10 fully edited images included.',
     calLink: calLinks.portrait,
     locationRequired: false,
   },
@@ -22,7 +41,7 @@ export const photographyServices: PhotographyService[] = [
     name: 'Events',
     rate: 125,
     minimumDurationMinutes: 60,
-    description: 'Candid, editorial coverage for private celebrations and meaningful gatherings.',
+    description: 'Discreet, story-led coverage with every final usable image professionally edited and included.',
     calLink: calLinks.event,
     locationRequired: true,
   },

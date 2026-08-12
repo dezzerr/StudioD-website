@@ -60,7 +60,7 @@ export function CollectionsSection({ collections = fallbackCollections }: Collec
       <div className="w-full px-6 md:px-12 lg:px-20">
         {/* Section Header */}
         <div className="mb-16 md:mb-24">
-          <span className="text-xs tracking-[0.3em] uppercase text-white/50 block mb-4">
+          <span className="accent-kicker mb-4 block text-xs uppercase tracking-[0.3em]">
             Portfolio
           </span>
           <h2 className="text-4xl md:text-6xl lg:text-7xl font-light text-white tracking-tight">
@@ -81,7 +81,7 @@ export function CollectionsSection({ collections = fallbackCollections }: Collec
             <Link
               to={`/collections/${collection.id}`}
               key={collection.id}
-              className="collection-card group relative overflow-hidden rounded-lg cursor-pointer block"
+              className="collection-card group relative block cursor-pointer overflow-hidden rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
               {/* Image */}
               <div className="aspect-[4/5] overflow-hidden">
@@ -118,10 +118,10 @@ export function CollectionsSection({ collections = fallbackCollections }: Collec
                     </p>
                   </div>
                   <div className="flex-shrink-0 ml-4">
-                    <div className="w-10 h-10 rounded-full border border-photo-white/40 flex items-center justify-center group-hover:bg-photo-white group-hover:border-photo-white transition-all duration-300">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full border border-photo-white/40 transition-all duration-300 group-hover:border-accent group-hover:bg-accent">
                       <ArrowUpRight 
                         size={18} 
-                        className="text-photo-white group-hover:text-photo-black transition-colors duration-300"
+                        className="text-photo-white transition-colors duration-300 group-hover:text-accent-foreground"
                       />
                     </div>
                   </div>
@@ -130,7 +130,7 @@ export function CollectionsSection({ collections = fallbackCollections }: Collec
 
               {/* Category Tag */}
               <div className="absolute top-4 left-4">
-                <span className="text-[10px] tracking-[0.2em] uppercase px-3 py-1 bg-photo-black/20 backdrop-blur-sm rounded-full text-photo-white/80">
+                <span className="rounded-full bg-accent px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-accent-foreground shadow-sm">
                   {collection.category}
                 </span>
               </div>

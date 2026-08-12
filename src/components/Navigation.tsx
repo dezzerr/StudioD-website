@@ -79,7 +79,7 @@ export function Navigation() {
           {/* Logo */}
           <a 
             href="/"
-            className="text-lg md:text-xl tracking-[0.2em] font-light text-white hover:opacity-80 transition-opacity"
+            className="text-lg md:text-xl tracking-[0.2em] font-light text-white transition-colors hover:text-accent-strong"
             onClick={handleLogoClick}
           >
             STUDIOD
@@ -101,7 +101,7 @@ export function Navigation() {
           {/* Mobile Menu Button */}
           <button
             ref={menuButtonRef}
-            className="md:hidden text-white p-2"
+            className="md:hidden p-2 text-white transition-colors hover:text-accent-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
             aria-expanded={isMobileMenuOpen}
@@ -124,7 +124,7 @@ export function Navigation() {
             <button
               key={item.label}
               onClick={() => handleNavClick(item.href)}
-              className="mobile-menu-item text-3xl tracking-wider text-white opacity-70 hover:opacity-100 transition-opacity"
+              className="mobile-menu-item text-3xl tracking-wider text-white opacity-70 transition-colors hover:text-accent-strong hover:opacity-100"
               style={{ transitionDelay: `${index * 50}ms` }}
             >
               {item.label}
