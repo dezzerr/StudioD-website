@@ -39,7 +39,7 @@ export const photographyServices: PhotographyService[] = [
   {
     id: 'event',
     name: 'Events',
-    rate: 125,
+    rate: 180,
     minimumDurationMinutes: 60,
     description: 'Discreet, story-led coverage with every final usable image professionally edited and included.',
     calLink: calLinks.event,
@@ -48,7 +48,7 @@ export const photographyServices: PhotographyService[] = [
   {
     id: 'wedding',
     name: 'Weddings',
-    rate: 130,
+    rate: 180,
     minimumDurationMinutes: 60,
     description: 'Thoughtful coverage of the moments, people, and atmosphere that make the day yours.',
     calLink: calLinks.wedding,

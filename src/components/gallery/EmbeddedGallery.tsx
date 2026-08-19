@@ -1,7 +1,8 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import type { GalleryImage } from '@/types';
 import { useCollectionViewer } from '@/hooks/useCollectionViewer';
 import { AdaptiveImageStage } from '@/components/gallery/AdaptiveImageStage';
+import { ImageLightbox } from '@/components/gallery/ImageLightbox';
 
 interface EmbeddedGalleryProps {
   images: GalleryImage[];
@@ -9,6 +10,7 @@ interface EmbeddedGalleryProps {
 }
 
 export function EmbeddedGallery({ images, title }: EmbeddedGalleryProps) {
+  const [lightboxImage, setLightboxImage] = useState<GalleryImage | null>(null);
   const {
     currentIndex,
     currentImage,
@@ -55,6 +57,7 @@ export function EmbeddedGallery({ images, title }: EmbeddedGalleryProps) {
       image={currentImage}
       variant="embedded"
       onClick={handleClick}
+      onImageClick={setLightboxImage}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onFocusCapture={handleFocus}
@@ -88,6 +91,13 @@ export function EmbeddedGallery({ images, title }: EmbeddedGalleryProps) {
           />
         ))}
       </div>
+
+      {lightboxImage && (
+        <ImageLightbox
+          image={lightboxImage}
+          onClose={() => setLightboxImage(null)}
+        />
+      )}
     </AdaptiveImageStage>
   );
 }

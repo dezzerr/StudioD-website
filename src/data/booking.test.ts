@@ -14,7 +14,7 @@ describe('booking configuration', () => {
       'wedding',
       'engagement',
     ]);
-    expect(bookingEventOptions.map((option) => option.rate)).toEqual([110, 125, 130, 125]);
+    expect(bookingEventOptions.map((option) => option.rate)).toEqual([110, 180, 180, 125]);
     expect(bookingEventOptions.every((option) => option.minimumDurationMinutes === 60)).toBe(true);
   });
 

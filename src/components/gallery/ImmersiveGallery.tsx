@@ -1,7 +1,8 @@
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useState } from 'react';
 import type { GalleryImage } from '@/types';
 import { useImmersiveGallery } from '@/hooks/useImmersiveGallery';
 import { AdaptiveImageStage } from '@/components/gallery/AdaptiveImageStage';
+import { ImageLightbox } from '@/components/gallery/ImageLightbox';
 
 interface ImmersiveGalleryProps {
   images: GalleryImage[];
@@ -9,6 +10,7 @@ interface ImmersiveGalleryProps {
 }
 
 export function ImmersiveGallery({ images, onCursorChange }: ImmersiveGalleryProps) {
+  const [lightboxImage, setLightboxImage] = useState<GalleryImage | null>(null);
   const {
     currentIndex,
     currentImage,
@@ -133,6 +135,7 @@ export function ImmersiveGallery({ images, onCursorChange }: ImmersiveGalleryPro
         image={currentImage}
         variant="hero"
         onClick={handleImageClick}
+        onImageClick={setLightboxImage}
         onTransitionComplete={completeTransition}
       />
 
@@ -153,6 +156,13 @@ export function ImmersiveGallery({ images, onCursorChange }: ImmersiveGalleryPro
         <span className="text-[10px] tracking-widest uppercase text-accent-strong">Scroll to explore</span>
         <div className="h-8 w-px bg-gradient-to-b from-accent to-transparent" />
       </div>
+
+      {lightboxImage && (
+        <ImageLightbox
+          image={lightboxImage}
+          onClose={() => setLightboxImage(null)}
+        />
+      )}
     </div>
   );
 }

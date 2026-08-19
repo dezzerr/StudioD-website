@@ -17,6 +17,7 @@ export interface AdaptiveImageStageProps {
   image: GalleryImage | null;
   variant: 'hero' | 'embedded';
   onClick?: MouseEventHandler<HTMLDivElement>;
+  onImageClick?: (image: GalleryImage) => void;
   onMouseEnter?: MouseEventHandler<HTMLDivElement>;
   onMouseLeave?: MouseEventHandler<HTMLDivElement>;
   onTouchStart?: TouchEventHandler<HTMLDivElement>;
@@ -132,6 +133,7 @@ export function AdaptiveImageStage({
   image,
   variant,
   onClick,
+  onImageClick,
   onMouseEnter,
   onMouseLeave,
   onTouchStart,
@@ -371,6 +373,18 @@ export function AdaptiveImageStage({
           draggable={false}
           style={{ opacity: 0 }}
         />
+        {onImageClick && (
+          <button
+            type="button"
+            className="adaptive-image-stage__zoom-trigger"
+            onClick={(event) => {
+              event.stopPropagation();
+              onImageClick(displayedImage || image);
+            }}
+            aria-label={`Enlarge image: ${displayedImage?.alt || image.alt}`}
+            aria-haspopup="dialog"
+          />
+        )}
       </div>
 
       {hasImageError && (

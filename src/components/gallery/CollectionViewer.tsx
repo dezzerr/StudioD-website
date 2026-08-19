@@ -1,7 +1,8 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { GalleryImage } from '@/types';
 import { AdaptiveImageStage } from '@/components/gallery/AdaptiveImageStage';
 import { useCollectionViewer } from '@/hooks/useCollectionViewer';
+import { ImageLightbox } from '@/components/gallery/ImageLightbox';
 
 interface CollectionViewerProps {
   images: GalleryImage[];
@@ -10,6 +11,7 @@ interface CollectionViewerProps {
 }
 
 export function CollectionViewer({ images, title, onBack }: CollectionViewerProps) {
+  const [lightboxImage, setLightboxImage] = useState<GalleryImage | null>(null);
   const {
     currentIndex,
     currentImage,
@@ -83,6 +85,7 @@ export function CollectionViewer({ images, title, onBack }: CollectionViewerProp
         image={currentImage}
         variant="hero"
         onClick={handleClick}
+        onImageClick={setLightboxImage}
         onTransitionComplete={completeTransition}
       >
         <div className="absolute top-6 left-6 md:top-8 md:left-12 z-40">
@@ -125,6 +128,13 @@ export function CollectionViewer({ images, title, onBack }: CollectionViewerProp
           ))}
         </div>
       </AdaptiveImageStage>
+
+      {lightboxImage && (
+        <ImageLightbox
+          image={lightboxImage}
+          onClose={() => setLightboxImage(null)}
+        />
+      )}
     </div>
   );
 }
