@@ -40,12 +40,12 @@ export function BookingPage() {
     <>
       <SEO
         title="Booking"
-        description="Request a portrait, event, wedding, or engagement photography booking with StudioD. Rates start at £110 per hour with a 60-minute minimum."
+        description="Request portrait, family, event, wedding or engagement photography with Studio Derrick, based in Stoke-on-Trent and available across the Midlands, Northern England and beyond for events."
         path="/booking"
         jsonLd={{
           '@context': 'https://schema.org',
           '@type': 'OfferCatalog',
-          name: 'Book StudioD Photography',
+          name: 'Book Studio Derrick Photography',
           itemListElement: photographyServices.map((service) => ({
             '@type': 'Offer',
             name: `${service.name} Photography`,
@@ -125,7 +125,7 @@ export function BookingPage() {
                   <div className="flex gap-3">
                     <Clock3 size={18} className="mt-0.5 shrink-0 text-white/50" aria-hidden="true" />
                     <p className="text-sm leading-relaxed text-white/55">
-                      Your selected time is held as a review request while StudioD checks the details.
+                      Your selected time is held as a review request while Studio Derrick checks the details.
                     </p>
                   </div>
                   <div className="flex gap-3">
@@ -137,7 +137,7 @@ export function BookingPage() {
                   <div className="flex gap-3">
                     <MapPin size={18} className="mt-0.5 shrink-0 text-white/50" aria-hidden="true" />
                     <p className="text-sm leading-relaxed text-white/55">
-                      Portrait and family sessions can take place in the studio or outdoors across London. Outdoor sessions are weather permitting, and location details are agreed before the session.
+                      Based in Stoke-on-Trent, we arrange portrait and family sessions locally across Staffordshire and surrounding areas. We also cover events across the Midlands, Northern England and further afield by arrangement. Outdoor sessions are weather permitting, and location details are agreed before the session.
                     </p>
                   </div>
                 </div>
@@ -163,7 +163,7 @@ export function BookingPage() {
                     <p className="mt-7 text-xs uppercase tracking-[0.3em] text-white/45">Request received</p>
                     <h2 className="mt-4 text-3xl font-light text-white md:text-4xl">We&apos;ll be in touch shortly.</h2>
                     <p className="mt-5 max-w-lg text-base font-light leading-relaxed text-white/60">
-                      Your {selectedService.name.toLowerCase()} photography request is now with StudioD. We&apos;ll review the details and email you when the time is approved. Please check your inbox for the request summary.
+                      Your {selectedService.name.toLowerCase()} photography request is now with Studio Derrick. We&apos;ll review the details and email you when the time is approved. Please check your inbox for the request summary.
                     </p>
                     <button
                       type="button"
@@ -186,13 +186,13 @@ export function BookingPage() {
                     <CalendarDays size={30} className="text-white/40" aria-hidden="true" />
                     <h2 className="mt-6 text-2xl font-light text-white">The calendar is almost ready.</h2>
                     <p className="mt-4 max-w-lg text-sm leading-relaxed text-white/55">
-                      StudioD still needs to connect this booking type to Cal.com. Add the public Cal.com booking URL for this option, then the live availability will appear here.
+                      Studio Derrick still needs to connect this booking type to Cal.com. Add the public Cal.com booking URL for this option, then the live availability will appear here.
                     </p>
                     <Link
                       to="/contact"
                       className="mt-7 inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 px-5 text-xs uppercase tracking-[0.18em] text-white transition-colors hover:border-white/50 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
                     >
-                      Contact StudioD
+                      Contact Studio Derrick
                       <ArrowRight size={15} aria-hidden="true" />
                     </Link>
                   </div>
@@ -200,7 +200,7 @@ export function BookingPage() {
 
                 {!requestReceived && selectedService.calLink && (
                   <p className="mt-4 text-xs leading-relaxed text-white/40">
-                    Select a one-hour starting slot. If you need longer coverage, include the requested number of hours in the Cal.com form; StudioD will review and confirm the final duration manually.
+                    Select a one-hour starting slot. If you need longer coverage, include the requested number of hours in the Cal.com form; Studio Derrick will review and confirm the final duration manually.
                   </p>
                 )}
               </div>

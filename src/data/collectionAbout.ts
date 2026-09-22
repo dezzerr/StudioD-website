@@ -15,7 +15,7 @@ export interface CollectionAbout {
 export const collectionAbout: Record<string, CollectionAbout> = {
   'studio-portraits': {
     headline: 'Portraits That Feel Like You',
-    seoDescription: 'Portrait photography in London with indoor studio or outdoor sessions. Includes 10 fully edited images, with additional photographs available to purchase.',
+    seoDescription: 'Portrait photography based in Stoke-on-Trent, serving Staffordshire and the Midlands. Includes 10 fully edited images, with additional photographs available to purchase.',
     paragraphs: [
       'A portrait should feel like more than a record of how you looked on the day. It should hold your confidence, character and the small expressions that make you recognisably you. Whether you need a polished professional image, a creative portrait or simply want to mark this chapter of your life, we shape the session around the story you want the photographs to tell.',
       'Choose an indoor studio session for privacy, controlled lighting and a clean, timeless finish. Prefer something more natural and full of movement? An outdoor session uses the light, colour and character of a location you love to create images that feel relaxed and alive. Outdoor sessions are weather permitting, and we will agree a backup plan if the forecast changes.',
@@ -35,7 +35,7 @@ export const collectionAbout: Record<string, CollectionAbout> = {
   },
   'family-sessions': {
     headline: 'The Way Your Family Feels Right Now',
-    seoDescription: 'Relaxed family portrait sessions in London, indoors or outdoors. Includes 10 fully edited images, with additional photographs available to purchase.',
+    seoDescription: 'Relaxed family portrait sessions based in Stoke-on-Trent, serving Staffordshire and the Midlands. Includes 10 fully edited images, with additional photographs available to purchase.',
     paragraphs: [
       'Family photographs become more valuable with time because they bring back the details that are easy to miss in the middle of a busy week: the way your child reaches for your hand, the laugh everyone recognises and the closeness you share. Our family sessions make space for those moments, so you leave with photographs that feel warm, natural and unmistakably yours.',
       'Choose the studio for a calm, private setting with consistent lighting and a timeless finish, or head outdoors for natural light, open space and room for children to move and play. Outdoor sessions are weather permitting, and we will agree a backup plan if the forecast changes.',
@@ -55,7 +55,7 @@ export const collectionAbout: Record<string, CollectionAbout> = {
   },
   'event-photography': {
     headline: 'Event Coverage That Tells the Full Story',
-    seoDescription: 'Story-led event photography in London with every final usable image edited and included. Galleries typically contain approximately 70 to 800 photographs.',
+    seoDescription: 'Story-led event photography from Stoke-on-Trent across the Midlands, Northern England and beyond, with every final usable image edited and included.',
     paragraphs: [
       'Your event is made up of more than the moments on the running order. It is the anticipation before the doors open, the people seeing one another, the laughter between speeches and the atmosphere you worked hard to create. We photograph the full story, from the key moments you expect to the small exchanges you may not see while the day is unfolding.',
       'We work calmly and discreetly, moving through private celebrations, corporate functions and larger gatherings without interrupting the experience. You can stay present with your guests while we document the people, details and energy that made the occasion yours.',

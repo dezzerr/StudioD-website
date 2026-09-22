@@ -2,7 +2,7 @@ import { createHmac, timingSafeEqual } from 'node:crypto';
 import { type VercelRequest, type VercelResponse } from '../server/http.js';
 import { createAdminSessionCookie } from '../server/admin.js';
 
-const getOrigin = () => process.env.VITE_SITE_URL || 'https://studiod.com';
+const getOrigin = () => process.env.STUDIO_ORIGIN || 'https://www.studioderrick.co.uk';
 
 const signState = (state: string, secret: string) => createHmac('sha256', secret).update(state).digest('hex');
 
@@ -15,7 +15,7 @@ const safeJson = (value: unknown) => JSON.stringify(value).replace(/</g, '\\u003
 const renderOAuthResponse = (response: VercelResponse, status: 'success' | 'error', content: unknown) => {
   const encodedContent = safeJson(content);
   const html = `<!doctype html>
-<html><head><meta charset="utf-8"><title>StudioD authorisation</title></head>
+<html><head><meta charset="utf-8"><title>Studio Derrick authorisation</title></head>
 <body><p>You can close this window.</p>
 <script>
   const content = ${encodedContent};
@@ -99,7 +99,7 @@ export default async function handler(request: VercelRequest, response: VercelRe
     });
     const permission = await permissionResponse.json() as { permission?: string };
     if (!permissionResponse.ok || !['admin', 'maintain', 'write'].includes(permission.permission || '')) {
-      throw new Error('GitHub account does not have write access to the StudioD repository');
+      throw new Error('GitHub account does not have write access to the Studio Derrick repository');
     }
 
     response.setHeader('Set-Cookie', createAdminSessionCookie(user.login));

@@ -106,7 +106,7 @@ export default async function handler(request: VercelRequest, response: VercelRe
       const images = files.map(file => ({
         id: file.fileId,
         src: withSafeDeliveryTransform(file.url),
-        alt: `StudioD ${collection.title.toLowerCase()} photograph`,
+        alt: `Studio Derrick ${collection.title.toLowerCase()} photograph`,
         leftLabel: collection.title,
         rightLabel: toDateLabel(file.createdAt),
       }));
@@ -125,7 +125,7 @@ export default async function handler(request: VercelRequest, response: VercelRe
     const hero = (await listFromCandidatePaths(HERO_PATHS)).slice(0, 10).map(file => ({
       id: file.fileId,
       src: withSafeDeliveryTransform(file.url),
-      alt: 'Featured StudioD photograph',
+      alt: 'Featured Studio Derrick photograph',
       leftLabel: getHeroLabel(file),
       rightLabel: toDateLabel(file.createdAt),
     }));

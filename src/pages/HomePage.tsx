@@ -1,7 +1,7 @@
 import { ImmersiveGallery } from '@/components/gallery/ImmersiveGallery';
 import { CollectionsSection } from '@/sections/CollectionsSection';
 import { Footer } from '@/components/Footer';
-import { SEO } from '@/components/SEO';
+import { BASE_URL, SEO } from '@/components/SEO';
 import { useGalleryFeed } from '@/hooks/useGalleryFeed';
 import type { CursorType } from '@/types';
 
@@ -15,29 +15,41 @@ export function HomePage({ onCursorChange }: HomePageProps) {
   return (
     <>
       <SEO
-        title="StudioD"
-        description="StudioD is a boutique portrait photography studio based in London, UK. Specialising in portraits, family sessions, and event photography with a timeless, artistic approach."
+        title="Photographer in Stoke-on-Trent"
+        description="Studio Derrick offers portrait, family and event photography from Stoke-on-Trent across Staffordshire, the Midlands and Northern England, with travel available for events."
         path="/"
         jsonLd={{
           '@context': 'https://schema.org',
           '@type': 'LocalBusiness',
-          name: 'StudioD',
-          description: 'Boutique portrait photography studio in London specialising in portraits, family sessions, and event photography.',
+          name: 'Studio Derrick',
+          description: 'Portrait, family and event photography based in Stoke-on-Trent, serving Staffordshire, the Midlands and Northern England, with travel available for events.',
           address: {
             '@type': 'PostalAddress',
-            addressLocality: 'London',
+            addressLocality: 'Stoke-on-Trent',
+            addressRegion: 'Staffordshire',
             addressCountry: 'GB',
           },
-          url: import.meta.env.VITE_SITE_URL || 'https://studiod.com',
+          areaServed: ['Staffordshire', 'West Midlands', 'East Midlands', 'North West England', 'Yorkshire'],
+          email: 'hello@studioderrick.co.uk',
+          url: BASE_URL,
         }}
       />
       <main className="relative">
-        <h1 className="sr-only">StudioD portrait photography</h1>
+        <h1 className="sr-only">Studio Derrick photography in Stoke-on-Trent</h1>
         <section className="home-hero-shell px-3 pb-4 pt-28 md:px-6 md:pb-6 md:pt-24">
           <ImmersiveGallery
             images={heroImages}
             onCursorChange={onCursorChange}
           />
+        </section>
+
+        <section className="mx-auto max-w-5xl px-6 py-16 text-center md:py-20">
+          <p className="accent-kicker mb-4 text-xs uppercase tracking-[0.3em]">Based in Stoke-on-Trent</p>
+          <h2 className="text-3xl font-light text-white md:text-5xl">Portraits, family sessions and event photography</h2>
+          <p className="mx-auto mt-5 max-w-3xl text-base leading-relaxed text-white/70 md:text-lg">
+            Serving Staffordshire, the Midlands and the North of England, including Stafford, Manchester,
+            Liverpool, Birmingham, Nottingham, Sheffield and Leeds. Available to travel further for events.
+          </p>
         </section>
 
         {/* Collections Section */}

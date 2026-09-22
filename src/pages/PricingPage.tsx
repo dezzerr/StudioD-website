@@ -55,12 +55,12 @@ export function PricingPage() {
     <>
       <SEO
         title="Pricing"
-        description="Transparent hourly pricing for StudioD portrait, event, wedding, and engagement photography. Every booking has a 60-minute minimum."
+        description="Studio Derrick photography pricing for portraits, events, weddings and engagements. Based in Stoke-on-Trent and serving Staffordshire, the Midlands, Northern England and beyond for events."
         path="/pricing"
         jsonLd={{
           '@context': 'https://schema.org',
           '@type': 'OfferCatalog',
-          name: 'StudioD Photography Services',
+          name: 'Studio Derrick Photography Services',
           itemListElement: photographyServices.map((service) => ({
             '@type': 'Offer',
             name: `${service.name} Photography`,

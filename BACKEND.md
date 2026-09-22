@@ -35,7 +35,7 @@ rules. The project root is the repository root.
 | `GET /api/imagekit-auth` | Creates short-lived direct-upload parameters |
 | `POST /api/upload-image` | Compatibility upload route for small files |
 | `POST /api/delete-image` | Deletes an ImageKit file |
-| `POST /api/form-submission` | Validates and logs contact submissions |
+| `POST /api/form-submission` | Validates inquiries and sends them by email |
 | `GET /api/auth` | Starts Decap GitHub OAuth |
 | `GET /api/callback` | Completes Decap GitHub OAuth |
 
@@ -49,7 +49,7 @@ Public variables are exposed to the Vite browser bundle and must not contain
 secrets:
 
 ```text
-VITE_SITE_URL=https://studiod.com
+VITE_SITE_URL=https://www.studioderrick.co.uk
 VITE_IMAGEKIT_URL_ENDPOINT=https://ik.imagekit.io/YOUR_ENDPOINT
 VITE_IMAGEKIT_PUBLIC_KEY=YOUR_PUBLIC_KEY
 VITE_CAL_EVENT_PORTRAIT_URL=https://cal.com/derrick-rfm57g/portrait-session
@@ -66,11 +66,17 @@ GITHUB_REPO=dezzerr/StudioD-website
 GITHUB_OAUTH_CLIENT_ID=YOUR_CLIENT_ID
 GITHUB_OAUTH_CLIENT_SECRET=YOUR_CLIENT_SECRET
 STUDIO_ADMIN_SESSION_SECRET=YOUR_LONG_RANDOM_SESSION_SECRET
-CONTACT_EMAIL=hello@studiod.com
+LIVEMAIL_SMTP_HOST=smtp.livemail.co.uk
+LIVEMAIL_SMTP_PASSWORD=YOUR_LIVEMAIL_SMTP_PASSWORD
 ```
 
-The contact form currently validates and logs submissions. It does not send
-email until an email provider such as Resend is deliberately configured.
+The contact form sends inquiries to the fixed recipient `hello@studioderrick.co.uk`
+through the existing Livemail mailbox over authenticated SMTP with STARTTLS.
+Configure `LIVEMAIL_SMTP_PASSWORD` as a server-only Vercel secret. The SMTP host
+defaults to `smtp.livemail.co.uk`; set `LIVEMAIL_SMTP_HOST` only if your mailbox
+provider specifies a different host. Submit a test inquiry and confirm it
+arrives. Without the password, the form returns an error and directs visitors
+to the contact email instead of reporting false success.
 
 ## ImageKit setup
 
@@ -92,7 +98,7 @@ The CMS is available at `/admin/` and uses the GitHub backend configured in
 Create a GitHub OAuth App with this callback URL:
 
 ```text
-https://studiod.com/api/callback
+https://www.studioderrick.co.uk/api/callback
 ```
 
 Add the client ID and secret to Vercel. Admin users must have write access to
@@ -126,7 +132,8 @@ OAuth secret in a local `.env.local` file.
 - Verify the build with `npm run build`.
 - Test gallery feed and Cal.com booking routes on a Vercel preview.
 - Test `/admin/` with the GitHub OAuth application.
-- Add `studiod.com` and `www.studiod.com` to Vercel.
+- Add `studioderrick.co.uk` and `www.studioderrick.co.uk` to Vercel, and redirect the
+  non-www domain to `https://www.studioderrick.co.uk`.
 - Point DNS to the records provided by Vercel.
 - Verify SSL, SPA routes, CSP, ImageKit, booking, contact validation, and admin.
 - Keep the existing Netlify project available until the Vercel deployment is stable.

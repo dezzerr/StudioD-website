@@ -9,8 +9,8 @@ interface SEOProps {
   jsonLd?: Record<string, unknown>;
 }
 
-const SITE_NAME = 'StudioD';
-const BASE_URL = import.meta.env.VITE_SITE_URL || (typeof window !== 'undefined' ? window.location.origin : 'https://studiod.com');
+const SITE_NAME = 'Studio Derrick';
+export const BASE_URL = 'https://www.studioderrick.co.uk';
 
 function upsertMeta(attr: 'name' | 'property', key: string, content: string) {
   let el = document.head.querySelector<HTMLMetaElement>(`meta[${attr}="${key}"]`);

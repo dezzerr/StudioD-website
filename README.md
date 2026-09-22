@@ -130,14 +130,14 @@ useImmersiveGallery({
 ## Decap CMS Setup
 
 The CMS is served at `/admin/` and authenticates through GitHub. The production
-OAuth callback is configured as `https://studiod.com/api/callback`. Admin users
+OAuth callback is configured as `https://www.studioderrick.co.uk/api/callback`. Admin users
 need write access to the `dezzerr/StudioD-website` repository.
 
 Create a GitHub OAuth App with that callback URL, then add its client ID and
 secret to the Vercel production environment as `GITHUB_OAUTH_CLIENT_ID` and
 `GITHUB_OAUTH_CLIENT_SECRET`.
 
-Navigate to `https://studiod.com/admin/` and choose **Login with GitHub**.
+Navigate to `https://www.studioderrick.co.uk/admin/` and choose **Login with GitHub**.
 
 ## Vercel Deployment
 

@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Mail, Phone, MapPin, Instagram, CheckCircle, Send } from 'lucide-react';
+import { Mail, MapPin, CheckCircle, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -123,12 +123,12 @@ export function ContactPage() {
     <>
       <SEO
         title="Contact"
-        description="Get in touch with StudioD. Book a photography session or enquire about our services — family photography, headshots, engagement, fashion, product photography and more."
+        description="Contact Studio Derrick for portrait, family and event photography from Stoke-on-Trent across Staffordshire, the Midlands and Northern England. Available to travel for events."
         path="/contact"
         jsonLd={{
           '@context': 'https://schema.org',
           '@type': 'ContactPage',
-          name: 'Contact StudioD',
+          name: 'Contact Studio Derrick',
           description: 'Contact form for booking photography sessions and general enquiries.',
         }}
       />
@@ -169,13 +169,13 @@ export function ContactPage() {
                   <p className="text-white/60 font-light leading-relaxed">
                     Whether you have a specific project in mind or just want to explore
                     possibilities, we're here to help. Drop us a message and we'll get
-                    back to you within 24 hours.
+                    back to you as soon as possible.
                   </p>
                 </div>
 
                 <div className="space-y-6">
                   <a
-                    href="mailto:hello@finuestudio.com"
+                    href="mailto:hello@studioderrick.co.uk"
                     className="flex items-center gap-4 group"
                   >
                     <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white/10 transition-colors">
@@ -186,24 +186,7 @@ export function ContactPage() {
                         Email
                       </span>
                       <span className="text-white group-hover:text-white/80 transition-colors">
-                        hello@finuestudio.com
-                      </span>
-                    </div>
-                  </a>
-
-                  <a
-                    href="tel:+441234567890"
-                    className="flex items-center gap-4 group"
-                  >
-                    <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white/10 transition-colors">
-                      <Phone size={20} className="text-white/70" />
-                    </div>
-                    <div>
-                      <span className="text-xs tracking-[0.2em] uppercase text-white/50 block mb-1">
-                        Phone
-                      </span>
-                      <span className="text-white group-hover:text-white/80 transition-colors">
-                        +44 123 456 7890
+                        hello@studioderrick.co.uk
                       </span>
                     </div>
                   </a>
@@ -214,30 +197,20 @@ export function ContactPage() {
                     </div>
                     <div>
                       <span className="text-xs tracking-[0.2em] uppercase text-white/50 block mb-1">
-                        Studio
+                        Based in
                       </span>
                       <span className="text-white">
-                        London, United Kingdom
+                        Stoke-on-Trent, Staffordshire
                       </span>
                     </div>
                   </div>
                 </div>
 
-                {/* Social */}
-                <div>
-                  <span className="text-xs tracking-[0.2em] uppercase text-white/50 block mb-4">
-                    Follow Us
-                  </span>
-                  <a
-                    href="https://instagram.com/finuestudio"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-3 text-white/70 hover:text-white transition-colors"
-                  >
-                    <Instagram size={24} />
-                    <span>@finuestudio</span>
-                  </a>
-                </div>
+                <p className="text-sm leading-relaxed text-white/60">
+                  Local to Stoke-on-Trent, Stafford, Stone, Kidsgrove, Alsager, Crewe and Nantwich.
+                  Also serving Manchester, Liverpool, Birmingham, Northampton, Nottingham, Sheffield,
+                  Leeds, Bristol and London, with travel available for events and surrounding areas.
+                </p>
               </div>
 
               {/* Contact Form */}
@@ -251,7 +224,7 @@ export function ContactPage() {
                       Message Sent!
                     </h3>
                     <p className="text-white/60">
-                      Thank you for reaching out. We'll get back to you within 24 hours.
+                      Thank you for reaching out. We'll get back to you as soon as possible.
                     </p>
                   </div>
                 ) : (

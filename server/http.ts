@@ -51,7 +51,7 @@ export const getJsonBody = <T>(request: VercelRequest): T => {
 };
 
 export const sameOriginHeaders = {
-  'Access-Control-Allow-Origin': 'https://studiod.com',
+  'Access-Control-Allow-Origin': 'https://www.studioderrick.co.uk',
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
   Vary: 'Origin',

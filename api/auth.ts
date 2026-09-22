@@ -1,7 +1,7 @@
 import { createHmac, randomBytes } from 'node:crypto';
 import { type VercelRequest, type VercelResponse } from '../server/http.js';
 
-const getOrigin = () => process.env.VITE_SITE_URL || 'https://studiod.com';
+const getOrigin = () => process.env.STUDIO_ORIGIN || 'https://www.studioderrick.co.uk';
 
 const signState = (state: string, secret: string) => createHmac('sha256', secret).update(state).digest('hex');
 

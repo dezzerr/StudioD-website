@@ -206,7 +206,7 @@ export function CalEmbed({ calLink, onBookingRequested }: CalEmbedProps) {
       {state === 'error' && (
         <div className="absolute inset-x-0 top-0 z-10 rounded-xl border border-red-300/20 bg-red-950/40 px-5 py-4 text-sm text-red-100">
           <p className="font-medium">The booking calendar is unavailable right now.</p>
-          <p className="mt-1 text-red-100/70">{error || 'Please try again shortly or contact StudioD directly.'}</p>
+          <p className="mt-1 text-red-100/70">{error || 'Please try again shortly or contact Studio Derrick directly.'}</p>
           <button
             type="button"
             onClick={() => {

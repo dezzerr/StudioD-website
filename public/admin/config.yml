@@ -2,7 +2,7 @@ backend:
   name: github
   repo: dezzerr/StudioD-website
   branch: main
-  base_url: https://studiod.com/api
+  base_url: https://www.studioderrick.co.uk/api
   auth_endpoint: auth
 
 # Media library configuration
@@ -18,8 +18,8 @@ media_folder: "public/images"
 public_folder: "/images"
 
 # Site URL for previews
-site_url: https://studiod.com
-display_url: https://studiod.com
+site_url: https://www.studioderrick.co.uk
+display_url: https://www.studioderrick.co.uk
 logo_url: /images/logo.png
 
 # Editorial workflow (optional)
@@ -243,34 +243,34 @@ collections:
           - label: "Site Title"
             name: "siteTitle"
             widget: "string"
-            default: "StudioD"
+            default: "Studio Derrick"
 
           - label: "Site Description"
             name: "siteDescription"
             widget: "text"
-            default: "Premium portrait photography studio based in the UK"
+            default: "Photography based in Stoke-on-Trent, serving the Midlands and Northern England"
 
           - label: "Contact Email"
             name: "contactEmail"
             widget: "string"
-            default: "hello@studiod.com"
+            default: "hello@studioderrick.co.uk"
 
           - label: "Phone Number"
             name: "phoneNumber"
             widget: "string"
-            default: "+44 123 456 7890"
+            default: ""
             required: false
 
           - label: "Instagram Handle"
             name: "instagram"
             widget: "string"
-            default: "@studiod"
+            default: ""
             required: false
 
           - label: "Studio Address"
             name: "address"
             widget: "text"
-            default: "London, United Kingdom"
+            default: "Stoke-on-Trent, Staffordshire"
             required: false
 
           - label: "Social Links"

@@ -7,9 +7,9 @@ import { useGalleryFeed } from '@/hooks/useGalleryFeed';
 gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
-  { icon: Camera, value: '500+', label: 'Sessions' },
-  { icon: Award, value: '12', label: 'Years Experience' },
-  { icon: Users, value: '300+', label: 'Happy Clients' },
+  { icon: Camera, value: '100+', label: 'Sessions' },
+  { icon: Award, value: '8', label: 'Years of Experience' },
+  { icon: Users, value: '100+', label: 'Happy Clients' },
   { icon: Heart, value: '100%', label: 'Satisfaction' },
 ];
 
@@ -70,7 +70,7 @@ export function AboutSection() {
             <div className="aspect-[4/5] rounded-lg overflow-hidden">
               <img
                 src={profileImage?.src || '/images/portrait-1.jpg'}
-                alt={profileImage?.alt || 'StudioD Photographer'}
+                alt={profileImage?.alt || 'Studio Derrick Photographer'}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -91,22 +91,21 @@ export function AboutSection() {
             
             <div className="animate-in space-y-6 text-white/70 font-light leading-relaxed">
               <p>
-                StudioD is a boutique portrait photography studio based in the UK, 
-                specializing in creating timeless images that tell your unique story. 
-                Founded with a passion for authentic expression and artistic vision, 
-                we believe every portrait should reveal the true essence of its subject.
+                Studio Derrick is a photography business based in Stoke-on-Trent,
+                creating natural, considered images for people, families and businesses.
+                With eight years of experience, we make every session feel relaxed and
+                purposeful so the final photographs feel like you.
               </p>
               <p>
-                Our approach combines technical excellence with an intuitive understanding 
-                of light, composition, and emotion. Whether it's a professional headshot, 
-                a family session, or a creative editorial project, we bring the same 
-                dedication to craft and attention to detail.
+                We work across Stoke-on-Trent and Staffordshire, including Stafford, Stone,
+                Kidsgrove, Alsager, Crewe and Nantwich. We also cover Manchester, Liverpool,
+                Birmingham, Nottingham, Sheffield, Leeds, Northampton, Bristol and London,
+                with travel available for events across the UK.
               </p>
               <p>
-                We pride ourselves on creating a comfortable, relaxed environment where 
-                you can be yourself. The best portraits emerge when you feel at ease, 
-                and our goal is to make every session an enjoyable experience that 
-                results in images you'll treasure for a lifetime.
+                From portraits and headshots to family sessions, engagements and events,
+                we bring a thoughtful eye, careful direction and attention to detail. More
+                than 100 happy clients have trusted us to preserve the moments that matter.
               </p>
             </div>
 
@@ -116,7 +115,7 @@ export function AboutSection() {
                 "Photography is the story I fail to put into words."
               </p>
               <p className="text-white/60 text-sm mt-2">
-                — The StudioD Team
+                — The Studio Derrick Team
               </p>
             </div>
           </div>

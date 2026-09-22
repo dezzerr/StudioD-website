@@ -1,4 +1,4 @@
-import { Instagram, Mail } from 'lucide-react';
+import { Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export function Footer() {
@@ -11,10 +11,10 @@ export function Footer() {
           {/* Logo */}
           <div className="text-center md:text-left">
             <span className="text-lg tracking-[0.2em] font-light text-white">
-              STUDIOD
+              STUDIO DERRICK
             </span>
             <p className="text-white/40 text-sm mt-2">
-              Portrait Photography
+              Photography based in Stoke-on-Trent
             </p>
           </div>
 
@@ -52,21 +52,12 @@ export function Footer() {
             </Link>
           </nav>
 
-          {/* Social */}
+          {/* Contact */}
           <div className="flex items-center gap-4">
             <a
-              href="https://instagram.com/studiod"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="mailto:hello@studioderrick.co.uk"
               className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white/50 transition-all hover:border-accent hover:bg-accent hover:text-accent-foreground"
-              aria-label="Instagram"
-            >
-              <Instagram size={18} />
-            </a>
-            <a
-              href="mailto:hello@studiod.com"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white/50 transition-all hover:border-accent hover:bg-accent hover:text-accent-foreground"
-              aria-label="Email"
+              aria-label="Email Studio Derrick"
             >
               <Mail size={18} />
             </a>
@@ -76,7 +67,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-white/30 text-xs">
-            {currentYear} StudioD. All rights reserved.
+            {currentYear} Studio Derrick. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             <a

@@ -82,7 +82,7 @@ export function Navigation() {
             className="text-lg md:text-xl tracking-[0.2em] font-light text-white transition-colors hover:text-accent-strong"
             onClick={handleLogoClick}
           >
-            STUDIOD
+            STUDIO DERRICK
           </a>
 
           {/* Desktop Navigation */}
