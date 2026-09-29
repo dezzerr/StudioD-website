@@ -19,7 +19,7 @@ export const collectionAbout: Record<string, CollectionAbout> = {
     paragraphs: [
       'A portrait should feel like more than a record of how you looked on the day. It should hold your confidence, character and the small expressions that make you recognisably you. Whether you need a polished professional image, a creative portrait or simply want to mark this chapter of your life, we shape the session around the story you want the photographs to tell.',
       'Choose an indoor studio session for privacy, controlled lighting and a clean, timeless finish. Prefer something more natural and full of movement? An outdoor session uses the light, colour and character of a location you love to create images that feel relaxed and alive. Outdoor sessions are weather permitting, and we will agree a backup plan if the forecast changes.',
-      'You do not need to know how to pose. With over 12 years and 500+ sessions of experience, we guide you through wardrobe, movement and expression so you can settle in and enjoy the process. Every portrait session includes your choice of 10 fully edited images, with the option to purchase additional photographs after you view your gallery.',
+      'You do not need to know how to pose. With eight years of experience and more than 100 sessions photographed, we guide you through wardrobe, movement and expression so you can settle in and enjoy the process. Every portrait session includes your choice of 10 fully edited images, with the option to purchase additional photographs after you view your gallery.',
     ],
     highlights: [
       { label: 'Studio or Outdoor', description: 'Controlled studio polish or natural, location-led storytelling' },

@@ -192,6 +192,22 @@ export function CollectionGalleryPage() {
                   </Link>
                 </div>
               </div>
+
+              <div className="animate-in mt-8 flex flex-wrap gap-4 text-sm">
+                {collection.id === 'studio-portraits' && (
+                  <Link to="/photographer-stoke-on-trent" className="text-accent-strong underline underline-offset-4">Portraits in Stoke-on-Trent</Link>
+                )}
+                {collection.id === 'family-sessions' && (
+                  <Link to="/family-photographer-stoke-on-trent" className="text-accent-strong underline underline-offset-4">Family photography in Stoke-on-Trent</Link>
+                )}
+                {collection.id === 'event-photography' && (
+                  <>
+                    <Link to="/event-photographer-manchester" className="text-accent-strong underline underline-offset-4">Manchester events</Link>
+                    <Link to="/event-photographer-birmingham" className="text-accent-strong underline underline-offset-4">Birmingham events</Link>
+                  </>
+                )}
+                <Link to="/faq" className="text-accent-strong underline underline-offset-4">Questions about booking</Link>
+              </div>
             </section>
           )}
         </div>

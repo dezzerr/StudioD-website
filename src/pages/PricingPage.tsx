@@ -146,6 +146,9 @@ export function PricingPage() {
                 </Link>
                 {' '}if you have a question.
               </p>
+              <Link to="/faq" className="mt-5 inline-block text-sm text-accent-strong underline underline-offset-4">
+                Read questions about pricing, travel and delivery
+              </Link>
             </div>
           </div>
         </section>

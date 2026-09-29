@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && node scripts/prerender-discovery.mjs",
     "lint": "eslint .",
     "test": "vitest run src tests",
     "preview": "vite preview",

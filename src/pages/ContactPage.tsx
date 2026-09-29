@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/select';
 import { Footer } from '@/components/Footer';
 import { SEO } from '@/components/SEO';
+import { trackLead } from '@/lib/analytics';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -111,6 +112,7 @@ export function ContactPage() {
       }
 
       setIsSubmitted(true);
+      trackLead('contact_form', formData.sessionType || undefined);
       setFormData({ name: '', email: '', sessionType: '', message: '' });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.');

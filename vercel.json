@@ -30,6 +30,20 @@
     }
   ],
   "rewrites": [
+    { "source": "/", "destination": "/prerendered/home.html" },
+    { "source": "/about", "destination": "/prerendered/about.html" },
+    { "source": "/pricing", "destination": "/prerendered/pricing.html" },
+    { "source": "/booking", "destination": "/prerendered/booking.html" },
+    { "source": "/contact", "destination": "/prerendered/contact.html" },
+    { "source": "/areas", "destination": "/prerendered/areas.html" },
+    { "source": "/faq", "destination": "/prerendered/faq.html" },
+    { "source": "/photographer-stoke-on-trent", "destination": "/prerendered/photographer-stoke-on-trent.html" },
+    { "source": "/family-photographer-stoke-on-trent", "destination": "/prerendered/family-photographer-stoke-on-trent.html" },
+    { "source": "/event-photographer-manchester", "destination": "/prerendered/event-photographer-manchester.html" },
+    { "source": "/event-photographer-birmingham", "destination": "/prerendered/event-photographer-birmingham.html" },
+    { "source": "/collections/studio-portraits", "destination": "/prerendered/collections-studio-portraits.html" },
+    { "source": "/collections/family-sessions", "destination": "/prerendered/collections-family-sessions.html" },
+    { "source": "/collections/event-photography", "destination": "/prerendered/collections-event-photography.html" },
     {
       "source": "/((?!api(?:/|$)|admin(?:/|$)|assets(?:/|$)|images(?:/|$)).*)",
       "destination": "/index.html"

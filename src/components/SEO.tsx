@@ -46,7 +46,7 @@ function upsertJsonLd(id: string, data: Record<string, unknown>) {
 export function SEO({ title, description, path, image, type = 'website', jsonLd }: SEOProps) {
   const fullTitle = title === SITE_NAME ? title : `${title} | ${SITE_NAME}`;
   const url = `${BASE_URL}${path}`;
-  const ogImage = image || `${BASE_URL}/images/og-default.jpg`;
+  const ogImage = image || `${BASE_URL}/images/portrait-1.jpg`;
 
   useEffect(() => {
     document.title = fullTitle;

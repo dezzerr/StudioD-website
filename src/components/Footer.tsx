@@ -19,7 +19,7 @@ export function Footer() {
           </div>
 
           {/* Navigation */}
-          <nav className="flex items-center gap-8">
+          <nav className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
             <Link
               to="/#collections"
               className="text-sm text-white/50 transition-colors hover:text-accent-strong"
@@ -43,6 +43,18 @@ export function Footer() {
               className="text-sm text-white/50 transition-colors hover:text-accent-strong"
             >
               About
+            </Link>
+            <Link
+              to="/areas"
+              className="text-sm text-white/50 transition-colors hover:text-accent-strong"
+            >
+              Areas
+            </Link>
+            <Link
+              to="/faq"
+              className="text-sm text-white/50 transition-colors hover:text-accent-strong"
+            >
+              FAQs
             </Link>
             <Link
               to="/contact"
@@ -69,20 +81,6 @@ export function Footer() {
           <p className="text-white/30 text-xs">
             {currentYear} Studio Derrick. All rights reserved.
           </p>
-          <div className="flex items-center gap-6">
-            <a
-              href="#"
-              className="text-white/30 text-xs hover:text-white/50 transition-colors"
-            >
-              Privacy Policy
-            </a>
-            <a
-              href="#"
-              className="text-white/30 text-xs hover:text-white/50 transition-colors"
-            >
-              Terms of Service
-            </a>
-          </div>
         </div>
       </div>
     </footer>

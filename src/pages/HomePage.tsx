@@ -4,6 +4,7 @@ import { Footer } from '@/components/Footer';
 import { BASE_URL, SEO } from '@/components/SEO';
 import { useGalleryFeed } from '@/hooks/useGalleryFeed';
 import type { CursorType } from '@/types';
+import { Link } from 'react-router-dom';
 
 interface HomePageProps {
   onCursorChange: (type: CursorType) => void;
@@ -50,6 +51,11 @@ export function HomePage({ onCursorChange }: HomePageProps) {
             Serving Staffordshire, the Midlands and the North of England, including Stafford, Manchester,
             Liverpool, Birmingham, Nottingham, Sheffield and Leeds. Available to travel further for events.
           </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <Link to="/photographer-stoke-on-trent" className="text-sm text-accent-strong underline underline-offset-4">Photography in Stoke-on-Trent</Link>
+            <Link to="/family-photographer-stoke-on-trent" className="text-sm text-accent-strong underline underline-offset-4">Family sessions</Link>
+            <Link to="/areas" className="text-sm text-accent-strong underline underline-offset-4">All service areas</Link>
+          </div>
         </section>
 
         {/* Collections Section */}

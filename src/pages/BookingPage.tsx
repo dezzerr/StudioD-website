@@ -11,6 +11,7 @@ import {
   photographyServices,
 } from '@/data/services';
 import type { PhotographyServiceId } from '@/types';
+import { trackLead } from '@/lib/analytics';
 
 export function BookingPage() {
   const location = useLocation();
@@ -30,6 +31,7 @@ export function BookingPage() {
 
   const handleBookingRequested = useCallback(() => {
     setRequestReceivedFor(selectedServiceId);
+    trackLead('booking_request', selectedServiceId);
   }, [selectedServiceId]);
 
   const handleServiceChange = (serviceId: PhotographyServiceId) => {
