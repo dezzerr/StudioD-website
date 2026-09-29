@@ -1,0 +1,155 @@
+{
+  "pages": [
+    {
+      "path": "/photographer-stoke-on-trent",
+      "title": "Photographer in Stoke-on-Trent",
+      "description": "Studio Derrick is a Stoke-on-Trent photographer for portraits, family sessions, headshots and events. Explore the work, pricing and booking options.",
+      "eyebrow": "Local photography",
+      "heading": "Photography in Stoke-on-Trent",
+      "lead": "Studio Derrick is based in Stoke-on-Trent and photographs people, families and events across Staffordshire. Tell us what you are planning, and we will help shape a session around the people and moments that matter to you.",
+      "serviceType": "Portrait, family and event photography",
+      "areaServed": "Stoke-on-Trent and Staffordshire",
+      "sections": [
+        {
+          "heading": "Portraits and headshots that feel like you",
+          "body": "A good portrait needs more than a backdrop. We help with light, expression and gentle direction, whether you want a professional headshot, a personal portrait or photographs to mark a new chapter. Portrait sessions can be arranged indoors or outdoors, with 10 fully edited images included."
+        },
+        {
+          "heading": "Family photographs with room to be yourselves",
+          "body": "Family sessions can be calm and polished in the studio or more playful outside. We make room for real interaction and guide you when needed, without asking everyone to hold a stiff pose. Outdoor plans depend on the weather, so we agree the location and a backup plan before the session."
+        },
+        {
+          "heading": "Local base, wider reach",
+          "body": "From Stoke-on-Trent we can arrange local sessions across Stafford, Stone, Kidsgrove, Alsager, Crewe and Nantwich. We also cover events across the Midlands, Northern England and further afield. Send the date, location and outline of your plans so we can confirm availability and travel details."
+        }
+      ],
+      "questions": [
+        { "question": "What photography can I book in Stoke-on-Trent?", "answer": "Portraits, headshots, family sessions, engagements and event coverage. The portfolio and pricing pages show the main options." },
+        { "question": "Can we choose an outdoor location?", "answer": "Yes. We can discuss a location that suits the session. Outdoor shoots are weather permitting, and we agree a backup plan if needed." },
+        { "question": "How do I get a quote or request a date?", "answer": "Use the booking page to request a time, or send your date, location and requirements through the contact page. A request is reviewed before it is confirmed." }
+      ],
+      "related": [
+        { "label": "View portraits", "path": "/collections/studio-portraits" },
+        { "label": "View family sessions", "path": "/collections/family-sessions" },
+        { "label": "See pricing", "path": "/pricing" }
+      ],
+      "bookingService": "portrait"
+    },
+    {
+      "path": "/family-photographer-stoke-on-trent",
+      "title": "Family Photographer in Stoke-on-Trent",
+      "description": "Relaxed family photography in Stoke-on-Trent and Staffordshire with Studio Derrick. Choose a studio or outdoor session; 10 edited images are included.",
+      "eyebrow": "Family sessions",
+      "heading": "Family photography in Stoke-on-Trent",
+      "lead": "The small moments often become the photographs you value most. Studio Derrick makes family sessions easy to settle into, with gentle direction and space for children and adults to be themselves.",
+      "serviceType": "Family photography",
+      "areaServed": "Stoke-on-Trent and Staffordshire",
+      "sections": [
+        {
+          "heading": "Choose the setting that fits your family",
+          "body": "An indoor session gives you a calm setting and consistent light. Outdoors, children have room to move and natural light becomes part of the story. We talk through the setting, timing and who will be in the photographs before the day."
+        },
+        {
+          "heading": "A relaxed experience from start to finish",
+          "body": "You do not need to arrive knowing how to pose. We offer simple prompts and direction, then leave space for the expressions and connections that happen naturally. If an outdoor session is affected by the weather, we agree a practical backup plan."
+        },
+        {
+          "heading": "What is included",
+          "body": "A family session includes your choice of 10 fully edited images. After you see the gallery, you can purchase additional photographs if you want to keep more. The portrait rate and minimum booking duration are shown on the pricing page."
+        }
+      ],
+      "questions": [
+        { "question": "Do family sessions have to take place in a studio?", "answer": "No. You can choose an indoor or outdoor session. We agree the setting before the shoot, and outdoor sessions depend on the weather." },
+        { "question": "How many edited photographs are included?", "answer": "Your choice of 10 fully edited images is included. Additional photographs can be purchased after you view the gallery." },
+        { "question": "Which areas do you cover for family sessions?", "answer": "Studio Derrick is based in Stoke-on-Trent and arranges family sessions across Staffordshire and nearby areas, including Stafford, Stone, Kidsgrove, Alsager, Crewe and Nantwich. Ask about other locations when enquiring." }
+      ],
+      "related": [
+        { "label": "Explore family work", "path": "/collections/family-sessions" },
+        { "label": "See portrait pricing", "path": "/pricing" },
+        { "label": "Ask a question", "path": "/contact" }
+      ],
+      "bookingService": "portrait"
+    },
+    {
+      "path": "/event-photographer-manchester",
+      "title": "Event Photographer in Manchester",
+      "description": "Event photography in Manchester by Stoke-on-Trent based Studio Derrick. Natural coverage for celebrations and business events, with edited final images included.",
+      "eyebrow": "Manchester events",
+      "heading": "Event photography in Manchester",
+      "lead": "Planning an event in Manchester? Studio Derrick travels from Stoke-on-Trent to document the people, details and atmosphere, from the moments on your schedule to the exchanges in between.",
+      "serviceType": "Event photography",
+      "areaServed": "Manchester and surrounding areas",
+      "sections": [
+        {
+          "heading": "Coverage shaped by your event",
+          "body": "Tell us what is happening, when the important moments take place and which people or details matter most. That brief helps us plan coverage for a celebration, a business gathering or another event without interrupting its flow."
+        },
+        {
+          "heading": "Travelling from Stoke-on-Trent",
+          "body": "Manchester is one of the places we serve for events. Share the venue, date, timetable and expected coverage hours when you enquire. We will confirm availability and any travel arrangements before the booking is approved."
+        },
+        {
+          "heading": "The finished story",
+          "body": "Every final usable image from event coverage is professionally edited and included in the delivered gallery. The number of photographs depends on the duration and pace of your event; there is no separate image selection to unlock the rest of the finished gallery."
+        }
+      ],
+      "questions": [
+        { "question": "Are you based in Manchester?", "answer": "Studio Derrick is based in Stoke-on-Trent and travels to Manchester for events." },
+        { "question": "What details should I send with an event enquiry?", "answer": "Please include the event date, Manchester venue or area, timetable, expected hours and any key moments or people to cover." },
+        { "question": "Are edited images included?", "answer": "Yes. Every final usable image from event coverage is edited and included in the delivered gallery." }
+      ],
+      "related": [
+        { "label": "View event work", "path": "/collections/event-photography" },
+        { "label": "See event pricing", "path": "/pricing" },
+        { "label": "Contact us", "path": "/contact" }
+      ],
+      "bookingService": "event"
+    },
+    {
+      "path": "/event-photographer-birmingham",
+      "title": "Event Photographer in Birmingham",
+      "description": "Birmingham event photography from Studio Derrick. Plan natural coverage for a celebration or business event with a Stoke-on-Trent based photographer.",
+      "eyebrow": "Birmingham events",
+      "heading": "Event photography in Birmingham",
+      "lead": "Studio Derrick covers events in Birmingham and the wider Midlands from our Stoke-on-Trent base. We focus on the feeling of the occasion as well as the moments your guests and organisers expect to see.",
+      "serviceType": "Event photography",
+      "areaServed": "Birmingham and the West Midlands",
+      "sections": [
+        {
+          "heading": "For celebrations and business gatherings",
+          "body": "An event gallery should bring back the full experience: arrivals, people meeting, speeches, details and the atmosphere in the room. We work discreetly around your schedule so you can stay present while those moments are documented."
+        },
+        {
+          "heading": "Plan the brief and coverage time",
+          "body": "Let us know the Birmingham location, date, start and finish times and any planned highlights. We will review the request, confirm availability and discuss travel before the booking is approved. Longer coverage can be outlined in your enquiry."
+        },
+        {
+          "heading": "Edited photographs included",
+          "body": "Event coverage includes every final usable photograph, professionally edited and delivered in a gallery. The gallery size varies with the event length and pace, so we do not promise a fixed image count."
+        }
+      ],
+      "questions": [
+        { "question": "Do you travel from Stoke-on-Trent to Birmingham?", "answer": "Yes. Birmingham and the wider Midlands are within the areas Studio Derrick serves for events. Travel details are confirmed before a booking is approved." },
+        { "question": "Can I request coverage for more than one hour?", "answer": "Yes. The booking page starts with a one-hour slot; include the total coverage you need in the request so it can be reviewed." },
+        { "question": "How are event photographs delivered?", "answer": "Every final usable image is edited and included in the delivered gallery. The number depends on the length and pace of the event." }
+      ],
+      "related": [
+        { "label": "View event work", "path": "/collections/event-photography" },
+        { "label": "See event pricing", "path": "/pricing" },
+        { "label": "Ask about your event", "path": "/contact" }
+      ],
+      "bookingService": "event"
+    }
+  ],
+  "generalQuestions": [
+    { "question": "Where is Studio Derrick based?", "answer": "Studio Derrick is based in Stoke-on-Trent, Staffordshire. Local sessions can be arranged across nearby areas, and event travel is available across the Midlands, Northern England and further afield." },
+    { "question": "Do you cover Manchester, Birmingham and other cities?", "answer": "Yes. Studio Derrick is open to event enquiries from Manchester, Birmingham, Liverpool, Nottingham, Sheffield, Leeds, Northampton, Bristol, London and surrounding areas. Send your date and venue so travel can be discussed." },
+    { "question": "What kinds of photography do you offer?", "answer": "The current booking options cover portraits, family sessions, events, weddings and engagements. Headshots and creative portraits can be discussed as portrait sessions." },
+    { "question": "How much does a session cost?", "answer": "Current hourly rates and the minimum duration for each booking type are listed on the pricing page. Share your requirements if you need longer event coverage or travel so the full plan can be reviewed." },
+    { "question": "What is included in a portrait or family session?", "answer": "Portrait and family sessions include your choice of 10 fully edited images. You can choose to purchase additional photographs after viewing the gallery." },
+    { "question": "What is included in event photography?", "answer": "Every final usable photograph from event coverage is professionally edited and included in the delivered gallery. The number of images depends on the event length and pace." },
+    { "question": "Can we shoot outdoors?", "answer": "Yes. Portrait and family sessions can be arranged outdoors when the weather allows. We agree the location and a backup plan before the session." },
+    { "question": "How do I request a date?", "answer": "Use the booking page to request a time. Studio Derrick reviews each request before it is confirmed. For a bespoke event, you can also send the date, venue, timetable and coverage needs through the contact page." },
+    { "question": "How can I contact Studio Derrick?", "answer": "Email hello@studioderrick.co.uk or use the contact form. Include your preferred date, location, photography type and anything important about the session or event." }
+  ]
+}

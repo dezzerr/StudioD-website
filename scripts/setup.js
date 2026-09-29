@@ -46,8 +46,7 @@ async function setup() {
   const imagekitPublicKey = await question('ImageKit Public Key: ');
   const imagekitPrivateKey = await question('ImageKit Private Key: ');
 
-  console.log('\n📧 Contact Form Configuration');
-  const contactEmail = await question('Contact Email (default: hello@studiod.com): ') || 'hello@studiod.com';
+  console.log('\n📧 Contact inquiries are sent to hello@studioderrick.co.uk. Configure Livemail SMTP in Vercel before enabling the form.');
   
   console.log('\n📊 Analytics (Optional)');
   const gaId = await question('Google Analytics Measurement ID (optional): ');
@@ -60,9 +59,6 @@ async function setup() {
 VITE_IMAGEKIT_URL_ENDPOINT=${imagekitUrl}
 VITE_IMAGEKIT_PUBLIC_KEY=${imagekitPublicKey}
 IMAGEKIT_PRIVATE_KEY=${imagekitPrivateKey}
-
-# Contact Form
-CONTACT_EMAIL=${contactEmail}
 
 # Analytics${gaId ? `\nVITE_GA_MEASUREMENT_ID=${gaId}` : ''}
 `;
@@ -91,10 +87,9 @@ CONTACT_EMAIL=${contactEmail}
 2. Start development server:
    npm run dev
 
-3. Deploy to Netlify:
-   npm run netlify:deploy
+3. Connect the repository to Vercel and add the production environment variables.
 
-📖 Documentation: See BACKEND.md for detailed setup instructions
+📖 Documentation: See BACKEND.md for detailed Vercel setup instructions
 
 ═══════════════════════════════════════════════════════════
 `);

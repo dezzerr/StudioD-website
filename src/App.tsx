@@ -1,19 +1,23 @@
 import { useState, useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { Navigation } from '@/components/Navigation';
-import { Footer } from '@/components/Footer';
 import { CustomCursor } from '@/components/cursor/CustomCursor';
-import { ImmersiveGallery } from '@/components/gallery/ImmersiveGallery';
-import { CollectionsSection } from '@/sections/CollectionsSection';
-import { PricingSection } from '@/sections/PricingSection';
-import { AboutSection } from '@/sections/AboutSection';
-import { ContactSection } from '@/sections/ContactSection';
+import { HomePage } from '@/pages/HomePage';
+import { CollectionGalleryPage } from '@/pages/CollectionGalleryPage';
+import { PricingPage } from '@/pages/PricingPage';
+import { AboutPage } from '@/pages/AboutPage';
+import { ContactPage } from '@/pages/ContactPage';
+import { BookingPage } from '@/pages/BookingPage';
+import { AreasPage } from '@/pages/AreasPage';
+import { DiscoveryPage } from '@/pages/DiscoveryPage';
+import { FaqPage } from '@/pages/FaqPage';
 
 import { useCustomCursor } from '@/hooks/useCustomCursor';
-import { useGalleryFeed } from '@/hooks/useGalleryFeed';
 import type { CursorType } from '@/types';
+import { trackPageView } from '@/lib/analytics';
 
 import './App.css';
 
@@ -21,9 +25,14 @@ import './App.css';
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
+  const location = useLocation();
   const [cursorType, setCursorType] = useState<CursorType>('default');
   const { position, isVisible, isTouchDevice } = useCustomCursor();
-  const { heroImages, collectionItems } = useGalleryFeed();
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => trackPageView(location.pathname), 0);
+    return () => window.clearTimeout(timer);
+  }, [location.pathname]);
 
   useEffect(() => {
     // Initial page load animation
@@ -63,28 +72,20 @@ function App() {
       {/* Navigation */}
       <Navigation />
 
-      {/* Hero Gallery - Full Screen */}
-      <main className="relative">
-        <ImmersiveGallery
-          images={heroImages}
-          onCursorChange={handleCursorChange}
-        />
-
-        {/* Collections Section */}
-        <CollectionsSection collections={collectionItems} />
-
-        {/* Pricing Section */}
-        <PricingSection />
-
-        {/* About Section */}
-        <AboutSection />
-
-        {/* Contact Section */}
-        <ContactSection />
-      </main>
-
-      {/* Footer */}
-      <Footer />
+      <Routes>
+        <Route path="/" element={<HomePage onCursorChange={handleCursorChange} />} />
+        <Route path="/pricing" element={<PricingPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/booking" element={<BookingPage />} />
+        <Route path="/areas" element={<AreasPage />} />
+        <Route path="/faq" element={<FaqPage />} />
+        <Route path="/photographer-stoke-on-trent" element={<DiscoveryPage />} />
+        <Route path="/family-photographer-stoke-on-trent" element={<DiscoveryPage />} />
+        <Route path="/event-photographer-manchester" element={<DiscoveryPage />} />
+        <Route path="/event-photographer-birmingham" element={<DiscoveryPage />} />
+        <Route path="/collections/:collectionId" element={<CollectionGalleryPage />} />
+      </Routes>
     </div>
   );
 }

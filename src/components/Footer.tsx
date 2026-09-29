@@ -1,4 +1,5 @@
-import { Instagram, Mail } from 'lucide-react';
+import { Mail } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -10,56 +11,65 @@ export function Footer() {
           {/* Logo */}
           <div className="text-center md:text-left">
             <span className="text-lg tracking-[0.2em] font-light text-white">
-              STUDIOD
+              STUDIO DERRICK
             </span>
             <p className="text-white/40 text-sm mt-2">
-              Portrait Photography
+              Photography based in Stoke-on-Trent
             </p>
           </div>
 
           {/* Navigation */}
-          <nav className="flex items-center gap-8">
-            <a
-              href="#collections"
-              className="text-sm text-white/50 hover:text-white transition-colors"
+          <nav className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+            <Link
+              to="/#collections"
+              className="text-sm text-white/50 transition-colors hover:text-accent-strong"
             >
               Work
-            </a>
-            <a
-              href="#pricing"
-              className="text-sm text-white/50 hover:text-white transition-colors"
+            </Link>
+            <Link
+              to="/pricing"
+              className="text-sm text-white/50 transition-colors hover:text-accent-strong"
             >
               Pricing
-            </a>
-            <a
-              href="#about"
-              className="text-sm text-white/50 hover:text-white transition-colors"
+            </Link>
+            <Link
+              to="/booking"
+              className="text-sm text-white/50 transition-colors hover:text-accent-strong"
+            >
+              Booking
+            </Link>
+            <Link
+              to="/about"
+              className="text-sm text-white/50 transition-colors hover:text-accent-strong"
             >
               About
-            </a>
-            <a
-              href="#contact"
-              className="text-sm text-white/50 hover:text-white transition-colors"
+            </Link>
+            <Link
+              to="/areas"
+              className="text-sm text-white/50 transition-colors hover:text-accent-strong"
+            >
+              Areas
+            </Link>
+            <Link
+              to="/faq"
+              className="text-sm text-white/50 transition-colors hover:text-accent-strong"
+            >
+              FAQs
+            </Link>
+            <Link
+              to="/contact"
+              className="text-sm text-white/50 transition-colors hover:text-accent-strong"
             >
               Contact
-            </a>
+            </Link>
           </nav>
 
-          {/* Social */}
+          {/* Contact */}
           <div className="flex items-center gap-4">
             <a
-              href="https://instagram.com/studiod"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:text-white hover:border-white/40 transition-all"
-              aria-label="Instagram"
-            >
-              <Instagram size={18} />
-            </a>
-            <a
-              href="mailto:hello@studiod.com"
-              className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:text-white hover:border-white/40 transition-all"
-              aria-label="Email"
+              href="mailto:hello@studioderrick.co.uk"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white/50 transition-all hover:border-accent hover:bg-accent hover:text-accent-foreground"
+              aria-label="Email Studio Derrick"
             >
               <Mail size={18} />
             </a>
@@ -69,22 +79,8 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-white/30 text-xs">
-            {currentYear} StudioD. All rights reserved.
+            {currentYear} Studio Derrick. All rights reserved.
           </p>
-          <div className="flex items-center gap-6">
-            <a
-              href="#"
-              className="text-white/30 text-xs hover:text-white/50 transition-colors"
-            >
-              Privacy Policy
-            </a>
-            <a
-              href="#"
-              className="text-white/30 text-xs hover:text-white/50 transition-colors"
-            >
-              Terms of Service
-            </a>
-          </div>
         </div>
       </div>
     </footer>

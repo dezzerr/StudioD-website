@@ -3,22 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>StudioD</title>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <title>Studio Derrick | Photography in Stoke-on-Trent</title>
+    <meta name="description" content="Portrait, family and event photography based in Stoke-on-Trent, serving Staffordshire, the Midlands and Northern England, with travel available for events." />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8EE83VB0Z8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-8EE83VB0Z8', { send_page_view: false });
+    </script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", function(user) {
-          if (!user) {
-            window.netlifyIdentity.on("login", function() {
-              document.location.href = "/admin/";
-            });
-          }
-        });
-      }
-    </script>
   </body>
 </html>

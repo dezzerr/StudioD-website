@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /prerendered/
+
+Sitemap: https://www.studioderrick.co.uk/sitemap.xml

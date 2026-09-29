@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Mail, Phone, MapPin, Instagram, CheckCircle } from 'lucide-react';
+import { Mail, MapPin, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -70,7 +70,7 @@ export function ContactSection() {
     setError(null);
 
     try {
-      const response = await fetch('/.netlify/functions/form-submission', {
+      const response = await fetch('/api/form-submission', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -100,12 +100,12 @@ export function ContactSection() {
       className="relative w-full min-h-screen bg-black py-24 md:py-32"
     >
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 to-black pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-secondary to-background pointer-events-none" />
 
       <div className="relative w-full px-6 md:px-12 lg:px-20">
         {/* Section Header */}
         <div className="text-center mb-16 md:mb-24">
-          <span className="animate-in text-xs tracking-[0.3em] uppercase text-white/50 block mb-4">
+          <span className="animate-in accent-kicker mb-4 block text-xs uppercase tracking-[0.3em]">
             Get in Touch
           </span>
           <h2 className="animate-in text-4xl md:text-6xl lg:text-7xl font-light text-white tracking-tight">
@@ -125,13 +125,13 @@ export function ContactSection() {
               <p className="text-white/60 font-light leading-relaxed">
                 Whether you have a specific project in mind or just want to explore 
                 possibilities, we're here to help. Drop us a message and we'll get 
-                back to you within 24 hours.
+                back to you as soon as possible.
               </p>
             </div>
 
             <div className="space-y-6">
               <a
-                href="mailto:hello@finuestudio.com"
+                href="mailto:hello@studioderrick.co.uk"
                 className="flex items-center gap-4 group"
               >
                 <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white/10 transition-colors">
@@ -142,24 +142,7 @@ export function ContactSection() {
                     Email
                   </span>
                   <span className="text-white group-hover:text-white/80 transition-colors">
-                    hello@finuestudio.com
-                  </span>
-                </div>
-              </a>
-
-              <a
-                href="tel:+441234567890"
-                className="flex items-center gap-4 group"
-              >
-                <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-white/10 transition-colors">
-                  <Phone size={20} className="text-white/70" />
-                </div>
-                <div>
-                  <span className="text-xs tracking-[0.2em] uppercase text-white/50 block mb-1">
-                    Phone
-                  </span>
-                  <span className="text-white group-hover:text-white/80 transition-colors">
-                    +44 123 456 7890
+                    hello@studioderrick.co.uk
                   </span>
                 </div>
               </a>
@@ -170,30 +153,18 @@ export function ContactSection() {
                 </div>
                 <div>
                   <span className="text-xs tracking-[0.2em] uppercase text-white/50 block mb-1">
-                    Studio
+                    Based in
                   </span>
                   <span className="text-white">
-                    London, United Kingdom
+                    Stoke-on-Trent, Staffordshire
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* Social */}
-            <div>
-              <span className="text-xs tracking-[0.2em] uppercase text-white/50 block mb-4">
-                Follow Us
-              </span>
-              <a
-                href="https://instagram.com/finuestudio"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 text-white/70 hover:text-white transition-colors"
-              >
-                <Instagram size={24} />
-                <span>@finuestudio</span>
-              </a>
-            </div>
+            <p className="text-sm leading-relaxed text-white/60">
+              Serving Staffordshire, the Midlands and Northern England, and available to travel for events.
+            </p>
           </div>
 
           {/* Contact Form */}
@@ -207,7 +178,7 @@ export function ContactSection() {
                   Message Sent!
                 </h3>
                 <p className="text-white/60">
-                  Thank you for reaching out. We'll get back to you within 24 hours.
+                  Thank you for reaching out. We'll get back to you as soon as possible.
                 </p>
               </div>
             ) : (
@@ -285,7 +256,7 @@ export function ContactSection() {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-6 bg-white text-black hover:bg-white/90 rounded-lg text-sm tracking-[0.15em] uppercase font-medium transition-all duration-300 disabled:opacity-50"
+                  className="accent-button w-full rounded-lg border py-6 text-sm font-medium uppercase tracking-[0.15em] transition-all duration-300 disabled:opacity-50"
                 >
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                 </Button>

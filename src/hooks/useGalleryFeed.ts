@@ -1,43 +1,17 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { getGalleryFeed } from '@/services/imagekit';
+import { collections as fallbackCollections, heroGalleryImages } from '@/data/collections';
 import type { Collection, GalleryFeedResponse, GalleryImage } from '@/types';
 
 const POLL_INTERVAL_MS = 60_000;
 
 const COLLECTION_ORDER = ['studio-portraits', 'family-sessions', 'event-photography'];
 
-const DEFAULT_COLLECTIONS: Collection[] = [
-  {
-    id: 'studio-portraits',
-    title: 'Studio Portraits',
-    season: 'All Year',
-    description: 'Studio portrait sessions with controlled lighting and timeless styling.',
-    thumbnail: '',
-    category: 'studio',
-    featured: true,
-    images: [],
-  },
-  {
-    id: 'family-sessions',
-    title: 'Family Sessions',
-    season: 'All Year',
-    description: 'Natural family moments captured with warmth, movement, and connection.',
-    thumbnail: '',
-    category: 'family',
-    featured: true,
-    images: [],
-  },
-  {
-    id: 'event-photography',
-    title: 'Event Photography',
-    season: 'All Year',
-    description: 'Candid and editorial event coverage for private and commercial occasions.',
-    thumbnail: '',
-    category: 'location',
-    featured: true,
-    images: [],
-  },
-];
+const EMPTY_COLLECTIONS: Collection[] = fallbackCollections.map(collection => ({
+  ...collection,
+  thumbnail: '',
+  images: [],
+}));
 
 const orderCollections = (items: Collection[]): Collection[] => {
   const byId = new Map(items.map(item => [item.id, item]));
@@ -55,7 +29,7 @@ const toCollectionOptions = (items: Collection[]): Collection[] => {
   const ordered = orderCollections(items);
   const byId = new Map(ordered.map(item => [item.id, item]));
 
-  return DEFAULT_COLLECTIONS.map(defaultCollection => {
+  return fallbackCollections.map(defaultCollection => {
     const candidate = byId.get(defaultCollection.id);
     if (!candidate) {
       return defaultCollection;
@@ -133,16 +107,16 @@ export const useGalleryFeed = () => {
       return feed.hero;
     }
 
-    return [];
-  }, [feed]);
+    return error ? heroGalleryImages : [];
+  }, [error, feed]);
 
   const collectionItems: Collection[] = useMemo(() => {
     if (feed) {
       return feed.collections;
     }
 
-    return DEFAULT_COLLECTIONS;
-  }, [feed]);
+    return error ? fallbackCollections : EMPTY_COLLECTIONS;
+  }, [error, feed]);
 
   return {
     heroImages,

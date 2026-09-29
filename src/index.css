@@ -6,33 +6,35 @@
 
 @layer base {
   :root {
-    --background: 0 0% 0%;
-    --foreground: 0 0% 100%;
-    --card: 0 0% 5%;
-    --card-foreground: 0 0% 100%;
-    --popover: 0 0% 5%;
-    --popover-foreground: 0 0% 100%;
-    --primary: 0 0% 100%;
-    --primary-foreground: 0 0% 0%;
-    --secondary: 0 0% 10%;
-    --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 60%;
-    --accent: 0 0% 15%;
-    --accent-foreground: 0 0% 100%;
+    --background: 220 47% 97%;
+    --foreground: 222 28% 16%;
+    --card: 220 43% 99%;
+    --card-foreground: 222 28% 16%;
+    --popover: 220 43% 99%;
+    --popover-foreground: 222 28% 16%;
+    --primary: 222 28% 16%;
+    --primary-foreground: 220 47% 97%;
+    --secondary: 218 30% 92%;
+    --secondary-foreground: 222 28% 16%;
+    --muted: 218 25% 90%;
+    --muted-foreground: 220 12% 43%;
+    --accent: 25 95% 53%;
+    --accent-foreground: 222 28% 16%;
+    --accent-strong: 21 88% 40%;
+    --accent-soft: 32 100% 92%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 0 0% 100%;
+    --border: 219 19% 78%;
+    --input: 219 19% 78%;
+    --ring: 25 95% 48%;
     --radius: 0.5rem;
     
     /* Custom Finue Studio variables */
-    --finue-black: #000000;
-    --finue-charcoal: #0a0a0a;
-    --finue-dark: #121212;
-    --finue-white: #ffffff;
-    --finue-gray: #888888;
+    --finue-black: #1d2435;
+    --finue-charcoal: #e7ecf5;
+    --finue-dark: #dce4f0;
+    --finue-white: #f4f7fc;
+    --finue-gray: #687287;
     --finue-label-opacity: 0.6;
     --finue-transition-duration: 0.8s;
     --finue-easing: cubic-bezier(0.4, 0, 0.2, 1);
@@ -49,7 +51,7 @@
   }
   
   body {
-    @apply bg-black text-white antialiased;
+    @apply bg-background text-foreground antialiased;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
     font-weight: 300;
     overflow-x: hidden;
@@ -66,24 +68,24 @@
   
   /* Selection styling */
   ::selection {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
+    background: hsl(var(--accent-soft));
+    color: hsl(var(--foreground));
   }
 }
 
 @layer components {
   /* Glassmorphism effect for pricing cards */
   .glass-card {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(29, 36, 53, 0.035);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(29, 36, 53, 0.1);
   }
   
   /* Gallery label styling */
   .gallery-label {
     @apply text-xs tracking-[0.3em] uppercase;
-    color: rgba(255, 255, 255, var(--finue-label-opacity));
+    color: rgba(29, 36, 53, var(--finue-label-opacity));
     transition: opacity 0.3s ease;
   }
   
@@ -105,17 +107,46 @@
   
   .nav-link:hover {
     opacity: 1;
+    color: hsl(var(--accent-strong));
+  }
+
+  /* Orange is reserved for wayfinding, active states, and primary actions. */
+  .accent-kicker {
+    color: hsl(var(--accent-strong));
+  }
+
+  .accent-button {
+    background: hsl(var(--accent)) !important;
+    border-color: hsl(var(--accent)) !important;
+    color: hsl(var(--accent-foreground)) !important;
+    box-shadow: 0 12px 30px hsl(var(--accent) / 0.14);
+  }
+
+  .accent-button:hover {
+    background: hsl(var(--accent) / 0.88) !important;
+    border-color: hsl(var(--accent-strong) / 0.45) !important;
+    box-shadow: 0 16px 36px hsl(var(--accent) / 0.2);
+  }
+
+  .accent-outline {
+    border-color: hsl(var(--accent) / 0.42) !important;
+  }
+
+  .accent-outline:hover {
+    background: hsl(var(--accent)) !important;
+    border-color: hsl(var(--accent)) !important;
+    color: hsl(var(--accent-foreground)) !important;
   }
   
   /* Progress indicator */
   .progress-dot {
     @apply w-1.5 h-1.5 rounded-full transition-all duration-300;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(29, 36, 53, 0.3);
   }
   
   .progress-dot.active {
     @apply w-6;
-    background: rgba(255, 255, 255, 0.9);
+    background: hsl(var(--accent));
   }
   
   /* Smooth image transitions */

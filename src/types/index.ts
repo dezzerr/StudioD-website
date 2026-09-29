@@ -13,7 +13,7 @@ export interface Collection {
   description: string;
   thumbnail: string;
   images: GalleryImage[];
-  category: 'studio' | 'location' | 'family' | 'editorial' | 'corporate';
+  category: 'portrait' | 'studio' | 'location' | 'family' | 'editorial' | 'corporate';
   featured: boolean;
 }
 
@@ -23,14 +23,20 @@ export interface GalleryFeedResponse {
   updatedAt: string;
 }
 
-export interface PricingPackage {
-  id: string;
+export type PhotographyServiceId =
+  | 'portrait'
+  | 'event'
+  | 'wedding'
+  | 'engagement';
+
+export interface PhotographyService {
+  id: PhotographyServiceId;
   name: string;
-  price: number;
-  duration: string;
+  rate: number;
+  minimumDurationMinutes: number;
   description: string;
-  features: string[];
-  popular?: boolean;
+  calLink: string;
+  locationRequired: boolean;
 }
 
 export interface NavItem {

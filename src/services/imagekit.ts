@@ -171,8 +171,9 @@ export const isImageKitConfigured = (): boolean => {
 };
 
 /**
- * Upload image to ImageKit (requires server-side function)
- * This is a client-side placeholder - actual upload happens via Netlify Function
+ * Upload image directly to ImageKit using short-lived server-generated auth
+ * parameters. This keeps large photo files away from Vercel's function payload
+ * limit while keeping the private ImageKit key server-side.
  */
 export interface UploadResult {
   url: string;
@@ -207,25 +208,48 @@ interface ListImagesOptions {
   path?: string;
 }
 
+interface ImageKitAuthenticationParameters {
+  token: string;
+  expire: number;
+  signature: string;
+}
+
 export const uploadImage = async (
   file: File,
   folder: string = 'uploads',
   options: UploadImageOptions = {}
 ): Promise<UploadResult> => {
+  const config = getConfig();
+  if (!config.publicKey) {
+    throw new Error('ImageKit is not configured');
+  }
+
+  const authResponse = await fetch('/api/imagekit-auth');
+  if (!authResponse.ok) {
+    const error = await authResponse.json();
+    throw new Error(error.message || 'ImageKit authentication failed');
+  }
+
+  const auth = await authResponse.json() as ImageKitAuthenticationParameters;
   const formData = new FormData();
   formData.append('file', file);
-  formData.append('folder', folder);
+  formData.append('publicKey', config.publicKey);
+  formData.append('token', auth.token);
+  formData.append('expire', String(auth.expire));
+  formData.append('signature', auth.signature);
   formData.append('fileName', file.name);
+  formData.append('folder', folder.startsWith('/') ? folder : `/studio-d/${folder}`);
+  formData.append('useUniqueFileName', 'true');
 
   if (options.path) {
-    formData.append('path', options.path);
+    formData.set('folder', options.path);
   }
 
   if (options.tags?.length) {
     formData.append('tags', options.tags.join(','));
   }
 
-  const response = await fetch('/.netlify/functions/upload-image', {
+  const response = await fetch('https://upload.imagekit.io/api/v1/files/upload', {
     method: 'POST',
     body: formData,
   });
@@ -242,7 +266,7 @@ export const uploadImage = async (
  * Delete image from ImageKit
  */
 export const deleteImage = async (fileId: string): Promise<void> => {
-  const response = await fetch('/.netlify/functions/delete-image', {
+  const response = await fetch('/api/delete-image', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -272,7 +296,7 @@ export const listImages = async (
     query.set('folder', options.folder || 'uploads');
   }
 
-  const response = await fetch(`/.netlify/functions/list-images?${query.toString()}`);
+  const response = await fetch(`/api/list-images?${query.toString()}`);
   
   if (!response.ok) {
     const error = await response.json();
@@ -286,7 +310,7 @@ export const listImages = async (
  * Get dynamic gallery feed (hero + collection folders)
  */
 export const getGalleryFeed = async (): Promise<GalleryFeedResponse> => {
-  const response = await fetch('/.netlify/functions/gallery-feed');
+  const response = await fetch('/api/gallery-feed');
 
   if (!response.ok) {
     const error = await response.json();
