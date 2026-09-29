@@ -5,13 +5,13 @@
 - Four focused service and location pages: Stoke-on-Trent photography, Stoke-on-Trent family sessions, Manchester events and Birmingham events.
 - A service area hub and a practical FAQ. Each page links to the relevant portfolio, pricing, contact or booking option.
 - A sitemap, canonical URLs, descriptive metadata and HTML containing each page's main text before JavaScript runs. The site permits public crawlers, including OAI-SearchBot.
-- GA4 `page_view` events on route changes and `generate_lead` events after a successful contact form submission or Cal.com booking request. Events include the lead source and service type, but no customer name or email.
+- GA4 `page_view` events on route changes and `generate_lead` events after a successful contact form submission or Cal.com booking request. `generate_lead` is configured as a key event in GA4. Events include the lead source and service type, but no customer name or email.
 
 These changes improve the material that search engines and AI search systems can find. They cannot guarantee indexing, ranking or a recommendation.
 
 ## Actions requiring the business owner
 
-1. **Verify and monitor search.** In Google Search Console, verify `studioderrick.co.uk`, submit `https://www.studioderrick.co.uk/sitemap.xml`, and inspect the new URLs after deployment. Check coverage, impressions, clicks and queries monthly. [Google's sitemap instructions](https://support.google.com/webmasters/answer/7451001?hl=en).
+1. **Monitor search.** The domain is verified in Google Search Console. The sitemap was submitted on 29 September 2026 and showed Success with 14 discovered URLs. Inspect the new URLs as Google processes them, then check coverage, impressions, clicks and queries monthly. [Google's sitemap instructions](https://support.google.com/webmasters/answer/7451001?hl=en).
 2. **Claim and complete the real business listing.** If eligible, use one Google Business Profile for the genuine Stoke-on-Trent base, list only areas actually served, add current services, portfolio images and the website URL. Follow Google's service area rules; do not create separate city profiles or use a virtual address. [Google Business Profile guidelines](https://support.google.com/business/answer/3038177?hl=en).
 3. **Collect independent evidence.** Ask real clients for honest reviews after delivery. Request permission to publish a short quote and selected photographs. Seek links from venues, event organisers and partner businesses where there is a genuine working relationship. Keep the business name, website and contact email consistent everywhere.
 4. **Add evidence-rich portfolio stories.** Publish a small number of real shoots with permission: the client's goal, type of event or session, broad location, approach, 5–10 selected images and an outcome or client quote. Do not invent clients, venues, awards, years of trading or reviews. Give each image a specific alt description based on what it actually shows. The current ImageKit feed uses generic alt text until image-level descriptions are supplied.
