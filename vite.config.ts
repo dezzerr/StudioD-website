@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
   process.env.IMAGEKIT_PRIVATE_KEY = process.env.IMAGEKIT_PRIVATE_KEY || env.IMAGEKIT_PRIVATE_KEY;
 
   return {
-    base: './',
+    base: '/',
     plugins: [inspectAttr(), react()],
     resolve: {
       alias: {
